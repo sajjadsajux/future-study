@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router";
-import useAuth from "../../hooks/useAuth";
-import useAxios from "../../hooks/useAxios";
+import useAuth from "../../../hooks/useAuth";
+import useAxios from "../../../hooks/useAxios";
 import axios from "axios";
 
 const Register = () => {

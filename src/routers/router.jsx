@@ -3,11 +3,11 @@ import MainLayOut from "../layouts/MainLayOut";
 import AuthLayOut from "../layouts/AuthLayOut";
 
 import Home from "../pages/Home/Home/Home";
-import login from "../pages/Authentication/login";
 import PrivateRoute from "../routes/PrivateRoute";
 import DashBoardLayout from "../layouts/DashBoardLayout";
 import DashboardHome from "../pages/Dashboard/DashboardHome/DashboardHome";
-import Register from "../pages/Authentication/Register";
+import Register from "../pages/Authentication/Register/Register";
+import Login from "../pages/Authentication/Login/Login";
 
 export const router = createBrowserRouter([
   {
@@ -54,7 +54,7 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/login",
-        Component: login,
+        Component: Login,
       },
       {
         path: "/register",
