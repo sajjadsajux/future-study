@@ -4,10 +4,10 @@ import AuthLayOut from "../layouts/AuthLayOut";
 
 import Home from "../pages/Home/Home/Home";
 import login from "../pages/Authentication/login";
-import register from "../pages/Authentication/register";
 import PrivateRoute from "../routes/PrivateRoute";
 import DashBoardLayout from "../layouts/DashBoardLayout";
 import DashboardHome from "../pages/Dashboard/DashboardHome/DashboardHome";
+import Register from "../pages/Authentication/Register";
 
 export const router = createBrowserRouter([
   {
@@ -58,7 +58,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/register",
-        Component: register,
+        Component: Register,
       },
     ],
   },

@@ -1,11 +1,127 @@
-import React from "react";
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import { Link, useLocation, useNavigate } from "react-router";
+import useAuth from "../../hooks/useAuth";
+import useAxios from "../../hooks/useAxios";
+import axios from "axios";
 
-const register = () => {
+const Register = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location.state?.from || "/";
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const { createUser, updateUser } = useAuth();
+
+  const axiosInstance = useAxios();
+  const [profilePic, setProfilePic] = useState("");
+  const [firebaseError, setFirebaseError] = useState("");
+
+  // Handle image upload to ImgBB and store returned URL
+  const handleImgUpload = async (e) => {
+    const img = e.target.files[0];
+    const formData = new FormData();
+    formData.append("image", img);
+
+    const imgUrl = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_KEY}`;
+    try {
+      const res = await axios.post(imgUrl, formData);
+      setProfilePic(res.data.data.url);
+    } catch (error) {
+      console.error("Image upload failed:", error);
+    }
+  };
+
+  const onSubmit = (data) => {
+    setFirebaseError("");
+
+    // Password validation: min 6 chars, 1 capital, 1 special char
+    const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*]).{6,}$/;
+    if (!passwordRegex.test(data.password)) {
+      setFirebaseError("Password must be min 6 characters, with 1 capital letter and 1 special character.");
+      return;
+    }
+
+    // Create user with Firebase Auth
+    createUser(data.email, data.password)
+      .then(async (result) => {
+        console.log(result.user);
+        // Prepare user profile data for backend
+        const userProfile = {
+          email: data.email,
+          role: "user",
+          created_at: new Date().toISOString(),
+          last_login: new Date().toISOString(),
+        };
+
+        // Save user profile in MongoDB backend
+        await axiosInstance.post("/users", userProfile);
+
+        // Update Firebase profile with name and photo
+        const profileInfo = {
+          displayName: data.name,
+          photoURL: profilePic,
+        };
+
+        await updateUser(profileInfo);
+
+        // Redirect after success
+        navigate(from, { replace: true });
+      })
+      .catch((error) => {
+        setFirebaseError(error.message);
+        console.error(error);
+      });
+  };
+
   return (
-    <div>
-      <h2>register</h2>
+    <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl mx-auto">
+      <div className="card-body">
+        <h1 className="text-5xl font-bold mb-6 text-center">Create an Account!</h1>
+
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <fieldset className="space-y-4">
+            {/* Name */}
+            <label className="label">Name</label>
+            <input type="text" className="input input-bordered w-full" {...register("name", { required: "Name is required" })} placeholder="Name" autoComplete="name" />
+            {errors.name && <p className="text-red-700">{errors.name.message}</p>}
+
+            {/* Photo */}
+            <label className="label">Photo</label>
+            <input type="file" className="input input-bordered w-full" onChange={handleImgUpload} accept="image/*" />
+
+            {/* Email */}
+            <label className="label">Email</label>
+            <input type="email" className="input input-bordered w-full" {...register("email", { required: "Email is required" })} placeholder="Email" autoComplete="email" />
+            {errors.email && <p className="text-red-700">{errors.email.message}</p>}
+
+            {/* Password */}
+            <label className="label">Password</label>
+            <input type="password" className="input input-bordered w-full" {...register("password", { required: "Password is required", minLength: { value: 6, message: "Minimum length is 6" } })} placeholder="Password" autoComplete="current-password" />
+            {errors.password && <p className="text-red-700">{errors.password.message}</p>}
+
+            {/* Firebase password error */}
+            {firebaseError && <p className="text-red-700 mt-2">{firebaseError}</p>}
+
+            <button className="btn btn-secondary text-black mt-4 w-full">Register</button>
+          </fieldset>
+        </form>
+
+        <p className="mt-4 text-center">
+          <small>
+            Already have an account?{" "}
+            <Link className="btn btn-link" to="/login">
+              Login
+            </Link>
+          </small>
+        </p>
+      </div>
     </div>
   );
 };
 
-export default register;
+export default Register;
