@@ -8,6 +8,7 @@ import DashBoardLayout from "../layouts/DashBoardLayout";
 import DashboardHome from "../pages/Dashboard/DashboardHome/DashboardHome";
 import Register from "../pages/Authentication/Register/Register";
 import Login from "../pages/Authentication/Login/Login";
+import AllScholarship from "../pages/AllScholarship/AllScholarship";
 
 export const router = createBrowserRouter([
   {
@@ -18,11 +19,11 @@ export const router = createBrowserRouter([
         index: true,
         Component: Home,
       },
-      // {
-      //   path: "/coverage",
-      //   Component: Coverage,
-      //   loader: () => fetch("./serviceCenters.json"),
-      // },
+      {
+        path: "/all-scholarship",
+        Component: AllScholarship,
+        // loader: () => fetch("./serviceCenters.json"),
+      },
       // {
       //   path: "/forbidden",
       //   Component: Forbidden,
