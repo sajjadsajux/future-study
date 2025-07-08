@@ -4,6 +4,7 @@ import useAuth from "../../../hooks/useAuth";
 import { toast } from "react-toastify";
 import useAxios from "../../../hooks/useAxios";
 import { Link, useLocation, useNavigate } from "react-router";
+import SocialLogin from "../SocialLogin/SocialLogin";
 
 const Login = () => {
   const { signInUser } = useAuth();
@@ -61,7 +62,9 @@ const Login = () => {
             <button className="btn btn-secondary text-black mt-4 w-full">Login</button>
           </fieldset>
         </form>
-
+        <div className="text-center  flex justify-center">
+          <SocialLogin></SocialLogin>
+        </div>
         <p className="mt-4 text-center">
           <small>
             New to this site?{" "}
