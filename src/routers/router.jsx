@@ -9,6 +9,7 @@ import DashboardHome from "../pages/Dashboard/DashboardHome/DashboardHome";
 import Register from "../pages/Authentication/Register/Register";
 import Login from "../pages/Authentication/Login/Login";
 import AllScholarship from "../pages/AllScholarship/AllScholarship";
+import ScholarshipDetail from "../pages/AllScholarship/ScholarshipDetail";
 
 export const router = createBrowserRouter([
   {
@@ -24,17 +25,14 @@ export const router = createBrowserRouter([
         Component: AllScholarship,
         // loader: () => fetch("./serviceCenters.json"),
       },
-      // {
-      //   path: "/forbidden",
-      //   Component: Forbidden,
-      // },
-      // {
-      //   path: "/sendParcel",
-      //   element: (
-      //     <PrivateRoute>
-      //       <SendParcel></SendParcel>,
-      //     </PrivateRoute>
-      //   ),
+      {
+        path: "/scholarship/:id",
+        element: (
+          <PrivateRoute>
+            <ScholarshipDetail></ScholarshipDetail>
+          </PrivateRoute>
+        ),
+      },
       //   loader: () => fetch("./serviceCenters.json"),
       // },
       // {

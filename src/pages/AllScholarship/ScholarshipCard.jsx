@@ -32,8 +32,8 @@ const ScholarshipCard = ({ scholarship }) => {
         <p>
           <strong>Rating:</strong> ⭐ {rating || "N/A"}
         </p>
-        <Link to={`/scholarships/${_id}`} className="btn btn-secondary btn-sm w-full">
-          View Details
+        <Link to={`/scholarship/${_id}`} className="btn btn-secondary btn-sm text-black">
+          Details
         </Link>
       </div>
     </div>
