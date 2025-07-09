@@ -1,6 +1,5 @@
-// ScholarshipDetail.jsx
 import React from "react";
-import { useParams } from "react-router";
+import { useParams, useNavigate } from "react-router"; // useNavigate added
 import { useQuery } from "@tanstack/react-query";
 import useAxios from "../../hooks/useAxios";
 import useAuth from "../../hooks/useAuth";
@@ -12,6 +11,7 @@ import { toast } from "react-toastify";
 
 const ScholarshipDetail = () => {
   const { id } = useParams();
+  const navigate = useNavigate(); // Initialize navigate
   const axiosInstance = useAxios();
   const { user } = useAuth();
 
@@ -43,22 +43,19 @@ const ScholarshipDetail = () => {
     },
   });
 
-  const handleApply = async () => {
-    if (!user) return toast.error("Please login first");
-
-    try {
-      const res = await axiosInstance.post("/apply", {
-        email: user.email,
-        scholarshipId: id,
-      });
-      toast.success("Applied successfully");
-    } catch (err) {
-      if (err.response?.status === 409) {
-        toast.error("Already applied");
-      } else {
-        toast.error("Failed to apply");
-      }
+  // Updated handleApply: navigate to checkout page instead of applying directly
+  const handleApply = () => {
+    if (!user) {
+      toast.error("Please login first");
+      return;
     }
+
+    if (applyStatus?.applied) {
+      toast.info("You have already applied for this scholarship.");
+      return;
+    }
+
+    navigate(`/checkout/${id}`);
   };
 
   if (isLoading) return <p>Loading...</p>;
