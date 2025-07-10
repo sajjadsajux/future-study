@@ -16,6 +16,8 @@ import MyApplications from "../pages/Dashboard/UserDashboard/MyApplications";
 import UserRoute from "../routes/UserRoute";
 import EditApplication from "../pages/Dashboard/UserDashboard/EditApplication";
 import ScholarshipDetails from "../pages/Dashboard/UserDashboard/ScholarshipDetails";
+import ModeratorRoute from "../routes/ModeratorRoute";
+import ManageScholarships from "../pages/Dashboard/ModeratorDashboard/ManageScholarships";
 
 export const router = createBrowserRouter([
   {
@@ -119,55 +121,24 @@ export const router = createBrowserRouter([
         ),
       },
 
-      // {
-      //   path: "completed-deliveries",
-      //   element: (
-      //     <RiderRoute>
-      //       <CompletedDeliveries></CompletedDeliveries>
-      //     </RiderRoute>
-      //   ),
-      // },
-      // {
-      //   path: "my-earnings",
-      //   element: (
-      //     <RiderRoute>
-      //       <MyEarnings></MyEarnings>
-      //     </RiderRoute>
-      //   ),
-      // },
       // // moderator only
-      // {
-      //   path: "assign-rider",
-      //   element: (
-      //     <AdminRoute>
-      //       <AssignRider></AssignRider>
-      //     </AdminRoute>
-      //   ),
-      // },
-      // {
-      //   path: "pending-riders",
-      //   element: (
-      //     <AdminRoute>
-      //       <PendingRiders></PendingRiders>
-      //     </AdminRoute>
-      //   ),
-      // },
-      // {
-      //   path: "active-riders",
-      //   element: (
-      //     <AdminRoute>
-      //       <ActiveRiders></ActiveRiders>
-      //     </AdminRoute>
-      //   ),
-      // },
-      // {
-      //   path: "makeAdmin",
-      //   element: (
-      //     <AdminRoute>
-      //       <MakeAdmin></MakeAdmin>
-      //     </AdminRoute>
-      //   ),
-      // },
+
+      {
+        path: "manage-scholarships",
+        element: (
+          <ModeratorRoute>
+            <ManageScholarships></ManageScholarships>
+          </ModeratorRoute>
+        ),
+      },
+      {
+        path: "moderator/scholarships-details/:id",
+        element: (
+          <ModeratorRoute>
+            <ScholarshipDetails></ScholarshipDetails>
+          </ModeratorRoute>
+        ),
+      },
     ],
   },
 ]);

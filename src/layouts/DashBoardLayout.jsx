@@ -48,8 +48,8 @@ const DashboardLayout = () => {
           {role === "moderator" && (
             <>
               <li>
-                <NavLink to="/dashboard/moderate-reviews" className="flex gap-2 items-center">
-                  <FaClipboardList /> Moderate Reviews
+                <NavLink to="/dashboard/manage-scholarships" className="flex gap-2 items-center">
+                  <FaClipboardList /> ManageScholarships
                 </NavLink>
               </li>
             </>
