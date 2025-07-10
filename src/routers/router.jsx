@@ -15,6 +15,7 @@ import MyProfile from "../pages/Dashboard/MyProfile";
 import MyApplications from "../pages/Dashboard/UserDashboard/MyApplications";
 import UserRoute from "../routes/UserRoute";
 import EditApplication from "../pages/Dashboard/UserDashboard/EditApplication";
+import ScholarshipDetails from "../pages/Dashboard/UserDashboard/ScholarshipDetails";
 
 export const router = createBrowserRouter([
   {
@@ -106,6 +107,14 @@ export const router = createBrowserRouter([
         element: (
           <UserRoute>
             <EditApplication></EditApplication>
+          </UserRoute>
+        ),
+      },
+      {
+        path: "scholarships-details/:id",
+        element: (
+          <UserRoute>
+            <ScholarshipDetails></ScholarshipDetails>
           </UserRoute>
         ),
       },

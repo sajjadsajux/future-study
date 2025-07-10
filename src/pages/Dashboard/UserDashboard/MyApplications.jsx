@@ -157,7 +157,7 @@ const MyApplications = () => {
                   <td className="border p-2">${app.serviceCharge}</td>
                   <td className="border p-2 capitalize">{app.applicationStatus || "pending"}</td>
                   <td className="border p-2 space-x-1">
-                    <button className="btn btn-sm btn-info" onClick={() => (window.location.href = `/scholarship/${app.scholarshipId}`)}>
+                    <button className="btn btn-sm btn-info" onClick={() => (window.location.href = `/dashboard/scholarships-details/${app.scholarshipId}`)}>
                       Details
                     </button>
                     <button className="btn btn-sm btn-warning" onClick={() => handleEdit(app)}>
