@@ -14,6 +14,7 @@ import Checkout from "../pages/Checkout/Checkout";
 import MyProfile from "../pages/Dashboard/MyProfile";
 import MyApplications from "../pages/Dashboard/UserDashboard/MyApplications";
 import UserRoute from "../routes/UserRoute";
+import EditApplication from "../pages/Dashboard/UserDashboard/EditApplication";
 
 export const router = createBrowserRouter([
   {
@@ -97,6 +98,14 @@ export const router = createBrowserRouter([
         element: (
           <UserRoute>
             <MyApplications></MyApplications>
+          </UserRoute>
+        ),
+      },
+      {
+        path: "edit-application/:id",
+        element: (
+          <UserRoute>
+            <EditApplication></EditApplication>
           </UserRoute>
         ),
       },

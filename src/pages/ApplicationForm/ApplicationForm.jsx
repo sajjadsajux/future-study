@@ -36,6 +36,10 @@ const ApplicationForm = ({ scholarship, user }) => {
 
       // read-only fields from scholarship
       universityName: scholarship.universityName,
+      universityCity: scholarship.universityCity,
+      universityCountry: scholarship.universityCountry,
+      universityImage: scholarship.universityImage, // Add this
+      scholarshipName: scholarship.scholarshipName, // Add this
       scholarshipCategory: scholarship.scholarshipCategory,
       subjectCategory: scholarship.subjectCategory,
       applicationFees: scholarship.applicationFees, // from scholarshipsCollection

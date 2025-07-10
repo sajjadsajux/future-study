@@ -4,10 +4,12 @@ import Swal from "sweetalert2";
 import Modal from "react-modal";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useAuth from "../../../hooks/useAuth";
+import { useNavigate } from "react-router";
 
 Modal.setAppElement("#root");
 
 const MyApplications = () => {
+  const navigate = useNavigate();
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
   const queryClient = useQueryClient();
@@ -66,7 +68,7 @@ const MyApplications = () => {
       return;
     }
     // TODO: Redirect to edit page or open edit modal
-    Swal.fire("Coming Soon", "Edit feature is under development.");
+    navigate(`/dashboard/edit-application/${app._id}`);
   };
 
   const handleCancel = (id) => {
@@ -146,7 +148,7 @@ const MyApplications = () => {
                 <tr key={app._id}>
                   <td className="border p-2">{app.universityName}</td>
                   <td className="border p-2">
-                    {app.village}, {app.district}, {app.country}
+                    {app.universityCity}, {app.universityCountry}
                   </td>
                   <td className="border p-2">{app.applicationFeedback || "No feedback yet"}</td>
                   <td className="border p-2">{app.subjectCategory}</td>
