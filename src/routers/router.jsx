@@ -18,6 +18,7 @@ import EditApplication from "../pages/Dashboard/UserDashboard/EditApplication";
 import ScholarshipDetails from "../pages/Dashboard/UserDashboard/ScholarshipDetails";
 import ModeratorRoute from "../routes/ModeratorRoute";
 import ManageScholarships from "../pages/Dashboard/ModeratorDashboard/ManageScholarships";
+import AddScholarship from "../pages/Dashboard/ModeratorDashboard/AddScholarship";
 
 export const router = createBrowserRouter([
   {
@@ -136,6 +137,14 @@ export const router = createBrowserRouter([
         element: (
           <ModeratorRoute>
             <ScholarshipDetails></ScholarshipDetails>
+          </ModeratorRoute>
+        ),
+      },
+      {
+        path: "moderator/add-scholarships",
+        element: (
+          <ModeratorRoute>
+            <AddScholarship></AddScholarship>
           </ModeratorRoute>
         ),
       },
