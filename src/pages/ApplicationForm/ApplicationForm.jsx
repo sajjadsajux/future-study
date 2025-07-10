@@ -38,6 +38,9 @@ const ApplicationForm = ({ scholarship, user }) => {
       universityName: scholarship.universityName,
       scholarshipCategory: scholarship.scholarshipCategory,
       subjectCategory: scholarship.subjectCategory,
+      applicationFees: scholarship.applicationFees, // from scholarshipsCollection
+      serviceCharge: scholarship.serviceCharge, // from scholarshipsCollection
+      applicationStatus: "pending",
     };
 
     applyMutation.mutate(applicationData);

@@ -26,7 +26,9 @@ const Navbar = () => {
       {user && (
         <>
           {/* Future role-based dashboard */}
-          {/* <li><NavLink to="/dashboard">Dashboard</NavLink></li> */}
+          <li>
+            <NavLink to="/dashboard">Dashboard</NavLink>
+          </li>
         </>
       )}
     </>

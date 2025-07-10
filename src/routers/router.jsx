@@ -11,6 +11,9 @@ import Login from "../pages/Authentication/Login/Login";
 import AllScholarship from "../pages/AllScholarship/AllScholarship";
 import ScholarshipDetail from "../pages/AllScholarship/ScholarshipDetail";
 import Checkout from "../pages/Checkout/Checkout";
+import MyProfile from "../pages/Dashboard/MyProfile";
+import MyApplications from "../pages/Dashboard/UserDashboard/MyApplications";
+import UserRoute from "../routes/UserRoute";
 
 export const router = createBrowserRouter([
   {
@@ -79,33 +82,25 @@ export const router = createBrowserRouter([
     ),
     children: [
       { index: true, Component: DashboardHome },
-      // {
-      //   path: "myParcels",
-      //   Component: MyParcels,
-      // },
-      // {
-      //   path: "payment/:parcelId",
-      //   Component: Payment,
-      // },
-      // {
-      //   path: "paymentHistory",
-      //   Component: PaymentHistory,
-      // },
-      // {
-      //   path: "track",
-      //   Component: TrackParcel,
-      // },
+      {
+        path: "my-profile",
+        element: (
+          <PrivateRoute>
+            <MyProfile />
+          </PrivateRoute>
+        ),
+      },
 
-      // // rider only
+      // // user only
+      {
+        path: "my-applications",
+        element: (
+          <UserRoute>
+            <MyApplications></MyApplications>
+          </UserRoute>
+        ),
+      },
 
-      // {
-      //   path: "pending-deliveries",
-      //   element: (
-      //     <RiderRoute>
-      //       <PendingDeliveries></PendingDeliveries>
-      //     </RiderRoute>
-      //   ),
-      // },
       // {
       //   path: "completed-deliveries",
       //   element: (
@@ -122,7 +117,7 @@ export const router = createBrowserRouter([
       //     </RiderRoute>
       //   ),
       // },
-      // // admin only
+      // // moderator only
       // {
       //   path: "assign-rider",
       //   element: (

@@ -1,7 +1,25 @@
 import React from "react";
+import useUserRole from "../../../hooks/useUserRole";
+import UserDashboard from "./UserDashboard ";
+import ModeratorDashboard from "./ModeratorDashboard";
+import AdminDashboard from "./AdminDashboard";
 
 const DashboardHome = () => {
-  return <div></div>;
+  const { role, roleLoading } = useUserRole();
+
+  if (roleLoading) {
+    return <h2>Loaodins</h2>;
+  }
+
+  if (role === "user") {
+    return <UserDashboard />;
+  } else if (role === "moderator") {
+    return <ModeratorDashboard />;
+  } else if (role === "admin") {
+    return <AdminDashboard />;
+  } else {
+    return <h2>wrong</h2>;
+  }
 };
 
 export default DashboardHome;

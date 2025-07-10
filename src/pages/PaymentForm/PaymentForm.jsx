@@ -2,8 +2,10 @@ import React from "react";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import useAxios from "../../hooks/useAxios";
 import { toast } from "react-toastify";
+import useAuth from "../../hooks/useAuth";
 
 const PaymentForm = ({ scholarship, onPaymentSuccess }) => {
+  const { user } = useAuth();
   const stripe = useStripe();
   const elements = useElements();
   const axiosInstance = useAxios();
@@ -24,7 +26,12 @@ const PaymentForm = ({ scholarship, onPaymentSuccess }) => {
     // Confirm card payment
     const cardElement = elements.getElement(CardElement);
     const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
-      payment_method: { card: cardElement },
+      payment_method: {
+        card: cardElement,
+        billing_details: {
+          name: user?.displayName || "Anonymous",
+        },
+      },
     });
 
     if (error) {
