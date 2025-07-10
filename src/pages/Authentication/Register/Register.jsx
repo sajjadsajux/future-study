@@ -14,54 +14,74 @@ const Register = () => {
     register,
     handleSubmit,
     formState: { errors },
+    setError,
+    clearErrors,
   } = useForm();
+
   const { createUser, updateUser } = useAuth();
 
   const axiosInstance = useAxios();
   const [profilePic, setProfilePic] = useState("");
   const [firebaseError, setFirebaseError] = useState("");
+  const [uploading, setUploading] = useState(false);
 
-  // Handle image upload to ImgBB and store returned URL
+  // Upload photo to Cloudinary and store URL
   const handleImgUpload = async (e) => {
     const img = e.target.files[0];
-    const formData = new FormData();
-    formData.append("image", img);
+    if (!img) {
+      setProfilePic("");
+      setError("photo", { type: "required", message: "Photo is required" });
+      return;
+    }
 
-    const imgUrl = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_KEY}`;
+    setUploading(true);
+
     try {
-      const res = await axios.post(imgUrl, formData);
-      setProfilePic(res.data.data.url);
+      const formData = new FormData();
+      formData.append("file", img);
+      formData.append("upload_preset", import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET);
+
+      const url = `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDINARY_CLOUD_NAME}/image/upload`;
+
+      const res = await axios.post(url, formData);
+      setProfilePic(res.data.secure_url);
+      clearErrors("photo");
     } catch (error) {
-      console.error("Image upload failed:", error);
+      setProfilePic("");
+      setError("photo", { type: "manual", message: "Image upload failed, please try again." });
+      console.error("Cloudinary upload failed:", error);
+    } finally {
+      setUploading(false);
     }
   };
 
   const onSubmit = (data) => {
     setFirebaseError("");
 
-    // Password validation: min 6 chars, 1 capital, 1 special char
+    if (!profilePic) {
+      setError("photo", { type: "required", message: "Photo is required" });
+      return;
+    }
+
     const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*]).{6,}$/;
     if (!passwordRegex.test(data.password)) {
       setFirebaseError("Password must be min 6 characters, with 1 capital letter and 1 special character.");
       return;
     }
 
-    // Create user with Firebase Auth
     createUser(data.email, data.password)
       .then(async (result) => {
-        console.log(result.user);
-        // Prepare user profile data for backend
         const userProfile = {
           email: data.email,
           role: "user",
           created_at: new Date().toISOString(),
           last_login: new Date().toISOString(),
+          photoURL: profilePic,
+          name: data.name,
         };
 
-        // Save user profile in MongoDB backend
         await axiosInstance.post("/users", userProfile);
 
-        // Update Firebase profile with name and photo
         const profileInfo = {
           displayName: data.name,
           photoURL: profilePic,
@@ -69,7 +89,6 @@ const Register = () => {
 
         await updateUser(profileInfo);
 
-        // Redirect after success
         navigate(from, { replace: true });
       })
       .catch((error) => {
@@ -92,7 +111,9 @@ const Register = () => {
 
             {/* Photo */}
             <label className="label">Photo</label>
-            <input type="file" className="input input-bordered w-full" onChange={handleImgUpload} accept="image/*" />
+            <input type="file" className="input input-bordered w-full" onChange={handleImgUpload} accept="image/*" disabled={uploading} />
+            {uploading && <p className="text-yellow-500">Uploading photo...</p>}
+            {errors.photo && !uploading && <p className="text-red-700">{errors.photo.message}</p>}
 
             {/* Email */}
             <label className="label">Email</label>
@@ -101,13 +122,23 @@ const Register = () => {
 
             {/* Password */}
             <label className="label">Password</label>
-            <input type="password" className="input input-bordered w-full" {...register("password", { required: "Password is required", minLength: { value: 6, message: "Minimum length is 6" } })} placeholder="Password" autoComplete="current-password" />
+            <input
+              type="password"
+              className="input input-bordered w-full"
+              {...register("password", {
+                required: "Password is required",
+                minLength: { value: 6, message: "Minimum length is 6" },
+              })}
+              placeholder="Password"
+              autoComplete="current-password"
+            />
             {errors.password && <p className="text-red-700">{errors.password.message}</p>}
 
-            {/* Firebase password error */}
             {firebaseError && <p className="text-red-700 mt-2">{firebaseError}</p>}
 
-            <button className="btn btn-secondary text-black mt-4 w-full">Register</button>
+            <button className="btn btn-secondary text-black mt-4 w-full" disabled={uploading}>
+              Register
+            </button>
           </fieldset>
         </form>
 
