@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import useAxios from "../../hooks/useAxios";
 import { useMutation } from "@tanstack/react-query";
@@ -6,12 +6,16 @@ import { toast } from "react-toastify";
 
 const ApplicationForm = ({ scholarship, user }) => {
   const axiosInstance = useAxios();
+  const [photoURL, setPhotoURL] = useState("");
+  const [uploadingPhoto, setUploadingPhoto] = useState(false);
 
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, touchedFields },
     reset,
+    setError,
+    clearErrors,
   } = useForm();
 
   const applyMutation = useMutation({
@@ -19,31 +23,68 @@ const ApplicationForm = ({ scholarship, user }) => {
     onSuccess: () => {
       toast.success("Applied successfully!");
       reset();
+      setPhotoURL("");
     },
     onError: (error) => {
       toast.error("Application failed: " + error.message);
     },
   });
 
+  const handlePhotoChange = async (e) => {
+    const file = e.target.files[0];
+    if (!file) {
+      setPhotoURL("");
+      setError("photo", { type: "manual", message: "Photo is required" });
+      return;
+    }
+
+    setUploadingPhoto(true);
+
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("upload_preset", import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET);
+
+      const url = `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDINARY_CLOUD_NAME}/image/upload`;
+
+      const res = await axiosInstance.post(url, formData);
+      setPhotoURL(res.data.secure_url);
+      toast.success("Photo uploaded successfully");
+      clearErrors("photo"); // clear photo errors on successful upload
+    } catch (error) {
+      toast.error("Photo upload failed");
+      console.error(error);
+      setPhotoURL("");
+      setError("photo", { type: "manual", message: "Photo upload failed" });
+    } finally {
+      setUploadingPhoto(false);
+    }
+  };
+
   const onSubmit = (data) => {
+    if (!photoURL) {
+      setError("photo", { type: "manual", message: "Photo is required" });
+      return;
+    }
+
     const applicationData = {
       ...data,
+      photo: photoURL, // Use uploaded photo URL instead of file object
       userName: user?.displayName || user?.name || "Unknown",
       userEmail: user?.email,
-      userId: user?._id, // your user id field
+      userId: user?._id,
       scholarshipId: scholarship._id,
       applicationDate: new Date().toISOString(),
 
-      // read-only fields from scholarship
       universityName: scholarship.universityName,
       universityCity: scholarship.universityCity,
       universityCountry: scholarship.universityCountry,
-      universityImage: scholarship.universityImage, // Add this
-      scholarshipName: scholarship.scholarshipName, // Add this
+      universityImage: scholarship.universityImage,
+      scholarshipName: scholarship.scholarshipName,
       scholarshipCategory: scholarship.scholarshipCategory,
       subjectCategory: scholarship.subjectCategory,
-      applicationFees: scholarship.applicationFees, // from scholarshipsCollection
-      serviceCharge: scholarship.serviceCharge, // from scholarshipsCollection
+      applicationFees: scholarship.applicationFees,
+      serviceCharge: scholarship.serviceCharge,
       applicationStatus: "pending",
     };
 
@@ -62,8 +103,20 @@ const ApplicationForm = ({ scholarship, user }) => {
 
       <div>
         <label className="label">Applicant Photo</label>
-        <input type="file" accept="image/*" {...register("photo", { required: "Photo is required" })} className="input input-bordered w-full" />
-        {errors.photo && <p className="text-red-500">{errors.photo.message}</p>}
+        <input
+          type="file"
+          accept="image/*"
+          {...register("photo", { required: "Photo is required" })}
+          onChange={(e) => {
+            register("photo").onChange(e); // keep react-hook-form updated
+            handlePhotoChange(e); // upload file on change
+          }}
+          className="input input-bordered w-full"
+        />
+        {uploadingPhoto && <p className="text-yellow-500">Uploading photo...</p>}
+        {errors.photo && !uploadingPhoto && touchedFields.photo && <p className="text-red-500">{errors.photo.message}</p>}
+
+        {photoURL && <img src={photoURL} alt="Applicant Photo" className="mt-2 w-32 h-32 object-contain border" />}
       </div>
 
       <div>

@@ -22,22 +22,51 @@ const AddScholarship = () => {
   const [imageURL, setImageURL] = useState("");
   const [uploading, setUploading] = useState(false);
 
+  // const handleImgUpload = async (e) => {
+  //   const img = e.target.files[0];
+  //   if (!img) return;
+
+  //   const formData = new FormData();
+  //   formData.append("image", img);
+
+  //   setUploading(true);
+  //   const url = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_KEY}`;
+
+  //   try {
+  //     const res = await axios.post(url, formData);
+  //     setImageURL(res.data.data.url);
+  //     toast.success("Image uploaded successfully");
+  //   } catch (err) {
+  //     console.error("Image upload failed:", err);
+  //     toast.error("Image upload failed");
+  //   } finally {
+  //     setUploading(false);
+  //   }
+  // };
+
+  const [previewURL, setPreviewURL] = useState("");
+
   const handleImgUpload = async (e) => {
     const img = e.target.files[0];
     if (!img) return;
 
+    // Preview
+    setPreviewURL(URL.createObjectURL(img));
+
     const formData = new FormData();
-    formData.append("image", img);
+    formData.append("file", img);
+    formData.append("upload_preset", import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET);
+
+    const url = `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDINARY_CLOUD_NAME}/image/upload`;
 
     setUploading(true);
-    const url = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_KEY}`;
 
     try {
       const res = await axios.post(url, formData);
-      setImageURL(res.data.data.url);
+      setImageURL(res.data.secure_url); // ✅ Secure Cloudinary image URL
       toast.success("Image uploaded successfully");
     } catch (err) {
-      console.error("Image upload failed:", err);
+      console.error("Image upload failed:", err.response?.data || err.message);
       toast.error("Image upload failed");
     } finally {
       setUploading(false);
@@ -96,7 +125,7 @@ const AddScholarship = () => {
           <label className="font-semibold">University Image/Logo *</label>
           <input type="file" accept="image/*" onChange={handleImgUpload} className="file-input file-input-bordered w-full" />
           {uploading && <p className="text-yellow-500">Uploading image...</p>}
-          {imageURL && <img src={imageURL} alt="Uploaded" className="mt-2 w-32 h-32 object-contain border" />}
+          {(previewURL || imageURL) && <img src={previewURL || imageURL} alt="Preview" className="mt-2 w-32 h-32 object-contain border" />}
         </div>
 
         {/* Country, City, Rank */}

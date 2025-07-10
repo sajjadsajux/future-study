@@ -148,6 +148,17 @@ export const router = createBrowserRouter([
           </ModeratorRoute>
         ),
       },
+
+      // // Admin only
+
+      {
+        path: "admin/add-scholarships",
+        element: (
+          <ModeratorRoute>
+            <AddScholarship></AddScholarship>
+          </ModeratorRoute>
+        ),
+      },
     ],
   },
 ]);
