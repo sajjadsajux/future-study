@@ -21,8 +21,11 @@ const MyApplications = () => {
     comment: "",
     reviewDate: new Date().toISOString().slice(0, 10),
   });
+
+  // Helper functions to check if actions should be disabled
   const isEditDisabled = (status) => status !== "pending";
-  const isCancelDisabled = (status) => status === "cancelled" || status === "rejected";
+  const isCancelDisabled = (status) => status === "cancelled" || status === "rejected" || status === "completed";
+  const isReviewDisabled = (status) => status !== "completed";
 
   // Fetch applications of logged-in user
   const {
@@ -64,21 +67,26 @@ const MyApplications = () => {
     },
   });
 
-  const handleEdit = (app) => {
-    if (app.applicationStatus !== "pending") {
-      Swal.fire("Cannot Edit", "This application is not editable.", "info");
+  // Handlers
+  const handleEditClick = (app) => {
+    if (isEditDisabled(app.applicationStatus)) {
+      Swal.fire("Cannot Edit", "You can only edit if the status is pending.", "info");
       return;
     }
     navigate(`/dashboard/edit-application/${app._id}`);
   };
 
-  const handleCancel = (app) => {
+  const handleCancelClick = (app) => {
     if (app.applicationStatus === "cancelled") {
       Swal.fire("Info", "Application is already canceled.", "info");
       return;
     }
     if (app.applicationStatus === "rejected") {
       Swal.fire("Info", "Application has been rejected.", "info");
+      return;
+    }
+    if (app.applicationStatus === "completed") {
+      Swal.fire("Info", "Completed applications cannot be cancelled.", "info");
       return;
     }
 
@@ -93,6 +101,14 @@ const MyApplications = () => {
         cancelMutation.mutate(app._id);
       }
     });
+  };
+
+  const handleReviewClick = (app) => {
+    if (isReviewDisabled(app.applicationStatus)) {
+      Swal.fire("Info", "You can only review completed applications.", "info");
+      return;
+    }
+    openReviewModal(app);
   };
 
   const openReviewModal = (app) => {
@@ -113,13 +129,13 @@ const MyApplications = () => {
       scholarshipId: selectedApplication.scholarshipId,
       scholarshipName: selectedApplication.scholarshipName,
       universityName: selectedApplication.universityName,
-      universityId: selectedApplication.universityId || "",
+      universityId: selectedApplication.universityId,
       userName: user.displayName || user.email,
       userEmail: user.email,
       userImage: user.photoURL || "",
       rating: Number(reviewData.rating),
       comment: reviewData.comment,
-      date: reviewData.reviewDate,
+      reviewDate: new Date(reviewData.reviewDate).toISOString(),
     };
 
     reviewMutation.mutate(payload);
@@ -167,35 +183,33 @@ const MyApplications = () => {
                   <td className="border p-2">${app.serviceCharge}</td>
                   <td className="border p-2 capitalize">{app.applicationStatus || "pending"}</td>
                   <td className="border p-2 space-x-1">
+                    {/* Details */}
                     <button
-                      className={`btn btn-sm btn-warning ${isEditDisabled(app.applicationStatus) ? "opacity-50 cursor-not-allowed" : ""}`}
-                      title={isEditDisabled(app.applicationStatus) ? "You can only edit if the status is pending" : ""}
+                      className="btn btn-sm btn-info"
                       onClick={() => {
-                        if (isEditDisabled(app.applicationStatus)) {
-                          Swal.fire("Cannot Edit", "You can only edit if the status is pending.", "info");
-                          return;
-                        }
-                        handleEdit(app);
+                        window.location.href = `/dashboard/scholarships-details/${app.scholarshipId}`;
                       }}
+                      title="View scholarship details"
                     >
+                      Details
+                    </button>
+
+                    {/* Edit */}
+                    <button className={`btn btn-sm btn-warning ${isEditDisabled(app.applicationStatus) ? "opacity-50 cursor-not-allowed" : ""}`} title={isEditDisabled(app.applicationStatus) ? "You can only edit if the status is pending" : "Edit application"} onClick={() => handleEditClick(app)}>
                       Edit
                     </button>
 
+                    {/* Cancel */}
                     <button
                       className={`btn btn-sm btn-error ${isCancelDisabled(app.applicationStatus) ? "opacity-50 cursor-not-allowed" : ""}`}
-                      title={app.applicationStatus === "cancelled" ? "Application already cancelled" : app.applicationStatus === "rejected" ? "Application rejected" : ""}
-                      onClick={() => {
-                        if (isCancelDisabled(app.applicationStatus)) {
-                          Swal.fire("Info", app.applicationStatus === "cancelled" ? "Application is already canceled." : "Application has been rejected.", "info");
-                          return;
-                        }
-                        handleCancel(app);
-                      }}
+                      title={app.applicationStatus === "cancelled" ? "Application already cancelled" : app.applicationStatus === "rejected" ? "Application rejected" : app.applicationStatus === "completed" ? "Completed applications cannot be cancelled" : "Cancel application"}
+                      onClick={() => handleCancelClick(app)}
                     >
                       Cancel
                     </button>
 
-                    <button className="btn btn-sm btn-primary" onClick={() => openReviewModal(app)}>
+                    {/* Add Review */}
+                    <button className={`btn btn-sm btn-primary ${isReviewDisabled(app.applicationStatus) ? "opacity-50 cursor-not-allowed" : ""}`} title={isReviewDisabled(app.applicationStatus) ? "You can only review completed applications" : "Add review"} onClick={() => handleReviewClick(app)}>
                       Add Review
                     </button>
                   </td>
@@ -207,12 +221,22 @@ const MyApplications = () => {
       </div>
 
       {/* Review Modal */}
-      <Modal isOpen={reviewModalOpen} onRequestClose={() => setReviewModalOpen(false)} contentLabel="Add Review" className="max-w-lg mx-auto p-6 bg-white rounded shadow-lg mt-20" overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-start">
+      <Modal isOpen={reviewModalOpen} onRequestClose={() => setReviewModalOpen(false)} contentLabel="Add Review" className="max-w-lg mx-auto p-6 bg-white rounded shadow-lg mt-20" overlayClassName="fixed inset-0 bg-glass bg-opacity-40 backdrop-blur-sm flex justify-center items-start">
         <h2 className="text-2xl font-bold mb-4">Add Review</h2>
         <form onSubmit={submitReview} className="flex flex-col gap-4">
           <label>
             Rating (1–5):
-            <input type="number" name="rating" min="1" max="5" value={reviewData.rating} onChange={handleReviewChange} className="input input-bordered w-full" required />
+            <input
+              type="number"
+              name="rating"
+              min="1"
+              max="5"
+              step="0.1" // allows 1.5, 2.8, etc.
+              value={reviewData.rating}
+              onChange={handleReviewChange}
+              className="input input-bordered w-full"
+              required
+            />
           </label>
           <label>
             Comment:

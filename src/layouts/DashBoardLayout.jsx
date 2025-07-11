@@ -37,11 +37,11 @@ const DashboardLayout = () => {
                   <FaClipboardList /> My Application
                 </NavLink>
               </li>
-              {/* <li>
-                <NavLink to="/dashboard/my-scholarships" className="flex gap-2 items-center">
-                  <FaClipboardList /> My reviews
+              <li>
+                <NavLink to="/dashboard/my-reviews" className="flex gap-2 items-center">
+                  <FaClipboardList /> My Reviews
                 </NavLink>
-              </li> */}
+              </li>
             </>
           )}
 
@@ -59,7 +59,7 @@ const DashboardLayout = () => {
               </li>
               <li>
                 <NavLink to="/dashboard/moderator/all-applied-scholarships" className="flex gap-2 items-center">
-                  <FaClipboardList /> All applied Scholarship
+                  <FaClipboardList /> All Applied Scholarship
                 </NavLink>
               </li>
             </>

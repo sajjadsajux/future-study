@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useAuth from "../../../hooks/useAuth";
+import generateUniversityId from "../../../utilities/generateUniversityId";
 
 const AddScholarship = () => {
   const { user } = useAuth();
@@ -21,36 +22,14 @@ const AddScholarship = () => {
   const axiosSecure = useAxiosSecure();
   const [imageURL, setImageURL] = useState("");
   const [uploading, setUploading] = useState(false);
-
-  // const handleImgUpload = async (e) => {
-  //   const img = e.target.files[0];
-  //   if (!img) return;
-
-  //   const formData = new FormData();
-  //   formData.append("image", img);
-
-  //   setUploading(true);
-  //   const url = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_KEY}`;
-
-  //   try {
-  //     const res = await axios.post(url, formData);
-  //     setImageURL(res.data.data.url);
-  //     toast.success("Image uploaded successfully");
-  //   } catch (err) {
-  //     console.error("Image upload failed:", err);
-  //     toast.error("Image upload failed");
-  //   } finally {
-  //     setUploading(false);
-  //   }
-  // };
-
   const [previewURL, setPreviewURL] = useState("");
+  const [uploadAlert, setUploadAlert] = useState(""); // ✅ NEW: Alert message
 
   const handleImgUpload = async (e) => {
     const img = e.target.files[0];
     if (!img) return;
 
-    // Preview
+    setUploadAlert(""); // Clear any previous alert
     setPreviewURL(URL.createObjectURL(img));
 
     const formData = new FormData();
@@ -63,11 +42,11 @@ const AddScholarship = () => {
 
     try {
       const res = await axios.post(url, formData);
-      setImageURL(res.data.secure_url); // ✅ Secure Cloudinary image URL
-      toast.success("Image uploaded successfully");
+      setImageURL(res.data.secure_url); // ✅ Set uploaded image URL
+      setUploadAlert("✅ Image uploaded successfully."); // ✅ Show alert
     } catch (err) {
       console.error("Image upload failed:", err.response?.data || err.message);
-      toast.error("Image upload failed");
+      setUploadAlert("❌ Image upload failed.");
     } finally {
       setUploading(false);
     }
@@ -79,6 +58,8 @@ const AddScholarship = () => {
       return;
     }
 
+    const universityId = await generateUniversityId(formData.universityName, formData.universityCountry);
+
     const payload = {
       ...formData,
       universityImage: imageURL,
@@ -88,6 +69,7 @@ const AddScholarship = () => {
       universityWorldRank: parseInt(formData.universityWorldRank),
       applicationDeadline: new Date(formData.applicationDeadline).toISOString(),
       scholarshipPostDate: new Date(formData.scholarshipPostDate).toISOString(),
+      universityId,
     };
 
     try {
@@ -95,6 +77,8 @@ const AddScholarship = () => {
       toast.success("Scholarship added successfully!");
       reset();
       setImageURL("");
+      setPreviewURL("");
+      setUploadAlert("");
     } catch (error) {
       console.error("Add failed:", error);
       toast.error("Failed to add scholarship.");
@@ -125,6 +109,7 @@ const AddScholarship = () => {
           <label className="font-semibold">University Image/Logo *</label>
           <input type="file" accept="image/*" onChange={handleImgUpload} className="file-input file-input-bordered w-full" />
           {uploading && <p className="text-yellow-500">Uploading image...</p>}
+          {uploadAlert && <p className="text-green-600 mt-1 text-sm">{uploadAlert}</p>} {/* ✅ ALERT */}
           {(previewURL || imageURL) && <img src={previewURL || imageURL} alt="Preview" className="mt-2 w-32 h-32 object-contain border" />}
         </div>
 
@@ -250,7 +235,7 @@ const AddScholarship = () => {
         {/* Posted By */}
         <div>
           <label className="font-semibold">Posted User Email *</label>
-          <input type="email" {...register("postedBy", { required: true })} className="input input-bordered w-full" />
+          <input type="email" {...register("postedBy", { required: true })} className="input input-bordered w-full" readOnly />
         </div>
 
         {/* Submit */}
