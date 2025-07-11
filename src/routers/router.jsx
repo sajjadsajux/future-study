@@ -19,6 +19,8 @@ import ScholarshipDetails from "../pages/Dashboard/UserDashboard/ScholarshipDeta
 import ModeratorRoute from "../routes/ModeratorRoute";
 import ManageScholarships from "../pages/Dashboard/ModeratorDashboard/ManageScholarships";
 import AddScholarship from "../pages/Dashboard/ModeratorDashboard/AddScholarship";
+import AllAppliedScholarships from "../pages/Dashboard/UserDashboard/AllAppliedScholarships";
+import AdminRoute from "../routes/AdminRoute";
 
 export const router = createBrowserRouter([
   {
@@ -142,9 +144,13 @@ export const router = createBrowserRouter([
       },
       {
         path: "moderator/add-scholarships",
+        element: <ModeratorRoute></ModeratorRoute>,
+      },
+      {
+        path: "moderator/all-applied-scholarships",
         element: (
           <ModeratorRoute>
-            <AddScholarship></AddScholarship>
+            <AllAppliedScholarships></AllAppliedScholarships>
           </ModeratorRoute>
         ),
       },
@@ -154,9 +160,17 @@ export const router = createBrowserRouter([
       {
         path: "admin/add-scholarships",
         element: (
-          <ModeratorRoute>
+          <AdminRoute>
             <AddScholarship></AddScholarship>
-          </ModeratorRoute>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "admin/all-applied-scholarships",
+        element: (
+          <AdminRoute>
+            <AllAppliedScholarships></AllAppliedScholarships>
+          </AdminRoute>
         ),
       },
     ],

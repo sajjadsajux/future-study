@@ -1,0 +1,190 @@
+import React, { useState } from "react";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
+import { FaEye, FaRegTimesCircle, FaCommentDots } from "react-icons/fa";
+import { toast } from "react-toastify";
+import Swal from "sweetalert2";
+
+const AllAppliedScholarships = () => {
+  const axiosSecure = useAxiosSecure();
+  const [selectedApplication, setSelectedApplication] = useState(null);
+  const [feedbackModalOpen, setFeedbackModalOpen] = useState(false);
+  const [detailsModalOpen, setDetailsModalOpen] = useState(false);
+  const [feedbackText, setFeedbackText] = useState("");
+
+  const { data: applications = [], refetch } = useQuery({
+    queryKey: ["allApplications"],
+    queryFn: async () => {
+      const res = await axiosSecure.get("/applications");
+      return res.data;
+    },
+  });
+
+  // Handle Feedback Submit
+  const handleFeedbackSubmit = async () => {
+    try {
+      await axiosSecure.patch(`/applications/feedback/${selectedApplication._id}`, { feedback: feedbackText });
+      toast.success("Feedback submitted");
+      setFeedbackModalOpen(false);
+      setFeedbackText("");
+      refetch();
+    } catch (err) {
+      console.error(err);
+      toast.error("Failed to submit feedback");
+    }
+  };
+
+  // Handle Reject
+  const handleReject = async (id) => {
+    const confirm = await Swal.fire({
+      title: "Are you sure?",
+      text: "This will reject the application!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, reject it!",
+    });
+
+    if (confirm.isConfirmed) {
+      try {
+        await axiosSecure.patch(`/applications/status/${id}`, { applicationStatus: "rejected" });
+        toast.success("Application rejected");
+        refetch();
+      } catch (err) {
+        console.error(err);
+        toast.error("Failed to reject");
+      }
+    }
+  };
+
+  const handleStatusChange = async (id, newStatus) => {
+    try {
+      await axiosSecure.patch(`/applications/status/${id}`, {
+        applicationStatus: newStatus,
+      });
+      toast.success(`Status changed to ${newStatus}`);
+      refetch();
+    } catch (err) {
+      console.error(err);
+      toast.error("Failed to update status");
+    }
+  };
+
+  return (
+    <div className="p-4">
+      <h2 className="text-2xl font-bold mb-4">All Applied Scholarships</h2>
+      <div className="overflow-x-auto">
+        <table className="table table-zebra w-full">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>University</th>
+              <th>Applicant</th>
+              <th>Degree</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {applications.map((app, index) => (
+              <tr key={app._id}>
+                <td>{index + 1}</td>
+                <td>{app.universityName}</td>
+                <td>{app.userEmail}</td>
+                <td>{app.applyingDegree}</td>
+                <td>
+                  <span className={`badge ${app.applicationStatus === "pending" ? "badge-warning" : app.applicationStatus === "completed" ? "badge-success" : app.applicationStatus === "rejected" ? "badge-error" : "badge-info"}`}>{app.applicationStatus}</span>
+                </td>
+                <td className="flex gap-2 flex-wrap">
+                  <button
+                    className="btn btn-xs btn-info"
+                    onClick={() => {
+                      setSelectedApplication(app);
+                      setDetailsModalOpen(true);
+                    }}
+                  >
+                    <FaEye />
+                  </button>
+
+                  <button
+                    className="btn btn-xs btn-warning"
+                    onClick={() => {
+                      setSelectedApplication(app);
+                      setFeedbackModalOpen(true);
+                    }}
+                  >
+                    <FaCommentDots />
+                  </button>
+
+                  <button className="btn btn-xs btn-error" onClick={() => handleReject(app._id)}>
+                    <FaRegTimesCircle />
+                  </button>
+
+                  {/* ✅ Status Change Buttons */}
+                  {app.applicationStatus === "pending" && (
+                    <button className="btn btn-xs btn-outline btn-info" onClick={() => handleStatusChange(app._id, "processing")}>
+                      Mark Processing
+                    </button>
+                  )}
+                  {app.applicationStatus === "processing" && (
+                    <button className="btn btn-xs btn-outline btn-success" onClick={() => handleStatusChange(app._id, "completed")}>
+                      Mark Completed
+                    </button>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      {/* Details Modal */}
+      {detailsModalOpen && selectedApplication && (
+        <dialog id="detailsModal" className="modal modal-open">
+          <div className="modal-box">
+            <h3 className="font-bold text-lg mb-3">Application Details</h3>
+            <p>
+              <strong>University:</strong> {selectedApplication.universityName}
+            </p>
+            <p>
+              <strong>Degree:</strong> {selectedApplication.applyingDegree}
+            </p>
+            <p>
+              <strong>Scholarship Category:</strong> {selectedApplication.scholarshipCategory}
+            </p>
+            <p>
+              <strong>Email:</strong> {selectedApplication.userEmail}
+            </p>
+            <p>
+              <strong>Applied At:</strong> {new Date(selectedApplication.applicationDate).toLocaleString()}
+            </p>
+            <div className="modal-action">
+              <button className="btn" onClick={() => setDetailsModalOpen(false)}>
+                Close
+              </button>
+            </div>
+          </div>
+        </dialog>
+      )}
+
+      {/* Feedback Modal */}
+      {feedbackModalOpen && selectedApplication && (
+        <dialog id="feedbackModal" className="modal modal-open">
+          <div className="modal-box">
+            <h3 className="font-bold text-lg mb-3">Give Feedback</h3>
+            <textarea value={feedbackText} onChange={(e) => setFeedbackText(e.target.value)} className="textarea textarea-bordered w-full" placeholder="Enter your feedback"></textarea>
+            <div className="modal-action">
+              <button className="btn btn-success" onClick={handleFeedbackSubmit}>
+                Submit
+              </button>
+              <button className="btn" onClick={() => setFeedbackModalOpen(false)}>
+                Cancel
+              </button>
+            </div>
+          </div>
+        </dialog>
+      )}
+    </div>
+  );
+};
+
+export default AllAppliedScholarships;

@@ -57,6 +57,11 @@ const DashboardLayout = () => {
                   <FaClipboardList /> Add-Scholarships
                 </NavLink>
               </li>
+              <li>
+                <NavLink to="/dashboard/moderator/all-applied-scholarships" className="flex gap-2 items-center">
+                  <FaClipboardList /> All applied Scholarship
+                </NavLink>
+              </li>
             </>
           )}
 

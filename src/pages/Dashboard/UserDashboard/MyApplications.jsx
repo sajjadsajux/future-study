@@ -21,8 +21,10 @@ const MyApplications = () => {
     comment: "",
     reviewDate: new Date().toISOString().slice(0, 10),
   });
+  const isEditDisabled = (status) => status !== "pending";
+  const isCancelDisabled = (status) => status === "cancelled" || status === "rejected";
 
-  // ✅ Fetch applications of logged-in user
+  // Fetch applications of logged-in user
   const {
     data: applications = [],
     isPending,
@@ -36,7 +38,7 @@ const MyApplications = () => {
     },
   });
 
-  // ✅ Cancel mutation
+  // Cancel mutation
   const cancelMutation = useMutation({
     mutationFn: (id) => axiosSecure.patch(`/applications/${id}/cancel`),
     onSuccess: () => {
@@ -48,7 +50,7 @@ const MyApplications = () => {
     },
   });
 
-  // ✅ Add review mutation
+  // Add review mutation
   const reviewMutation = useMutation({
     mutationFn: (payload) => axiosSecure.post("/reviews", payload),
     onSuccess: () => {
@@ -67,11 +69,19 @@ const MyApplications = () => {
       Swal.fire("Cannot Edit", "This application is not editable.", "info");
       return;
     }
-    // TODO: Redirect to edit page or open edit modal
     navigate(`/dashboard/edit-application/${app._id}`);
   };
 
-  const handleCancel = (id) => {
+  const handleCancel = (app) => {
+    if (app.applicationStatus === "cancelled") {
+      Swal.fire("Info", "Application is already canceled.", "info");
+      return;
+    }
+    if (app.applicationStatus === "rejected") {
+      Swal.fire("Info", "Application has been rejected.", "info");
+      return;
+    }
+
     Swal.fire({
       title: "Are you sure?",
       text: "You want to cancel this application?",
@@ -80,7 +90,7 @@ const MyApplications = () => {
       confirmButtonText: "Yes, cancel it!",
     }).then((res) => {
       if (res.isConfirmed) {
-        cancelMutation.mutate(id);
+        cancelMutation.mutate(app._id);
       }
     });
   };
@@ -150,22 +160,41 @@ const MyApplications = () => {
                   <td className="border p-2">
                     {app.universityCity}, {app.universityCountry}
                   </td>
-                  <td className="border p-2">{app.applicationFeedback || "No feedback yet"}</td>
+                  <td className="border p-2">{app.feedback || "No feedback yet"}</td>
                   <td className="border p-2">{app.subjectCategory}</td>
                   <td className="border p-2">{app.applyingDegree}</td>
                   <td className="border p-2">${app.applicationFees}</td>
                   <td className="border p-2">${app.serviceCharge}</td>
                   <td className="border p-2 capitalize">{app.applicationStatus || "pending"}</td>
                   <td className="border p-2 space-x-1">
-                    <button className="btn btn-sm btn-info" onClick={() => (window.location.href = `/dashboard/scholarships-details/${app.scholarshipId}`)}>
-                      Details
-                    </button>
-                    <button className="btn btn-sm btn-warning" onClick={() => handleEdit(app)}>
+                    <button
+                      className={`btn btn-sm btn-warning ${isEditDisabled(app.applicationStatus) ? "opacity-50 cursor-not-allowed" : ""}`}
+                      title={isEditDisabled(app.applicationStatus) ? "You can only edit if the status is pending" : ""}
+                      onClick={() => {
+                        if (isEditDisabled(app.applicationStatus)) {
+                          Swal.fire("Cannot Edit", "You can only edit if the status is pending.", "info");
+                          return;
+                        }
+                        handleEdit(app);
+                      }}
+                    >
                       Edit
                     </button>
-                    <button className="btn btn-sm btn-error" onClick={() => handleCancel(app._id)}>
+
+                    <button
+                      className={`btn btn-sm btn-error ${isCancelDisabled(app.applicationStatus) ? "opacity-50 cursor-not-allowed" : ""}`}
+                      title={app.applicationStatus === "cancelled" ? "Application already cancelled" : app.applicationStatus === "rejected" ? "Application rejected" : ""}
+                      onClick={() => {
+                        if (isCancelDisabled(app.applicationStatus)) {
+                          Swal.fire("Info", app.applicationStatus === "cancelled" ? "Application is already canceled." : "Application has been rejected.", "info");
+                          return;
+                        }
+                        handleCancel(app);
+                      }}
+                    >
                       Cancel
                     </button>
+
                     <button className="btn btn-sm btn-primary" onClick={() => openReviewModal(app)}>
                       Add Review
                     </button>
