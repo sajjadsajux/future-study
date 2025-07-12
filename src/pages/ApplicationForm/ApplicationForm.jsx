@@ -85,6 +85,7 @@ const ApplicationForm = ({ scholarship, user }) => {
       userId: user?._id,
       scholarshipId: scholarship._id,
       applicationDate: new Date().toISOString(),
+      scholarshipDeadline: scholarship.applicationDeadline,
       universityId: scholarship.universityId,
       universityName: scholarship.universityName,
       universityCity: scholarship.universityCity,

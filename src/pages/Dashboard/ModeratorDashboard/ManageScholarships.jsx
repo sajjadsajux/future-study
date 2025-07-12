@@ -11,16 +11,18 @@ const ManageScholarships = () => {
   const [editingScholarship, setEditingScholarship] = useState(null);
 
   const {
-    data: scholarships = [],
+    data: response = {},
     refetch,
     isLoading,
   } = useQuery({
     queryKey: ["allScholarships"],
     queryFn: async () => {
       const res = await axiosSecure.get("/scholarships");
-      return res.data;
+      return res.data; // full object: { scholarships, currentPage, ... }
     },
   });
+
+  const scholarships = response.scholarships || []; // ✅ Extract the array
 
   const handleDelete = async (id) => {
     const confirm = await Swal.fire({

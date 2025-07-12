@@ -7,23 +7,31 @@ import Swal from "sweetalert2";
 
 const AllAppliedScholarships = () => {
   const axiosSecure = useAxiosSecure();
+
+  const [sortBy, setSortBy] = useState("");
+  const [sortOrder, setSortOrder] = useState("asc");
   const [selectedApplication, setSelectedApplication] = useState(null);
   const [feedbackModalOpen, setFeedbackModalOpen] = useState(false);
   const [detailsModalOpen, setDetailsModalOpen] = useState(false);
   const [feedbackText, setFeedbackText] = useState("");
 
-  const { data: applications = [], refetch } = useQuery({
-    queryKey: ["allApplications"],
+  const {
+    data: applications = [],
+    refetch,
+    isLoading,
+  } = useQuery({
+    queryKey: ["allApplications", sortBy, sortOrder],
     queryFn: async () => {
-      const res = await axiosSecure.get("/applications");
+      const res = await axiosSecure.get(`/applications?sortBy=${sortBy}&order=${sortOrder}`);
       return res.data;
     },
   });
 
-  // Handle Feedback Submit
   const handleFeedbackSubmit = async () => {
     try {
-      await axiosSecure.patch(`/applications/feedback/${selectedApplication._id}`, { feedback: feedbackText });
+      await axiosSecure.patch(`/applications/feedback/${selectedApplication._id}`, {
+        feedback: feedbackText,
+      });
       toast.success("Feedback submitted");
       setFeedbackModalOpen(false);
       setFeedbackText("");
@@ -34,7 +42,6 @@ const AllAppliedScholarships = () => {
     }
   };
 
-  // Handle Reject
   const handleReject = async (id) => {
     const confirm = await Swal.fire({
       title: "Are you sure?",
@@ -58,9 +65,7 @@ const AllAppliedScholarships = () => {
 
   const handleStatusChange = async (id, newStatus) => {
     try {
-      await axiosSecure.patch(`/applications/status/${id}`, {
-        applicationStatus: newStatus,
-      });
+      await axiosSecure.patch(`/applications/status/${id}`, { applicationStatus: newStatus });
       toast.success(`Status changed to ${newStatus}`);
       refetch();
     } catch (err) {
@@ -71,71 +76,95 @@ const AllAppliedScholarships = () => {
 
   return (
     <div className="p-4">
-      <h2 className="text-2xl font-bold mb-4">All Applied Scholarships</h2>
-      <div className="overflow-x-auto">
-        <table className="table table-zebra w-full">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>University</th>
-              <th>Applicant</th>
-              <th>Degree</th>
-              <th>Status</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {applications.map((app, index) => (
-              <tr key={app._id}>
-                <td>{index + 1}</td>
-                <td>{app.universityName}</td>
-                <td>{app.userEmail}</td>
-                <td>{app.applyingDegree}</td>
-                <td>
-                  <span className={`badge ${app.applicationStatus === "pending" ? "badge-warning" : app.applicationStatus === "completed" ? "badge-success" : app.applicationStatus === "rejected" ? "badge-error" : "badge-info"}`}>{app.applicationStatus}</span>
-                </td>
-                <td className="flex gap-2 flex-wrap">
-                  <button
-                    className="btn btn-xs btn-info"
-                    onClick={() => {
-                      setSelectedApplication(app);
-                      setDetailsModalOpen(true);
-                    }}
-                  >
-                    <FaEye />
-                  </button>
+      <h2 className="text-2xl font-bold mb-4 text-center">All Applied Scholarships</h2>
 
-                  <button
-                    className="btn btn-xs btn-warning"
-                    onClick={() => {
-                      setSelectedApplication(app);
-                      setFeedbackModalOpen(true);
-                    }}
-                  >
-                    <FaCommentDots />
-                  </button>
+      {/* Sort/Filter */}
+      <div className="flex justify-center gap-4 mb-6">
+        <select className="select select-bordered" value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
+          <option value="">Sort By</option>
+          <option value="appliedDate">Applied Date</option>
+          <option value="applicationDeadline">Scholarship Deadline</option>
+        </select>
 
-                  <button className="btn btn-xs btn-error" onClick={() => handleReject(app._id)}>
-                    <FaRegTimesCircle />
-                  </button>
-
-                  {/* ✅ Status Change Buttons */}
-                  {app.applicationStatus === "pending" && (
-                    <button className="btn btn-xs btn-outline btn-info" onClick={() => handleStatusChange(app._id, "processing")}>
-                      Mark Processing
-                    </button>
-                  )}
-                  {app.applicationStatus === "processing" && (
-                    <button className="btn btn-xs btn-outline btn-success" onClick={() => handleStatusChange(app._id, "completed")}>
-                      Mark Completed
-                    </button>
-                  )}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <select className="select select-bordered" value={sortOrder} onChange={(e) => setSortOrder(e.target.value)}>
+          <option value="asc">Ascending</option>
+          <option value="desc">Descending</option>
+        </select>
       </div>
+
+      {isLoading ? (
+        <p className="text-center">Loading...</p>
+      ) : (
+        <div className="overflow-x-auto">
+          <table className="table table-zebra w-full">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>University</th>
+                <th>Applicant</th>
+                <th>Degree</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {applications.map((app, index) => (
+                <tr key={app._id}>
+                  <td>{index + 1}</td>
+                  <td>{app.universityName}</td>
+                  <td>{app.userEmail}</td>
+                  <td>{app.applyingDegree}</td>
+                  <td>
+                    <span className={`badge ${app.applicationStatus === "pending" ? "badge-warning" : app.applicationStatus === "completed" ? "badge-success" : app.applicationStatus === "rejected" ? "badge-error" : "badge-info"}`}>{app.applicationStatus}</span>
+                  </td>
+                  <td className="flex gap-2 flex-wrap">
+                    <button
+                      className="btn btn-xs btn-info"
+                      onClick={() => {
+                        setSelectedApplication(app);
+                        setDetailsModalOpen(true);
+                      }}
+                    >
+                      <FaEye />
+                    </button>
+
+                    <button
+                      className="btn btn-xs btn-warning"
+                      onClick={() => {
+                        setSelectedApplication(app);
+                        setFeedbackModalOpen(true);
+                      }}
+                    >
+                      <FaCommentDots />
+                    </button>
+
+                    <button
+                      className={`btn btn-xs btn-error ${["rejected", "cancelled"].includes(app.applicationStatus?.toLowerCase()) ? "btn-disabled opacity-50 cursor-not-allowed" : ""}`}
+                      onClick={() => handleReject(app._id)}
+                      disabled={["rejected", "cancelled"].includes(app.applicationStatus?.toLowerCase())}
+                      title={["rejected", "cancelled"].includes(app.applicationStatus?.toLowerCase()) ? "Already rejected or cancelled" : "Reject application"}
+                    >
+                      <FaRegTimesCircle />
+                    </button>
+
+                    {/* Status Change */}
+                    {app.applicationStatus === "pending" && (
+                      <button className="btn btn-xs btn-outline btn-info" onClick={() => handleStatusChange(app._id, "processing")}>
+                        Mark Processing
+                      </button>
+                    )}
+                    {app.applicationStatus === "processing" && (
+                      <button className="btn btn-xs btn-outline btn-success" onClick={() => handleStatusChange(app._id, "completed")}>
+                        Mark Completed
+                      </button>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
 
       {/* Details Modal */}
       {detailsModalOpen && selectedApplication && (
@@ -155,7 +184,10 @@ const AllAppliedScholarships = () => {
               <strong>Email:</strong> {selectedApplication.userEmail}
             </p>
             <p>
-              <strong>Applied At:</strong> {new Date(selectedApplication.applicationDate).toLocaleString()}
+              <strong>Applied At:</strong> {new Date(selectedApplication.applicationDate).toLocaleDateString()}
+            </p>
+            <p>
+              <strong>Scholarship Deadline:</strong> {new Date(selectedApplication.scholarshipDeadline).toLocaleDateString()}
             </p>
             <div className="modal-action">
               <button className="btn" onClick={() => setDetailsModalOpen(false)}>
