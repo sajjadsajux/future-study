@@ -22,6 +22,7 @@ import AddScholarship from "../pages/Dashboard/ModeratorDashboard/AddScholarship
 import AllAppliedScholarships from "../pages/Dashboard/UserDashboard/AllAppliedScholarships";
 import AdminRoute from "../routes/AdminRoute";
 import MyReviews from "../pages/Dashboard/UserDashboard/MyReviews";
+import AllReviews from "../pages/Dashboard/ModeratorDashboard/AllReviews";
 
 export const router = createBrowserRouter([
   {
@@ -148,6 +149,14 @@ export const router = createBrowserRouter([
         element: (
           <ModeratorRoute>
             <ScholarshipDetails></ScholarshipDetails>
+          </ModeratorRoute>
+        ),
+      },
+      {
+        path: "all-reviews",
+        element: (
+          <ModeratorRoute>
+            <AllReviews></AllReviews>
           </ModeratorRoute>
         ),
       },

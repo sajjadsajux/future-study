@@ -19,10 +19,7 @@ const MyReviews = () => {
 
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [selectedReview, setSelectedReview] = useState(null);
-  const [formData, setFormData] = useState({
-    rating: 5,
-    comment: "",
-  });
+  const [formData, setFormData] = useState({ rating: 5, comment: "" });
 
   const {
     data: reviews = [],
@@ -68,18 +65,13 @@ const MyReviews = () => {
       showCancelButton: true,
       confirmButtonText: "Yes, delete it!",
     }).then((res) => {
-      if (res.isConfirmed) {
-        deleteMutation.mutate(id);
-      }
+      if (res.isConfirmed) deleteMutation.mutate(id);
     });
   };
 
   const handleEditClick = (review) => {
     setSelectedReview(review);
-    setFormData({
-      rating: review.rating,
-      comment: review.comment,
-    });
+    setFormData({ rating: review.rating, comment: review.comment });
     setEditModalOpen(true);
   };
 
@@ -104,19 +96,21 @@ const MyReviews = () => {
   if (error) return <p>Error loading reviews.</p>;
 
   return (
-    <div className="container mx-auto p-6">
-      <h2 className="text-3xl font-bold mb-6">My Reviews</h2>
+    <div className="container mx-auto px-4 sm:px-6 py-6">
+      <h2 className="text-3xl font-bold mb-6 text-center sm:text-left">My Reviews</h2>
+
       {reviews.length === 0 ? (
-        <p>No reviews found.</p>
+        <p className="text-center">No reviews found.</p>
       ) : (
         <div className="overflow-x-auto">
-          <table className="table w-full border">
+          <table className="table w-full border text-sm md:text-base">
             <thead className="bg-base-200">
               <tr>
                 <th>Scholarship</th>
                 <th>University</th>
+                <th>University ID</th>
                 <th>Rating</th>
-                <th>Comment</th>
+                <th className="w-48">Comment</th>
                 <th>Review Date</th>
                 <th>Last Updated</th>
                 <th>Actions</th>
@@ -127,8 +121,11 @@ const MyReviews = () => {
                 <tr key={r._id}>
                   <td>{r.scholarshipName}</td>
                   <td>{r.universityName}</td>
+                  <td>{r.universityId}</td>
                   <td>{r.rating}</td>
-                  <td>{r.comment}</td>
+                  <td>
+                    <div className="max-h-24 overflow-y-auto whitespace-pre-wrap">{r.comment}</div>
+                  </td>
                   <td>
                     {new Date(r.reviewDate).toLocaleDateString("en-US", {
                       year: "numeric",
@@ -137,7 +134,7 @@ const MyReviews = () => {
                     })}
                   </td>
                   <td>{r.lastUpdated ? formatDate(r.lastUpdated) : "—"}</td>
-                  <td className="space-x-2">
+                  <td className="space-x-1">
                     <button className="btn btn-sm btn-warning" onClick={() => handleEditClick(r)}>
                       Edit
                     </button>
@@ -153,18 +150,24 @@ const MyReviews = () => {
       )}
 
       {/* Edit Modal */}
-      <Modal isOpen={editModalOpen} onRequestClose={() => setEditModalOpen(false)} contentLabel="Edit Review" className="max-w-lg mx-auto p-6 bg-white rounded shadow-lg mt-20" overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-start">
+      <Modal
+        isOpen={editModalOpen}
+        onRequestClose={() => setEditModalOpen(false)}
+        contentLabel="Edit Review"
+        className="w-[95%] sm:w-[90%] md:w-[600px] mx-auto mt-24 bg-white rounded-lg shadow-lg p-6 outline-none"
+        overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-start z-50"
+      >
         <h2 className="text-xl font-bold mb-4">Edit Review</h2>
         <form onSubmit={handleUpdateSubmit} className="space-y-4">
-          <label>
-            Rating (1–5):
-            <input type="number" name="rating" min="1" max="5" step="0.1" value={formData.rating} onChange={handleInputChange} className="input input-bordered w-full" required />
-          </label>
-          <label>
-            Comment:
-            <textarea name="comment" value={formData.comment} onChange={handleInputChange} className="textarea textarea-bordered w-full" required />
-          </label>
-          <div className="flex justify-end space-x-2">
+          <div>
+            <label className="font-medium">Rating (1–5):</label>
+            <input type="number" name="rating" min="1" max="5" step="0.1" value={formData.rating} onChange={handleInputChange} className="input input-bordered w-full mt-1" required />
+          </div>
+          <div>
+            <label className="font-medium">Comment:</label>
+            <textarea name="comment" value={formData.comment} onChange={handleInputChange} className="textarea textarea-bordered w-full mt-1 max-h-60 overflow-y-auto" required />
+          </div>
+          <div className="flex justify-end space-x-2 pt-2">
             <button type="button" className="btn btn-outline" onClick={() => setEditModalOpen(false)}>
               Cancel
             </button>

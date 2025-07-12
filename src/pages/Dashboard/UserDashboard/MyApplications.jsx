@@ -128,6 +128,7 @@ const MyApplications = () => {
     const payload = {
       scholarshipId: selectedApplication.scholarshipId,
       scholarshipName: selectedApplication.scholarshipName,
+      subjectCategory: selectedApplication.subjectCategory,
       universityName: selectedApplication.universityName,
       universityId: selectedApplication.universityId,
       userName: user.displayName || user.email,

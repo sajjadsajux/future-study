@@ -41,7 +41,7 @@ const Checkout = () => {
   if (isLoading) return <p>Loading...</p>;
 
   return (
-    <div className="container mx-auto p-4">
+    <div className="container mx-auto">
       {!paidQuery.data ? (
         <Elements stripe={stripePromise}>
           <PaymentForm
