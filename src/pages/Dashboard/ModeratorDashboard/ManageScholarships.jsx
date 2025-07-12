@@ -83,7 +83,7 @@ const ManageScholarships = () => {
                 <td>{item.degree}</td>
                 <td>${item.applicationFees}</td>
                 <td className="flex gap-2">
-                  <button className="btn btn-xs btn-info" onClick={() => navigate(`/dashboard/moderator/scholarships-details/${item._id}`)}>
+                  <button className="btn btn-xs btn-info" onClick={() => navigate(`/dashboard/scholarships-details/${item._id}`)}>
                     <FaEye />
                   </button>
                   <button className="btn btn-xs btn-warning" onClick={() => setEditingScholarship(item)}>

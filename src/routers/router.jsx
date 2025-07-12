@@ -23,6 +23,7 @@ import AllAppliedScholarships from "../pages/Dashboard/UserDashboard/AllAppliedS
 import AdminRoute from "../routes/AdminRoute";
 import MyReviews from "../pages/Dashboard/UserDashboard/MyReviews";
 import AllReviews from "../pages/Dashboard/ModeratorDashboard/AllReviews";
+import ManageUsers from "../pages/Dashboard/AdminDashboard/ManageUsers";
 
 export const router = createBrowserRouter([
   {
@@ -137,7 +138,7 @@ export const router = createBrowserRouter([
       // // moderator only
 
       {
-        path: "manage-scholarships",
+        path: "moderator/manage-scholarships",
         element: (
           <ModeratorRoute>
             <ManageScholarships></ManageScholarships>
@@ -153,7 +154,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "all-reviews",
+        path: "moderator/all-reviews",
         element: (
           <ModeratorRoute>
             <AllReviews></AllReviews>
@@ -181,13 +182,41 @@ export const router = createBrowserRouter([
 
       {
         path: "admin/add-scholarships",
-        element: <AdminRoute></AdminRoute>,
+        element: (
+          <AdminRoute>
+            <AddScholarship></AddScholarship>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "admin/manage-scholarships",
+        element: (
+          <AdminRoute>
+            <ManageScholarships></ManageScholarships>
+          </AdminRoute>
+        ),
       },
       {
         path: "admin/all-applied-scholarships",
         element: (
           <AdminRoute>
             <AllAppliedScholarships></AllAppliedScholarships>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "admin/manage-users",
+        element: (
+          <AdminRoute>
+            <ManageUsers></ManageUsers>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "admin/all-reviews",
+        element: (
+          <AdminRoute>
+            <AllReviews></AllReviews>
           </AdminRoute>
         ),
       },

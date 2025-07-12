@@ -48,23 +48,23 @@ const DashboardLayout = () => {
           {role === "moderator" && (
             <>
               <li>
-                <NavLink to="/dashboard/manage-scholarships" className="flex gap-2 items-center">
+                <NavLink to="/dashboard/moderator/manage-scholarships" className="flex gap-2 items-center">
                   <FaClipboardList /> Manage Scholarships
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/dashboard/all-reviews" className="flex gap-2 items-center">
+                <NavLink to="/dashboard/moderator/all-reviews" className="flex gap-2 items-center">
                   <FaClipboardList /> All Reviews
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/dashboard/moderator/add-scholarships" className="flex gap-2 items-center">
-                  <FaClipboardList /> Add-Scholarships
                 </NavLink>
               </li>
               <li>
                 <NavLink to="/dashboard/moderator/all-applied-scholarships" className="flex gap-2 items-center">
                   <FaClipboardList /> All Applied Scholarship
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/dashboard/moderator/add-scholarships" className="flex gap-2 items-center">
+                  <FaClipboardList /> Add Scholarships
                 </NavLink>
               </li>
             </>
@@ -73,13 +73,28 @@ const DashboardLayout = () => {
           {role === "admin" && (
             <>
               <li>
-                <NavLink to="/dashboard/all-users" className="flex gap-2 items-center">
-                  <FaUserShield /> Manage Users
+                <NavLink to="/dashboard/admin/add-scholarships" className="flex gap-2 items-center">
+                  <FaClipboardList /> Add Scholarship
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/dashboard/admin/add-scholarships" className="flex gap-2 items-center">
-                  <FaClipboardList /> Add-Scholarships
+                <NavLink to="/dashboard/admin/manage-scholarships" className="flex gap-2 items-center">
+                  <FaClipboardList /> Manage Scholarships
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/dashboard/admin/all-applied-scholarships" className="flex gap-2 items-center">
+                  <FaClipboardList /> Manage Applied Application
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/dashboard/admin/manage-users" className="flex gap-2 items-center">
+                  <FaClipboardList /> Manage Users
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/dashboard/admin/all-reviews" className="flex gap-2 items-center">
+                  <FaClipboardList /> Manage Reviews
                 </NavLink>
               </li>
             </>
