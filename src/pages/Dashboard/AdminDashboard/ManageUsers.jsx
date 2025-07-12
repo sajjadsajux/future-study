@@ -65,6 +65,7 @@ const ManageUsers = () => {
       }
     });
   };
+  if (isLoading) return <p>Loading users...</p>;
 
   const filteredUsers = roleFilter === "all" ? users : users.filter((u) => u.role === roleFilter);
 

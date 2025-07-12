@@ -7,29 +7,37 @@ const AllScholarship = () => {
   const axiosInstance = useAxios();
   const [searchInput, setSearchInput] = useState("");
   const [search, setSearch] = useState("");
+  const [page, setPage] = useState(1);
+  const limit = 8;
 
-  // 🔁 Delay search to reduce requests
+  // Debounce search input
   useEffect(() => {
     const timer = setTimeout(() => {
       setSearch(searchInput);
-    }, 400); // waits 400ms after typing stops
+      setPage(1); // reset page on new search
+    }, 400);
     return () => clearTimeout(timer);
   }, [searchInput]);
 
-  const { data: scholarships = [], isLoading } = useQuery({
-    queryKey: ["scholarships", search],
+  const { data, isLoading } = useQuery({
+    queryKey: ["scholarships", page, search],
     queryFn: async () => {
-      const res = await axiosInstance.get(`/scholarships?search=${search}`);
+      const res = await axiosInstance.get(`/scholarships?page=${page}&limit=${limit}&search=${search}`);
       return res.data;
     },
+    keepPreviousData: true,
   });
+
+  const scholarships = data?.scholarships || [];
+  const totalPages = data?.totalPages || 1;
+  const currentPage = data?.currentPage || 1;
 
   return (
     <div className="container mx-auto px-4 py-10">
       <h2 className="text-3xl font-bold text-center mb-8">All Scholarships</h2>
 
       <div className="flex justify-center mb-8">
-        <input type="text" placeholder="Search by Scholarship, University or Degree" className="input input-bordered w-full max-w-xs" onChange={(e) => setSearchInput(e.target.value)} />
+        <input type="text" placeholder="Search by Scholarship, University or Degree" className="input input-bordered w-full max-w-xs" value={searchInput} onChange={(e) => setSearchInput(e.target.value)} />
       </div>
 
       {isLoading ? (
@@ -37,11 +45,28 @@ const AllScholarship = () => {
       ) : scholarships.length === 0 ? (
         <p className="text-center text-gray-500">No scholarships found.</p>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {scholarships.map((scholarship) => (
-            <ScholarshipCard key={scholarship._id} scholarship={scholarship} />
-          ))}
-        </div>
+        <>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {scholarships.map((scholarship) => (
+              <ScholarshipCard key={scholarship._id} scholarship={scholarship} />
+            ))}
+          </div>
+
+          {/* Pagination */}
+          <div className="flex justify-center mt-10 gap-4 items-center">
+            <button className="btn btn-sm" onClick={() => setPage((prev) => Math.max(prev - 1, 1))} disabled={currentPage === 1}>
+              Prev
+            </button>
+
+            <span className="font-medium">
+              Page {currentPage} of {totalPages}
+            </span>
+
+            <button className="btn btn-sm" onClick={() => setPage((prev) => Math.min(prev + 1, totalPages))} disabled={currentPage === totalPages}>
+              Next
+            </button>
+          </div>
+        </>
       )}
     </div>
   );
