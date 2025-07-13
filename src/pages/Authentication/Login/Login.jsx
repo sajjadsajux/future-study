@@ -22,7 +22,7 @@ const Login = () => {
   const onSubmit = async (data) => {
     try {
       const result = await signInUser(data.email, data.password);
-      console.log(result.user);
+      // console.log(result.user);
 
       // 🔄 Update last_login in DB
       const updateInfo = {

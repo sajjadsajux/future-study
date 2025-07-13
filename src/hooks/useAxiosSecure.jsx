@@ -4,7 +4,7 @@ import axios from "axios";
 import useAuth from "./useAuth";
 
 const axiosSecure = axios.create({
-  baseURL: "http://localhost:3000", // change to your backend URL
+  baseURL: "https://futurestudy-server.vercel.app", // change to your backend URL
 });
 
 const useAxiosSecure = () => {

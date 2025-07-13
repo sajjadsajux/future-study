@@ -28,7 +28,7 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const unSubsCribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
-      console.log("User from Auth", currentUser);
+      // console.log("User from Auth", currentUser);
 
       if (currentUser) {
         // Get fresh Firebase ID token
