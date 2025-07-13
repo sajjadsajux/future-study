@@ -69,7 +69,7 @@ const AddScholarship = () => {
       universityWorldRank: parseInt(formData.universityWorldRank),
       applicationDeadline: new Date(formData.applicationDeadline).toISOString(),
       scholarshipPostDate: new Date(formData.scholarshipPostDate).toISOString(),
-      universityId,
+      universityId: universityId || "",
     };
 
     try {

@@ -3,26 +3,30 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import { FaEdit, FaTrash, FaEye } from "react-icons/fa";
-import { useNavigate } from "react-router";
 
 const ManageScholarships = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const axiosSecure = useAxiosSecure();
   const [editingScholarship, setEditingScholarship] = useState(null);
+  const [selectedScholarship, setSelectedScholarship] = useState(null); // 🆕 for viewing details
+
+  const [page, setPage] = useState(1); // 🆕 pagination state
+  const limit = 10;
 
   const {
     data: response = {},
     refetch,
     isLoading,
   } = useQuery({
-    queryKey: ["allScholarships"],
+    queryKey: ["allScholarships", page],
     queryFn: async () => {
-      const res = await axiosSecure.get("/scholarships");
-      return res.data; // full object: { scholarships, currentPage, ... }
+      const res = await axiosSecure.get(`/scholarships?page=${page}&limit=${limit}`);
+      return res.data; // { scholarships, currentPage, totalPages, totalItems }
     },
   });
 
-  const scholarships = response.scholarships || []; // ✅ Extract the array
+  const scholarships = response.scholarships || [];
+  const totalPages = response.totalPages || 1;
 
   const handleDelete = async (id) => {
     const confirm = await Swal.fire({
@@ -78,16 +82,20 @@ const ManageScholarships = () => {
           <tbody>
             {scholarships.map((item, i) => (
               <tr key={item._id}>
-                <td>{i + 1}</td>
+                <td>{(page - 1) * limit + i + 1}</td>
                 <td>{item.scholarshipName}</td>
                 <td>{item.universityName}</td>
                 <td>{item.subjectCategory}</td>
                 <td>{item.degree}</td>
                 <td>${item.applicationFees}</td>
                 <td className="flex gap-2">
-                  <button className="btn btn-xs btn-info" onClick={() => navigate(`/dashboard/scholarships-details/${item._id}`)}>
+                  <button
+                    className="btn btn-xs btn-info"
+                    onClick={() => setSelectedScholarship(item)} // 🆕 show in modal
+                  >
                     <FaEye />
                   </button>
+
                   <button className="btn btn-xs btn-warning" onClick={() => setEditingScholarship(item)}>
                     <FaEdit />
                   </button>
@@ -99,6 +107,15 @@ const ManageScholarships = () => {
             ))}
           </tbody>
         </table>
+      </div>
+
+      {/* Pagination UI */}
+      <div className="flex justify-center mt-6 gap-2">
+        {Array.from({ length: totalPages }, (_, i) => (
+          <button key={i} onClick={() => setPage(i + 1)} className={`btn btn-sm ${page === i + 1 ? "btn-primary" : "btn-outline"}`}>
+            {i + 1}
+          </button>
+        ))}
       </div>
 
       {/* Edit Modal */}
@@ -142,6 +159,40 @@ const ManageScholarships = () => {
                 </button>
               </div>
             </form>
+          </div>
+        </dialog>
+      )}
+
+      {/* details modal */}
+
+      {selectedScholarship && (
+        <dialog open className="modal modal-open">
+          <div className="modal-box bg-white text-black">
+            {" "}
+            {/* ensure light background */}
+            <h3 className="font-bold text-lg text-center mb-4">Scholarship Details</h3>
+            <div className="space-y-2">
+              <p>
+                <strong>Name:</strong> {selectedScholarship.scholarshipName}
+              </p>
+              <p>
+                <strong>University:</strong> {selectedScholarship.universityName}
+              </p>
+              <p>
+                <strong>Subject:</strong> {selectedScholarship.subjectCategory}
+              </p>
+              <p>
+                <strong>Degree:</strong> {selectedScholarship.degree}
+              </p>
+              <p>
+                <strong>Application Fees:</strong> ${selectedScholarship.applicationFees}
+              </p>
+            </div>
+            <div className="modal-action">
+              <button className="btn" onClick={() => setSelectedScholarship(null)}>
+                Close
+              </button>
+            </div>
           </div>
         </dialog>
       )}

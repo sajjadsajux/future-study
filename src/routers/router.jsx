@@ -55,6 +55,14 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
+      {
+        path: "scholarships-details/:id",
+        element: (
+          <PrivateRoute>
+            <ScholarshipDetails></ScholarshipDetails>
+          </PrivateRoute>
+        ),
+      },
       //   loader: () => fetch("./serviceCenters.json"),
       // },
       // {
@@ -118,14 +126,7 @@ export const router = createBrowserRouter([
           </UserRoute>
         ),
       },
-      {
-        path: "scholarships-details/:id",
-        element: (
-          <UserRoute>
-            <ScholarshipDetails></ScholarshipDetails>
-          </UserRoute>
-        ),
-      },
+
       {
         path: "my-reviews",
         element: (

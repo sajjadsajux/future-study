@@ -1,53 +1,31 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useMutation } from "@tanstack/react-query";
-import { useNavigate } from "react-router";
-import useAxiosSecure from "../../hooks/useAxiosSecure";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-const ApplicationForm = ({ scholarship, user }) => {
-  const axiosSecure = useAxiosSecure();
-  const navigate = useNavigate();
-
-  const [photoURL, setPhotoURL] = useState("");
-  const [uploadingPhoto, setUploadingPhoto] = useState(false);
-  const [photoUploaded, setPhotoUploaded] = useState(false);
-
+const ApplicationForm = ({ scholarship, onSubmit }) => {
   const {
     register,
     handleSubmit,
-    formState: { errors, touchedFields },
-    reset,
+    formState: { errors },
     setError,
     clearErrors,
   } = useForm();
 
-  const applyMutation = useMutation({
-    mutationFn: (formData) => axiosSecure.post("/apply-scholarship", formData),
-    onSuccess: () => {
-      toast.success("Application submitted successfully!");
-      reset();
-      setPhotoURL("");
-      setPhotoUploaded(false);
-      navigate("/dashboard/my-applications");
-    },
-    onError: (error) => {
-      toast.error("Application failed: " + error.message);
-    },
-  });
+  const [photoURL, setPhotoURL] = useState("");
+  const [photoSuccess, setPhotoSuccess] = useState(""); // ✅ New state
+  const [uploadingPhoto, setUploadingPhoto] = useState(false);
 
   const handlePhotoChange = async (e) => {
     const file = e.target.files[0];
     if (!file) {
       setPhotoURL("");
-      setPhotoUploaded(false);
+      setPhotoSuccess("");
       setError("photo", { type: "manual", message: "Photo is required" });
       return;
     }
 
     setUploadingPhoto(true);
-
     try {
       const formData = new FormData();
       formData.append("file", file);
@@ -57,13 +35,11 @@ const ApplicationForm = ({ scholarship, user }) => {
 
       const res = await axios.post(url, formData);
       setPhotoURL(res.data.secure_url);
-      setPhotoUploaded(true);
+      setPhotoSuccess("Photo uploaded successfully ✅"); // ✅ Inline success message
       clearErrors("photo");
-      toast.success("Photo uploaded successfully");
     } catch (error) {
-      console.error(error);
       setPhotoURL("");
-      setPhotoUploaded(false);
+      setPhotoSuccess("");
       setError("photo", { type: "manual", message: "Photo upload failed" });
       toast.error("Photo upload failed");
     } finally {
@@ -71,84 +47,51 @@ const ApplicationForm = ({ scholarship, user }) => {
     }
   };
 
-  const onSubmit = (data) => {
+  const onFormSubmit = (data) => {
     if (!photoURL) {
       setError("photo", { type: "manual", message: "Photo is required" });
       return;
     }
-
-    const applicationData = {
-      ...data,
-      photo: photoURL,
-      userName: user?.displayName || user?.name || "Unknown",
-      userEmail: user?.email,
-      userId: user?._id,
-      scholarshipId: scholarship._id,
-      applicationDate: new Date().toISOString(),
-      scholarshipDeadline: scholarship.applicationDeadline,
-      universityId: scholarship.universityId,
-      universityName: scholarship.universityName,
-      universityCity: scholarship.universityCity,
-      universityCountry: scholarship.universityCountry,
-      universityImage: scholarship.universityImage,
-      scholarshipName: scholarship.scholarshipName,
-      scholarshipCategory: scholarship.scholarshipCategory,
-      subjectCategory: scholarship.subjectCategory,
-      applicationFees: scholarship.applicationFees,
-      serviceCharge: scholarship.serviceCharge,
-      applicationStatus: "pending",
-    };
-
-    applyMutation.mutate(applicationData);
+    onSubmit({ ...data, photo: photoURL });
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="max-w-3xl mx-auto p-4 sm:p-6 md:p-8 bg-white rounded-xl shadow space-y-6">
-      <h2 className="text-2xl sm:text-3xl font-bold text-center mb-6">Complete Your Application</h2>
+    <form onSubmit={handleSubmit(onFormSubmit)} className="max-w-3xl mx-auto p-4 bg-white rounded shadow space-y-6">
+      <h2 className="text-2xl font-bold text-center mb-6">Complete Your Application</h2>
 
-      {/* Phone Number */}
       <div>
         <label className="label">Phone Number</label>
         <input type="tel" {...register("phoneNumber", { required: "Phone number is required" })} className="input input-bordered w-full" />
         {errors.phoneNumber && <p className="text-red-500">{errors.phoneNumber.message}</p>}
       </div>
 
-      {/* Photo Upload */}
       <div>
         <label className="label">Applicant Photo</label>
-        <input
-          type="file"
-          accept="image/*"
-          {...register("photo", { required: "Photo is required" })}
-          onChange={(e) => {
-            register("photo").onChange(e);
-            handlePhotoChange(e);
-          }}
-          className="file-input file-input-bordered w-full"
-        />
+        <input type="file" accept="image/*" onChange={handlePhotoChange} className="file-input file-input-bordered w-full" disabled={uploadingPhoto} />
         {uploadingPhoto && <p className="text-yellow-500">Uploading photo...</p>}
-        {photoUploaded && !uploadingPhoto && <p className="text-green-600 font-medium mt-2">Photo uploaded successfully ✅</p>}
-        {errors.photo && !uploadingPhoto && touchedFields.photo && <p className="text-red-500">{errors.photo.message}</p>}
-        {photoURL && <img src={photoURL} alt="Applicant" className="mt-2 w-32 h-32 object-cover border rounded-md" />}
+        {photoSuccess && <p className="text-green-600 font-medium mt-2">{photoSuccess}</p>} {/* ✅ inline success */}
+        {errors.photo && <p className="text-red-500">{errors.photo.message}</p>}
+        {photoURL && <img src={photoURL} alt="Applicant" className="mt-2 w-24 h-24 object-cover rounded-md border" />}
       </div>
 
-      {/* Address Fields */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div>
           <label className="label">Village</label>
           <input type="text" {...register("village", { required: "Village is required" })} className="input input-bordered w-full" />
+          {errors.village && <p className="text-red-500">{errors.village.message}</p>}
         </div>
         <div>
           <label className="label">District</label>
           <input type="text" {...register("district", { required: "District is required" })} className="input input-bordered w-full" />
+          {errors.district && <p className="text-red-500">{errors.district.message}</p>}
         </div>
         <div>
           <label className="label">Country</label>
           <input type="text" {...register("country", { required: "Country is required" })} className="input input-bordered w-full" />
+          {errors.country && <p className="text-red-500">{errors.country.message}</p>}
         </div>
       </div>
 
-      {/* Gender */}
       <div>
         <label className="label">Gender</label>
         <select {...register("gender", { required: "Gender is required" })} className="select select-bordered w-full">
@@ -160,7 +103,6 @@ const ApplicationForm = ({ scholarship, user }) => {
         {errors.gender && <p className="text-red-500">{errors.gender.message}</p>}
       </div>
 
-      {/* Applying Degree */}
       <div>
         <label className="label">Applying Degree</label>
         <select {...register("applyingDegree", { required: "Degree is required" })} className="select select-bordered w-full">
@@ -172,7 +114,6 @@ const ApplicationForm = ({ scholarship, user }) => {
         {errors.applyingDegree && <p className="text-red-500">{errors.applyingDegree.message}</p>}
       </div>
 
-      {/* SSC & HSC */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <label className="label">SSC Result</label>
@@ -186,7 +127,6 @@ const ApplicationForm = ({ scholarship, user }) => {
         </div>
       </div>
 
-      {/* Optional Study Gap */}
       <div>
         <label className="label">Study Gap (Optional)</label>
         <select {...register("studyGap")} className="select select-bordered w-full">
@@ -198,8 +138,8 @@ const ApplicationForm = ({ scholarship, user }) => {
         </select>
       </div>
 
-      {/* Read-only Scholarship Info */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      {/* Read-only Scholarship info */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div>
           <label className="label">University Name</label>
           <input type="text" value={scholarship.universityName} readOnly className="input input-bordered w-full bg-gray-100" />
@@ -214,9 +154,8 @@ const ApplicationForm = ({ scholarship, user }) => {
         </div>
       </div>
 
-      {/* Submit Button */}
-      <button type="submit" disabled={applyMutation.isLoading} className="btn btn-primary w-full">
-        {applyMutation.isLoading ? "Submitting..." : "Submit / Apply"}
+      <button type="submit" className="btn btn-primary w-full mt-4">
+        Submit / Apply
       </button>
     </form>
   );

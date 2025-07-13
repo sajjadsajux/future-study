@@ -1,15 +1,27 @@
+import { useQuery } from "@tanstack/react-query";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from "recharts";
-
-const data = [
-  { name: "Pending", value: 20 },
-  { name: "Processing", value: 30 },
-  { name: "Completed", value: 40 },
-  { name: "Rejected", value: 10 },
-];
 
 const COLORS = ["#FFBB28", "#00C49F", "#0088FE", "#FF4B4B"];
 
 const AdminAnalytics = () => {
+  const axiosSecure = useAxiosSecure();
+
+  const {
+    data = [],
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["applications-summary"],
+    queryFn: async () => {
+      const res = await axiosSecure.get("/applications-summary");
+      return res.data; // expected: [{ name: 'Pending', value: 20 }, ...]
+    },
+  });
+
+  if (isLoading) return <p className="text-center">Loading chart...</p>;
+  if (isError) return <p className="text-center text-red-500">Failed to load chart data</p>;
+
   return (
     <div className="p-4">
       <h2 className="text-xl md:text-2xl font-bold mb-6 text-center">📊 Applications by Status</h2>
