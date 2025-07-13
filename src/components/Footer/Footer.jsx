@@ -3,12 +3,9 @@ import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn } from "react-icons/f
 
 const Footer = () => {
   return (
-    <footer className="footer sm:footer-horizontal bg-base-200 text-base-content p-10">
+    <footer className="footer sm:footer-horizontal  text-base-content  container max-w-7xl mx-auto px-2 lg:px-0">
       <aside className="max-w-sm space-y-3">
         <div className="flex items-center gap-2">
-          <svg width="40" height="40" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" className="fill-current text-primary">
-            <path d="M22.672 15.226l-2.432.811..." /> {/* Truncated for brevity */}
-          </svg>
           <span className="text-xl font-bold">ACME Industries Ltd.</span>
         </div>
         <p className="text-sm text-gray-500">Providing reliable tech since 1992</p>

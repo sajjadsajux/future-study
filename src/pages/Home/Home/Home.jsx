@@ -7,10 +7,10 @@ const Home = () => {
   return (
     <div>
       <Banner></Banner>
-      <section className="container max-w-7xl mx-auto">
+      <section className="container max-w-7xl mx-auto px-2 lg:px-0">
         <TopScholarships></TopScholarships>
       </section>
-      <section className="container max-w-7xl mx-auto">
+      <section className="container max-w-7xl mx-auto px-2 lg:px-0">
         <GetStarted></GetStarted>
       </section>
     </div>

@@ -20,7 +20,7 @@ const TopScholarships = () => {
   }, [axiosInstance]);
 
   return (
-    <section className="py-12 px-4 xl:px-0 ">
+    <section className="py-12  ">
       <h2 className="text-3xl font-bold text-center mb-8">Top Scholarships</h2>
       <div className="grid gap-6  md:grid-cols-3 lg:grid-cols-4">
         {scholarships.map((scholarship) => (

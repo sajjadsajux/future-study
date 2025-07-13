@@ -27,7 +27,7 @@ const GetStarted = () => {
 
   return (
     <section className="py-12 ">
-      <div className="container mx-auto px-4 md:px-0">
+      <div className="container mx-auto ">
         <h2 className="text-3xl sm:text-4xl font-bold text-center mb-10 text-gray-800">🎯 Get Started in 4 Simple Steps</h2>
 
         <div className="relative flex flex-col lg:flex-row items-center justify-between gap-6">

@@ -24,6 +24,10 @@ import AdminRoute from "../routes/AdminRoute";
 import MyReviews from "../pages/Dashboard/UserDashboard/MyReviews";
 import AllReviews from "../pages/Dashboard/ModeratorDashboard/AllReviews";
 import ManageUsers from "../pages/Dashboard/AdminDashboard/ManageUsers";
+import AboutUs from "../pages/AboutUs/AboutUs";
+import PrivacyPolicy from "../pages/PrivacyPolicy/PrivacyPolicy";
+import TermsOfService from "../pages/TermsOfService/TermsOfService";
+import Contact from "../pages/Contact/Contact";
 
 export const router = createBrowserRouter([
   {
@@ -37,7 +41,27 @@ export const router = createBrowserRouter([
       {
         path: "/all-scholarship",
         Component: AllScholarship,
-        // loader: () => fetch("./serviceCenters.json"),
+        // loader: () => fetch("./.json"),
+      },
+      {
+        path: "/about-us",
+        Component: AboutUs,
+        // loader: () => fetch("./.json"),
+      },
+      {
+        path: "/privacy-policy",
+        Component: PrivacyPolicy,
+        // loader: () => fetch("./.json"),
+      },
+      {
+        path: "/terms-of-service",
+        Component: TermsOfService,
+        // loader: () => fetch("./.json"),
+      },
+      {
+        path: "/contact",
+        Component: Contact,
+        // loader: () => fetch("./.json"),
       },
       {
         path: "/scholarship/:id",
