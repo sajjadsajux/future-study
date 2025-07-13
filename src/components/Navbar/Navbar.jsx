@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router";
 import useAuth from "../../hooks/useAuth";
+import ThemeToggle from "../../hooks/ThemeToggle";
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
@@ -72,6 +73,7 @@ const Navbar = () => {
             Login
           </NavLink>
         )}
+        <ThemeToggle></ThemeToggle>
       </div>
     </div>
   );
