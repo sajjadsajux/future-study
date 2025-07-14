@@ -3,7 +3,7 @@ import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn } from "react-icons/f
 
 const Footer = () => {
   return (
-    <footer className="footer sm:footer-horizontal  text-base-content  container max-w-7xl mx-auto px-2 lg:px-0">
+    <footer className="footer sm:footer-horizontal    container max-w-7xl mx-auto px-2 lg:px-0   ">
       <aside className="max-w-sm space-y-3">
         <div className="flex items-center gap-2">
           <span className="text-xl font-bold">ACME Industries Ltd.</span>

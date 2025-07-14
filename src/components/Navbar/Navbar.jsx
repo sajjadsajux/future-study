@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink } from "react-router";
 import useAuth from "../../hooks/useAuth";
 import ThemeToggle from "../../hooks/ThemeToggle";
+import FutureStudyLogo from "../shared/FutureStudyLogo";
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
@@ -43,43 +44,49 @@ const Navbar = () => {
   );
 
   return (
-    <div className="navbar   container max-w-7xl mx-auto  ">
-      <div className="navbar-start">
-        <div className="dropdown">
+    <div className="navbar   container max-w-7xl mx-auto px-0 ">
+      <div className="navbar-start ">
+        <div
+          className="dropdown mr-2 md:mr-0
+        
+        "
+        >
           <div tabIndex={0} role="button" className="  lg:hidden">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 md:h-8 w-5 md:w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" />
             </svg>
           </div>
-          <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52 z-10">
+          <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-36 z-10">
             {navItems}
           </ul>
         </div>
-        <NavLink to="/" className="text-xl font-bold">
-          FutureStudy
-        </NavLink>
+        <div>
+          <FutureStudyLogo width={200} height={100} />
+        </div>
       </div>
 
-      <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">{navItems}</ul>
+      <div className="navbar-center hidden lg:flex ">
+        <ul className="menu menu-horizontal px-1 text-sm md:text-base">{navItems}</ul>
       </div>
 
-      <div className="navbar-end space-x-3">
+      <div className="navbar-end space-x-3 ">
         {user ? (
           <>
-            <div className="flex items-center gap-2">
-              <span className="font-medium">{user.displayName || "User"}</span>
+            <div className="flex items-center gap-2 ">
+              <span className="text-base hidden md:block">{user.displayName || "User"}</span>
               {user.photoURL && <img src={user.photoURL} alt="Profile" className="w-8 h-8 rounded-full border" />}
-              <button onClick={handleLogOut} className="btn btn-secondary text-black btn-sm">
-                Log Out
+              <button onClick={handleLogOut} className="btn btn-secondary  btn-sm text-base">
+                Logout
               </button>
             </div>
           </>
         ) : (
-          <NavLink to="/login" className="btn btn-secondary text-black btn-sm">
+          <NavLink to="/login" className="btn btn-secondary  btn-sm text-base">
             Login
           </NavLink>
         )}
+      </div>
+      <div className="ml-2 mr-1 lg:mr-0">
         <ThemeToggle></ThemeToggle>
       </div>
     </div>
