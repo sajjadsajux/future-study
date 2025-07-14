@@ -5,6 +5,7 @@ import useAuth from "../../../hooks/useAuth";
 import useAxios from "../../../hooks/useAxios";
 import axios from "axios";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { toast, Zoom } from "react-toastify";
 
 const Register = () => {
   const location = useLocation();
@@ -19,7 +20,7 @@ const Register = () => {
     clearErrors,
   } = useForm();
 
-  const { createUser, updateUser } = useAuth();
+  const { createUser, updateUser, user } = useAuth();
   const axiosInstance = useAxios();
 
   const [profilePic, setProfilePic] = useState("");
@@ -91,6 +92,17 @@ const Register = () => {
         displayName: data.name,
         photoURL: profilePic,
       });
+      toast.success(`Account created successfully. Let’s begin your scholarship journey!`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Zoom,
+      });
 
       navigate(from, { replace: true });
     } catch (error) {
@@ -152,7 +164,7 @@ const Register = () => {
         <p className="mt-4 text-center">
           <small>
             Already have an account?{" "}
-            <Link className="btn btn-link" to="/login">
+            <Link to="/login" className="text-blue-500 font-bold underline hover:text-blue-600">
               Login
             </Link>
           </small>
