@@ -10,7 +10,7 @@ const Home = () => {
       <section className="container max-w-7xl mx-auto px-2 lg:px-0">
         <TopScholarships></TopScholarships>
       </section>
-      <section className="container max-w-7xl mx-auto px-2 lg:px-0">
+      <section className="container max-w-7xl mx-auto px-2 lg:px-0" id="getStarted">
         <GetStarted></GetStarted>
       </section>
     </div>
