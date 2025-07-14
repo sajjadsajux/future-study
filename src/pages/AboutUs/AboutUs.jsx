@@ -2,10 +2,10 @@ import React from "react";
 
 const AboutUs = () => {
   return (
-    <div className="max-w-7xl mx-auto p-6 min-h-screen">
+    <div className="max-w-7xl mx-auto py-10 min-h-screen">
       <div className="text-center mb-10">
         <h1 className="text-4xl font-bold mb-4">About Us</h1>
-        <p className="text-lg max-w-3xl mx-auto text-gray-700">We are on a mission to make education accessible for everyone by simplifying the scholarship search and application process.</p>
+        <p className="text-lg max-w-3xl mx-auto ">We are on a mission to make education accessible for everyone by simplifying the scholarship search and application process.</p>
       </div>
 
       <div className="grid md:grid-cols-2 gap-8 text-gray-700">
