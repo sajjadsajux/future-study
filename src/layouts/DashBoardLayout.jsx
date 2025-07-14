@@ -1,45 +1,62 @@
-// layout/DashboardLayout.jsx
 import React from "react";
 import useUserRole from "../hooks/useUserRole";
-import { FaHome, FaUser, FaUserShield, FaClipboardList, FaSignOutAlt } from "react-icons/fa";
 import { NavLink, Outlet } from "react-router";
+import { Home, User, ShieldCheck, ClipboardList, LogOut, Menu, Star, BookOpenCheck, Users, FilePlus, FileSearch } from "lucide-react";
+import ThemeToggle from "../hooks/ThemeToggle";
 
 const DashboardLayout = () => {
   const { role, roleLoading } = useUserRole();
 
-  if (roleLoading) return <h2>loading</h2>;
+  if (roleLoading) return <h2>Loading...</h2>;
 
   return (
     <div className="drawer lg:drawer-open">
       <input id="dashboard-drawer" type="checkbox" className="drawer-toggle" />
+
+      {/* Page Content */}
       <div className="drawer-content p-4">
+        {/* Toggle Button (only on small devices) */}
+        <div className="lg:hidden mb-4">
+          <label htmlFor="dashboard-drawer" className="btn btn-primary btn-sm">
+            <Menu className="w-5 h-5" />
+            Menu
+          </label>
+        </div>
+
         <Outlet />
       </div>
-      <div className="drawer-side">
+
+      {/* Sidebar */}
+      <div className="drawer-side z-50">
         <label htmlFor="dashboard-drawer" className="drawer-overlay"></label>
-        <ul className="menu p-4 w-80 bg-base-200 text-base-content">
-          <h2 className="text-xl font-bold mb-4">Dashboard</h2>
+        <ul className="menu p-4 w-56 md:w-56 lg:w-80  bg-primary text-gray-200">
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-xl font-bold  ">Dashboard</h2>
+            <ThemeToggle></ThemeToggle>
+          </div>
           <li>
             <NavLink to="/" className="flex gap-2 items-center">
-              <FaHome /> Home
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/dashboard/my-profile" className="flex gap-2 items-center">
-              <FaUser /> My Profile
+              <Home size={18} /> Home
             </NavLink>
           </li>
 
+          <li>
+            <NavLink to="/dashboard/my-profile" className="flex gap-2 items-center">
+              <User size={18} /> My Profile
+            </NavLink>
+          </li>
+
+          {/* Role-based items */}
           {role === "user" && (
             <>
               <li>
                 <NavLink to="/dashboard/my-applications" className="flex gap-2 items-center">
-                  <FaClipboardList /> My Application
+                  <BookOpenCheck size={18} /> My Applications
                 </NavLink>
               </li>
               <li>
                 <NavLink to="/dashboard/my-reviews" className="flex gap-2 items-center">
-                  <FaClipboardList /> My Reviews
+                  <Star size={18} /> My Reviews
                 </NavLink>
               </li>
             </>
@@ -49,22 +66,22 @@ const DashboardLayout = () => {
             <>
               <li>
                 <NavLink to="/dashboard/moderator/manage-scholarships" className="flex gap-2 items-center">
-                  <FaClipboardList /> Manage Scholarships
+                  <ClipboardList size={18} /> Manage Scholarships
                 </NavLink>
               </li>
               <li>
                 <NavLink to="/dashboard/moderator/all-reviews" className="flex gap-2 items-center">
-                  <FaClipboardList /> All Reviews
+                  <Star size={18} /> All Reviews
                 </NavLink>
               </li>
               <li>
                 <NavLink to="/dashboard/moderator/all-applied-scholarships" className="flex gap-2 items-center">
-                  <FaClipboardList /> All Applied Scholarship
+                  <FileSearch size={18} /> All Applications
                 </NavLink>
               </li>
               <li>
                 <NavLink to="/dashboard/moderator/add-scholarships" className="flex gap-2 items-center">
-                  <FaClipboardList /> Add Scholarships
+                  <FilePlus size={18} /> Add Scholarship
                 </NavLink>
               </li>
             </>
@@ -74,27 +91,27 @@ const DashboardLayout = () => {
             <>
               <li>
                 <NavLink to="/dashboard/admin/add-scholarships" className="flex gap-2 items-center">
-                  <FaClipboardList /> Add Scholarship
+                  <FilePlus size={18} /> Add Scholarship
                 </NavLink>
               </li>
               <li>
                 <NavLink to="/dashboard/admin/manage-scholarships" className="flex gap-2 items-center">
-                  <FaClipboardList /> Manage Scholarships
+                  <ClipboardList size={18} /> Manage Scholarships
                 </NavLink>
               </li>
               <li>
                 <NavLink to="/dashboard/admin/all-applied-scholarships" className="flex gap-2 items-center">
-                  <FaClipboardList /> Manage Applied Application
+                  <FileSearch size={18} /> Manage Applications
                 </NavLink>
               </li>
               <li>
                 <NavLink to="/dashboard/admin/manage-users" className="flex gap-2 items-center">
-                  <FaClipboardList /> Manage Users
+                  <Users size={18} /> Manage Users
                 </NavLink>
               </li>
               <li>
                 <NavLink to="/dashboard/admin/all-reviews" className="flex gap-2 items-center">
-                  <FaClipboardList /> Manage Reviews
+                  <Star size={18} /> Manage Reviews
                 </NavLink>
               </li>
             </>

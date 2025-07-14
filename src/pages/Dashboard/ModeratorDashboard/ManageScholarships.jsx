@@ -80,43 +80,49 @@ const ManageScholarships = () => {
             </tr>
           </thead>
           <tbody>
-            {scholarships.map((item, i) => (
-              <tr key={item._id}>
-                <td>{(page - 1) * limit + i + 1}</td>
-                <td>{item.scholarshipName}</td>
-                <td>{item.universityName}</td>
-                <td>{item.subjectCategory}</td>
-                <td>{item.degree}</td>
-                <td>${item.applicationFees}</td>
-                <td className="flex gap-2">
-                  <button
-                    className="btn btn-xs btn-info"
-                    onClick={() => setSelectedScholarship(item)} // 🆕 show in modal
-                  >
-                    <FaEye />
-                  </button>
-
-                  <button className="btn btn-xs btn-warning" onClick={() => setEditingScholarship(item)}>
-                    <FaEdit />
-                  </button>
-                  <button className="btn btn-xs btn-error" onClick={() => handleDelete(item._id)}>
-                    <FaTrash />
-                  </button>
+            {scholarships.length > 0 ? (
+              scholarships.map((item, i) => (
+                <tr key={item._id}>
+                  <td>{(page - 1) * limit + i + 1}</td>
+                  <td>{item.scholarshipName}</td>
+                  <td>{item.universityName}</td>
+                  <td>{item.subjectCategory}</td>
+                  <td>{item.degree}</td>
+                  <td>${item.applicationFees}</td>
+                  <td className="flex gap-2">
+                    <button className="btn btn-xs btn-info" onClick={() => setSelectedScholarship(item)}>
+                      <FaEye />
+                    </button>
+                    <button className="btn btn-xs btn-warning" onClick={() => setEditingScholarship(item)}>
+                      <FaEdit />
+                    </button>
+                    <button className="btn btn-xs btn-error" onClick={() => handleDelete(item._id)}>
+                      <FaTrash />
+                    </button>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="7" className="text-center text-gray-500 py-6">
+                  🎓 No scholarships available to display at the moment.
                 </td>
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
       </div>
 
       {/* Pagination UI */}
-      <div className="flex justify-center mt-6 gap-2">
-        {Array.from({ length: totalPages }, (_, i) => (
-          <button key={i} onClick={() => setPage(i + 1)} className={`btn btn-sm ${page === i + 1 ? "btn-primary" : "btn-outline"}`}>
-            {i + 1}
-          </button>
-        ))}
-      </div>
+      {scholarships.length > 0 && totalPages > 1 && (
+        <div className="flex justify-center mt-6 gap-2">
+          {Array.from({ length: totalPages }, (_, i) => (
+            <button key={i} onClick={() => setPage(i + 1)} className={`btn btn-sm ${page === i + 1 ? "btn-primary" : "btn-outline"}`}>
+              {i + 1}
+            </button>
+          ))}
+        </div>
+      )}
 
       {/* Edit Modal */}
       {editingScholarship && (
