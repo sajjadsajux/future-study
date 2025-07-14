@@ -28,20 +28,27 @@ const GetStarted = () => {
   return (
     <section className="py-12 ">
       <div className="container mx-auto ">
-        <h2 className="text-3xl sm:text-4xl font-bold text-center mb-10 text-gray-800">🎯 Get Started in 4 Simple Steps</h2>
+        <h2 className="text-3xl sm:text-4xl font-bold text-center mb-10 "> Get Started in 4 Simple Steps</h2>
 
-        <div className="relative flex flex-col lg:flex-row items-center justify-between gap-6">
+        <div className="relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {steps.map((step, index) => (
-            <div key={index} className="bg-white p-6 rounded-2xl shadow hover:shadow-md transition duration-300 text-center w-full lg:w-1/4 relative">
-              <div className="mb-2 text-sm text-gray-500 font-medium uppercase tracking-wide">Step {index + 1}</div>
-              {step.icon}
-              <h3 className="text-xl font-semibold mb-2 text-gray-800">{step.title}</h3>
-              <p className="text-sm text-gray-600">{step.description}</p>
+            <div key={index} className="relative group p-6 rounded-2xl bg-gradient-to-br from-white/20 to-white/5 backdrop-blur-lg border border-white/10 shadow-md hover:shadow-xl transition duration-300 text-center">
+              {/* Step Badge */}
+              <div className="absolute top-3 left-3 text-xs font-semibold text-white bg-primary px-3 py-1 rounded-full shadow">Step {index + 1}</div>
 
-              {/* Arrow (visible only on large screens) */}
+              {/* Icon */}
+              <div className="text-4xl text-primary mb-4 group-hover:scale-110 transition">{step.icon}</div>
+
+              {/* Title */}
+              <h3 className="text-lg font-bold  mb-2">{step.title}</h3>
+
+              {/* Description */}
+              <p className="text-sm ">{step.description}</p>
+
+              {/* Arrow Connector */}
               {index !== steps.length - 1 && (
-                <div className="hidden lg:block absolute right-[-28px] top-1/2 transform -translate-y-1/2">
-                  <span className="text-3xl text-gray-400">→</span>
+                <div className="hidden lg:block absolute right-[-18px] top-1/2 transform -translate-y-1/2 z-10">
+                  <div className="w-6 h-6 rounded-full bg-primary flex items-center justify-center text-white shadow-lg animate-pulse">→</div>
                 </div>
               )}
             </div>

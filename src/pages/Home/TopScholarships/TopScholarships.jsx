@@ -1,53 +1,77 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router";
 import useAxios from "../../../hooks/useAxios";
+import { FaStar } from "react-icons/fa";
+import { useQuery } from "@tanstack/react-query";
 
 const TopScholarships = () => {
-  const [scholarships, setScholarships] = useState([]);
   const axiosInstance = useAxios();
 
-  useEffect(() => {
-    const fetchTopScholarships = async () => {
-      try {
-        const res = await axiosInstance.get("/top-scholarships");
-        setScholarships(res.data);
-      } catch (error) {
-        console.error("Failed to fetch top scholarships:", error);
-      }
-    };
+  const fetchTopScholarships = async () => {
+    const res = await axiosInstance.get("/top-scholarships");
+    return res.data;
+  };
 
-    fetchTopScholarships();
-  }, [axiosInstance]);
+  const {
+    data: scholarships = [],
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["top-scholarships"],
+    queryFn: fetchTopScholarships,
+  });
+
+  if (isLoading) return <div className="text-center py-20">Loading scholarships...</div>;
+
+  if (isError) return <div className="text-center py-20 text-red-500">Failed to load scholarships.</div>;
 
   return (
-    <section className="py-12  ">
-      <h2 className="text-3xl font-bold text-center mb-8">Top Scholarships</h2>
-      <div className="grid gap-6  md:grid-cols-3 lg:grid-cols-4">
+    <section className="py-12">
+      <h2 className="text-3xl sm:text-4xl font-bold text-center mb-10">Top Scholarships</h2>
+
+      <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {scholarships.map((scholarship) => (
-          <div key={scholarship._id} className="card bg-base-100 shadow-lg">
-            <figure className="px-4 pt-4">
-              <img src={scholarship.universityImage} alt={scholarship.universityName} className="h-20 object-contain" />
-            </figure>
-            <div className="card-body">
-              <h3 className="card-title text-xl">{scholarship.universityName}</h3>
-              <p>
-                <strong>Category:</strong> {scholarship.scholarshipCategory}
-              </p>
-              <p>
-                <strong>Location:</strong> {scholarship.universityCountry}, {scholarship.universityCity}
-              </p>
-              <p>
-                <strong>Deadline:</strong> {new Date(scholarship.applicationDeadline).toLocaleDateString()}
-              </p>
-              <p>
-                <strong>Subject:</strong> {scholarship.subjectCategory}
-              </p>
-              <p>
-                <strong>Application Fee:</strong> ${scholarship.applicationFees}
-              </p>
-              <p className="text-yellow-500 font-semibold">⭐ {scholarship.avgRating || "No rating"}</p>
-              <div className="card-actions justify-end mt-2">
-                <Link to={`/scholarship/${scholarship._id}`} className="btn btn-secondary btn-sm text-black">
+          <div key={scholarship._id} className="bg-white/10 backdrop-blur-lg border border-white/10 rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition duration-300 flex flex-col">
+            {/* Content */}
+            <div className="p-6 flex flex-col justify-between flex-grow min-h-[320px]">
+              {/* Image Avatar */}
+              <div className="flex justify-center mb-4 relative">
+                <img src={scholarship.universityImage} alt={scholarship.universityName} className="w-20 h-20 object-contain rounded-full border-2 border-white/20 shadow-md" />
+                <span className="absolute -top-2 -right-2 px-3 py-1 rounded-full bg-secondary/90 text-white font-semibold text-xs shadow-lg">{scholarship.scholarshipCategory}</span>
+              </div>
+
+              {/* Text Content */}
+              <div className="text-center space-y-3">
+                <h3 className="text-xl font-bold text-primary">{scholarship.universityName}</h3>
+
+                <div className="flex flex-wrap justify-center gap-2 text-sm">
+                  <span className="px-3 py-1 rounded-full bg-white/20 font-semibold">
+                    {scholarship.universityCountry}, {scholarship.universityCity}
+                  </span>
+                </div>
+
+                <div className="text-sm space-y-1 pt-1">
+                  <p>
+                    <strong>Subject:</strong> {scholarship.subjectCategory}
+                  </p>
+                  <p>
+                    <strong>Deadline:</strong> <span className="text-red-500">{new Date(scholarship.applicationDeadline).toLocaleDateString()}</span>
+                  </p>
+                  <p>
+                    <strong>Application Fee:</strong> ${scholarship.applicationFees}
+                  </p>
+                  <p className="flex justify-center items-center">
+                    <strong>Rating:</strong>{" "}
+                    <span className="font-semibold inline-flex items-center gap-1">
+                      <FaStar className="text-yellow-400" /> {scholarship.avgRating || "No rating"}
+                    </span>
+                  </p>
+                </div>
+              </div>
+
+              {/* Button */}
+              <div className="mt-6">
+                <Link to={`/scholarship/${scholarship._id}`} className="btn btn-sm bg-primary text-white hover:bg-primary/90 rounded-md w-full">
                   Details
                 </Link>
               </div>
@@ -56,7 +80,6 @@ const TopScholarships = () => {
         ))}
       </div>
 
-      {/* All Scholarship Button */}
       <div className="text-center mt-10">
         <Link to="/all-scholarship" className="btn btn-primary text-white">
           All Scholarship
