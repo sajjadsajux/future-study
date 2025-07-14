@@ -28,6 +28,7 @@ const TopScholarships = () => {
   return (
     <section className="py-12">
       <h2 className="text-3xl sm:text-4xl font-bold text-center mb-10">Top Scholarships</h2>
+      <p className="text-center text-gray-600 max-w-3xl mx-auto mb-10"> Explore our curated list of prestigious scholarships to help you achieve your educational goals worldwide.</p>
 
       <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {scholarships.map((scholarship) => (
