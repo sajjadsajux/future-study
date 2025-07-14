@@ -44,7 +44,7 @@ const Navbar = () => {
   );
 
   return (
-    <div className="navbar   container max-w-7xl mx-auto px-0 ">
+    <div className="navbar   container max-w-7xl mx-auto px-0 py-0">
       <div className="navbar-start ">
         <div
           className="dropdown mr-2 md:mr-0
