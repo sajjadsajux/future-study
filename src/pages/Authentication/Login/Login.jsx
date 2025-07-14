@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import useAuth from "../../../hooks/useAuth";
-import { toast } from "react-toastify";
+import { toast, Zoom } from "react-toastify";
 import useAxios from "../../../hooks/useAxios";
 import { Link, useLocation, useNavigate } from "react-router";
 import SocialLogin from "../SocialLogin/SocialLogin";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const Login = () => {
   const { signInUser } = useAuth();
@@ -12,6 +13,9 @@ const Login = () => {
   const location = useLocation();
   const from = location.state?.from || "/";
   const axiosInstance = useAxios();
+  const { user } = useAuth();
+  const [loginError, setLoginError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const {
     register,
@@ -20,6 +24,8 @@ const Login = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
+    setLoginError(""); // reset previous error
+
     try {
       const result = await signInUser(data.email, data.password);
       // console.log(result.user);
@@ -31,10 +37,22 @@ const Login = () => {
 
       await axiosInstance.patch(`/users/${data.email}`, updateInfo);
 
+      toast.success(`Login successful! Great to see you again, ${user.displayName}`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Zoom,
+      });
+
       navigate(from, { replace: true });
     } catch (error) {
       console.error("Login error:", error.message);
-      toast.error("Invalid email or password");
+      setLoginError("Invalid email or password");
     }
   };
 
@@ -52,14 +70,19 @@ const Login = () => {
 
             {/* Password */}
             <label className="label">Password</label>
-            <input type="password" autoComplete="current-password" className="input input-bordered w-full" placeholder="Password" {...register("password", { required: "Password is required" })} />
+            <div className="relative">
+              <input type={showPassword ? "text" : "password"} autoComplete="current-password" className="input input-bordered w-full pr-10" placeholder="Password" {...register("password", { required: "Password is required" })} />
+              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 cursor-pointer" onClick={() => setShowPassword(!showPassword)}>
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </span>
+            </div>
             {errors.password && <p className="text-red-600">{errors.password.message}</p>}
 
             <div>
               <a className="link link-hover">Forgot password?</a>
             </div>
 
-            <button className="btn btn-secondary text-black mt-4 w-full">Login</button>
+            <button className="btn btn-primary  mt-4 w-full">Login</button>
           </fieldset>
         </form>
         <div className="text-center  flex justify-center">
@@ -67,7 +90,7 @@ const Login = () => {
         </div>
         <p className="mt-4 text-center">
           <small>
-            New to this site?{" "}
+            New to FutureStudy?{" "}
             <Link className="text-blue-500 font-semibold" to="/register">
               Register here
             </Link>
