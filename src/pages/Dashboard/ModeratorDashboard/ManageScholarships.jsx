@@ -65,7 +65,7 @@ const ManageScholarships = () => {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold mb-4">Manage Scholarships</h2>
+      <h2 className="text-3xl font-bold mb-6 text-center">Manage Scholarships</h2>
       <div className="overflow-x-auto">
         <table className="table table-zebra w-full">
           <thead>

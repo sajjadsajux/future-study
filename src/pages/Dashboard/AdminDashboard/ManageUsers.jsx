@@ -71,8 +71,8 @@ const ManageUsers = () => {
 
   return (
     <div className="p-6 container mx-auto">
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-2xl font-bold">Manage Users</h2>
+      <h2 className="text-3xl font-bold mb-6 text-center">Manage Users</h2>
+      <div className="flex justify-center items-center my-4">
         <select className="select select-bordered" value={roleFilter} onChange={(e) => setRoleFilter(e.target.value)}>
           <option value="all">All Roles</option>
           <option value="user">User</option>
