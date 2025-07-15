@@ -157,10 +157,10 @@ const ManageScholarships = () => {
               </div>
 
               <div className="modal-action">
-                <button type="submit" className="btn btn-success">
+                <button type="submit" className="btn btn-primary">
                   Save
                 </button>
-                <button type="button" className="btn" onClick={() => setEditingScholarship(null)}>
+                <button type="button" className="btn btn-secondary" onClick={() => setEditingScholarship(null)}>
                   Cancel
                 </button>
               </div>
@@ -173,7 +173,7 @@ const ManageScholarships = () => {
 
       {selectedScholarship && (
         <dialog open className="modal modal-open">
-          <div className="modal-box bg-white text-black">
+          <div className="modal-box dark:border-2 ">
             {" "}
             {/* ensure light background */}
             <h3 className="font-bold text-lg text-center mb-4">Scholarship Details</h3>
@@ -195,7 +195,7 @@ const ManageScholarships = () => {
               </p>
             </div>
             <div className="modal-action">
-              <button className="btn" onClick={() => setSelectedScholarship(null)}>
+              <button className="btn btn-secondary" onClick={() => setSelectedScholarship(null)}>
                 Close
               </button>
             </div>
