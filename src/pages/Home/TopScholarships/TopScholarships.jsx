@@ -45,9 +45,9 @@ const TopScholarships = () => {
               <div className="text-center space-y-3">
                 <h3 className="text-xl font-bold text-primary">{scholarship.universityName}</h3>
 
-                <div className="flex flex-wrap justify-center  text-sm">
-                  <span className="px-3  rounded-full bg-white/20 font-semibold">{scholarship.universityCity}</span>
-                  <span className="px-3  rounded-full bg-white/20 font-semibold">{scholarship.universityCountry}</span>
+                <div className="flex flex-wrap justify-center  text-sm px-3">
+                  <span className=" px-1 rounded-full bg-white/20 font-semibold">{scholarship.universityCity},</span>
+                  <span className="  rounded-full bg-white/20 font-semibold">{scholarship.universityCountry}</span>
                 </div>
 
                 <div className="text-sm space-y-1 pt-1">

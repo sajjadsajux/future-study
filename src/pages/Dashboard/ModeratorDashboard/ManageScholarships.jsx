@@ -11,7 +11,7 @@ const ManageScholarships = () => {
   const [selectedScholarship, setSelectedScholarship] = useState(null); // 🆕 for viewing details
 
   const [page, setPage] = useState(1); // 🆕 pagination state
-  const limit = 10;
+  const limit = 13;
 
   const {
     data: response = {},
@@ -64,11 +64,11 @@ const ManageScholarships = () => {
   if (isLoading) return <p>Loading scholarships...</p>;
 
   return (
-    <div className="p-4">
+    <div className="p-4 ">
       <h2 className="text-3xl font-bold mb-6 text-center">Manage Scholarships</h2>
       <div className="overflow-x-auto">
-        <table className="table table-zebra w-full">
-          <thead>
+        <table className="table  w-full dark:bg-gray-700">
+          <thead className="dark:text-white">
             <tr>
               <th>#</th>
               <th>Scholarship Name</th>

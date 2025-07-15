@@ -4,6 +4,7 @@ import TopScholarships from "../TopScholarships/TopScholarships";
 import GetStarted from "../GetStarted/GetStarted";
 import FeaturedUniversities from "../FeaturedUniversities/FeaturedUniversities";
 import SuccessStories from "../SuccessReviews/SuccessReviews";
+import PlatformStats from "../PlatformStats.jsx/PlatformStats";
 
 const Home = () => {
   return (
@@ -12,11 +13,14 @@ const Home = () => {
       <section className="container max-w-7xl mx-auto px-2 lg:px-0">
         <TopScholarships></TopScholarships>
       </section>
-      <section className="container max-w-7xl mx-auto px-2 lg:px-0" id="getStarted">
-        <GetStarted></GetStarted>
+      <section className="container max-w-7xl mx-auto px-2 lg:px-0">
+        <PlatformStats></PlatformStats>
       </section>
       <section className="container max-w-7xl mx-auto px-2 lg:px-0">
         <FeaturedUniversities></FeaturedUniversities>
+      </section>
+      <section className="container max-w-7xl mx-auto px-2 lg:px-0" id="getStarted">
+        <GetStarted></GetStarted>
       </section>
       <section className="container max-w-7xl mx-auto px-2 lg:px-0">
         <SuccessStories></SuccessStories>
