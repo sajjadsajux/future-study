@@ -76,8 +76,10 @@ const Register = () => {
 
     try {
       const result = await createUser(data.email, data.password);
+      const firebaseUser = result.user;
 
       const userProfile = {
+        firebaseUid: firebaseUser.uid, // Add Firebase UID here
         email: data.email,
         role: "user",
         created_at: new Date().toISOString(),

@@ -19,7 +19,7 @@ const MyProfile = () => {
     : "N/A";
 
   return (
-    <div>
+    <div className="py-4">
       <h2 className="text-3xl font-bold mb-6 text-center">My Profile</h2>
       <div className="max-w-2xl mx-auto   shadow-xl rounded-2xl mt-10 overflow-hidden  dark:border-2">
         <div className="grid grid-cols-1 lg:grid-cols-2">

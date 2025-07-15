@@ -64,7 +64,7 @@ const ManageScholarships = () => {
   if (isLoading) return <p>Loading scholarships...</p>;
 
   return (
-    <div>
+    <div className="p-4">
       <h2 className="text-3xl font-bold mb-6 text-center">Manage Scholarships</h2>
       <div className="overflow-x-auto">
         <table className="table table-zebra w-full">
