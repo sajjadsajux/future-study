@@ -61,8 +61,8 @@ const EditApplication = () => {
   if (isLoading) return <p>Loading application...</p>;
 
   return (
-    <div className="max-w-xl mx-auto p-6 bg-white rounded shadow">
-      <h2 className="text-2xl font-bold mb-4">Edit Application</h2>
+    <div className="max-w-xl mx-auto p-6  rounded shadow dark:border-2">
+      <h2 className="text-2xl font-bold mb-4 text-center">Edit Application</h2>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <div>

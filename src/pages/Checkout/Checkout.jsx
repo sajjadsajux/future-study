@@ -68,6 +68,9 @@ const Checkout = () => {
       scholarshipName: scholarship.scholarshipName,
       universityName: scholarship.universityName,
       universityId: scholarship.universityId,
+      universityCity: scholarship.universityCity,
+      universityCountry: scholarship.universityCountry,
+
       scholarshipCategory: scholarship.scholarshipCategory,
       subjectCategory: scholarship.subjectCategory,
       applicationFees: scholarship.applicationFees,

@@ -147,11 +147,11 @@ const MyApplications = () => {
 
   return (
     <div className="p-6 container mx-auto">
-      <h2 className="text-3xl font-bold mb-6">My Applications</h2>
+      <h2 className="text-3xl font-bold mb-6 text-center">My Applications</h2>
       <div className="overflow-x-auto">
-        <table className="table w-full border border-gray-300">
+        <table className="table w-full border border-gray-300 dark:bg-gray-600">
           <thead>
-            <tr className="bg-base-200">
+            <tr className="dark:text-white">
               <th className="p-2 border">University Name</th>
               <th className="p-2 border">University Address</th>
               <th className="p-2 border">Feedback</th>
@@ -183,36 +183,34 @@ const MyApplications = () => {
                   <td className="border p-2">${app.applicationFees}</td>
                   <td className="border p-2">${app.serviceCharge}</td>
                   <td className="border p-2 capitalize">{app.applicationStatus || "pending"}</td>
-                  <td className="border p-2 space-x-1">
-                    {/* Details */}
-                    <button
-                      className="btn btn-sm btn-info"
-                      onClick={() => {
-                        window.location.href = `/dashboard/scholarships-details/${app.scholarshipId}`;
-                      }}
-                      title="View scholarship details"
-                    >
-                      Details
-                    </button>
+                  <td className="border p-2">
+                    <div className="flex flex-wrap md:flex-nowrap gap-1 justify-center">
+                      <button
+                        className="btn btn-xs md:btn-sm btn-info"
+                        onClick={() => {
+                          window.location.href = `/dashboard/scholarships-details/${app.scholarshipId}`;
+                        }}
+                        title="View scholarship details"
+                      >
+                        Details
+                      </button>
 
-                    {/* Edit */}
-                    <button className={`btn btn-sm btn-warning ${isEditDisabled(app.applicationStatus) ? "opacity-50 cursor-not-allowed" : ""}`} title={isEditDisabled(app.applicationStatus) ? "You can only edit if the status is pending" : "Edit application"} onClick={() => handleEditClick(app)}>
-                      Edit
-                    </button>
+                      <button
+                        className={`btn btn-xs md:btn-sm btn-warning ${isEditDisabled(app.applicationStatus) ? "opacity-50 cursor-not-allowed" : ""}`}
+                        title={isEditDisabled(app.applicationStatus) ? "You can only edit if the status is pending" : "Edit application"}
+                        onClick={() => handleEditClick(app)}
+                      >
+                        Edit
+                      </button>
 
-                    {/* Cancel */}
-                    <button
-                      className={`btn btn-sm btn-error ${isCancelDisabled(app.applicationStatus) ? "opacity-50 cursor-not-allowed" : ""}`}
-                      title={app.applicationStatus === "cancelled" ? "Application already cancelled" : app.applicationStatus === "rejected" ? "Application rejected" : app.applicationStatus === "completed" ? "Completed applications cannot be cancelled" : "Cancel application"}
-                      onClick={() => handleCancelClick(app)}
-                    >
-                      Cancel
-                    </button>
+                      <button className={`btn btn-xs md:btn-sm btn-error ${isCancelDisabled(app.applicationStatus) ? "opacity-50 cursor-not-allowed" : ""}`} title="Cancel application" onClick={() => handleCancelClick(app)}>
+                        Cancel
+                      </button>
 
-                    {/* Add Review */}
-                    <button className={`btn btn-sm btn-primary ${isReviewDisabled(app.applicationStatus) ? "opacity-50 cursor-not-allowed" : ""}`} title={isReviewDisabled(app.applicationStatus) ? "You can only review completed applications" : "Add review"} onClick={() => handleReviewClick(app)}>
-                      Add Review
-                    </button>
+                      <button className={`btn btn-xs md:btn-sm btn-primary ${isReviewDisabled(app.applicationStatus) ? "opacity-50 cursor-not-allowed" : ""}`} title="Add review" onClick={() => handleReviewClick(app)}>
+                        Review
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))
