@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 
 import { Elements } from "@stripe/react-stripe-js";
@@ -17,7 +17,7 @@ const Checkout = () => {
   const { id } = useParams(); // scholarship id
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth(); // assuming user contains at least user.email
-
+  const navigate = useNavigate();
   // State to hold user data fetched from backend
   const [userData, setUserData] = useState(null);
 
@@ -87,14 +87,24 @@ const Checkout = () => {
 
   if (paymentDone)
     return (
-      <div className="text-center mt-20">
-        <h2 className="text-2xl font-semibold mb-4">Thank you for applying!</h2>
+      <div className="text-center  min-h-screen flex flex-col items-center justify-center gap-6">
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16 text-green-500 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+        </svg>
+
+        <h2 className="text-2xl font-semibold">Thank you for applying!</h2>
         <p>Your application and payment were successful.</p>
+
+        <button onClick={() => navigate("/dashboard/my-applications")} className="mt-4 bg-primary text-white px-6 py-2 rounded hover:bg-primary-dark transition">
+          Go to My Applications
+        </button>
+
+        <p className="text-sm text-gray-500 mt-4">You will receive a confirmation email shortly.</p>
       </div>
     );
 
   return (
-    <div className="container mx-auto p-4">
+    <div className="container mx-auto p-4 max-w-7xl min-h-screen">
       {!applicationData ? (
         <ApplicationForm scholarship={scholarship} onSubmit={handleFormSubmit} />
       ) : (

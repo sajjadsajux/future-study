@@ -41,7 +41,7 @@ const ApplicationForm = ({ scholarship, onSubmit }) => {
       setPhotoURL("");
       setPhotoSuccess("");
       setError("photo", { type: "manual", message: "Photo upload failed" });
-      toast.error("Photo upload failed");
+      toast.error("Photo upload failed", error);
     } finally {
       setUploadingPhoto(false);
     }
@@ -56,7 +56,7 @@ const ApplicationForm = ({ scholarship, onSubmit }) => {
   };
 
   return (
-    <div className="min-h-screen py-10">
+    <div className="min-h-screen  py-12">
       <form onSubmit={handleSubmit(onFormSubmit)} className="max-w-3xl mx-auto p-4  rounded shadow space-y-2 dark:border-2">
         <h2 className="text-2xl md:text-3xl font-bold text-primary mb-6 text-center">Complete Your Application</h2>
 
@@ -119,7 +119,7 @@ const ApplicationForm = ({ scholarship, onSubmit }) => {
           <div>
             <label className="label">SSC Result</label>
             <input
-              type="text"
+              type="number"
               placeholder="GPA"
               className="input input-bordered w-full"
               {...register("sscResult", {
@@ -138,7 +138,7 @@ const ApplicationForm = ({ scholarship, onSubmit }) => {
           <div>
             <label className="label">HSC Result</label>
             <input
-              type="text"
+              type="number"
               placeholder="GPA"
               className="input input-bordered w-full"
               {...register("hscResult", {
