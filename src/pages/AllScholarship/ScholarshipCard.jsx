@@ -3,7 +3,7 @@ import { Link } from "react-router";
 import { FormatDate } from "../../utilities/FormateDate";
 
 const ScholarshipCard = ({ scholarship }) => {
-  const { _id, scholarshipName, universityName, universityImage, universityCity, universityCountry, subjectCategory, scholarshipCategory, applicationDeadline, applicationFees, rating, degree } = scholarship;
+  const { _id, scholarshipName, universityName, universityImage, universityCity, universityCountry, subjectCategory, scholarshipCategory, applicationDeadline, applicationFees, degree, avgRating } = scholarship;
 
   return (
     <div className="relative rounded-2xl shadow-md border hover:shadow-xl transition duration-300 overflow-hidden flex flex-col ">
@@ -25,7 +25,7 @@ const ScholarshipCard = ({ scholarship }) => {
           <p className="text-sm  mb-2 text-center">
             {universityCity}, {universityCountry}
           </p>
-          <p className="text-sm mb-4 text-center font-semibold outline">{scholarshipName}</p>
+          <p className="text-sm mb-4 text-center font-semibold ">{scholarshipName}</p>
 
           {/* Info Grid */}
           <div className="grid grid-cols-2 gap-y-2 gap-x-4 text-sm">
@@ -39,7 +39,7 @@ const ScholarshipCard = ({ scholarship }) => {
               <span className="font-semibold">Fee:</span> ${applicationFees}
             </p>
             <p>
-              <span className="font-semibold">Rating:</span> ⭐ {rating || "N/A"}/5
+              <span className="font-semibold">Rating:</span> ⭐ {avgRating || "N/A"}/5
             </p>
           </div>
 

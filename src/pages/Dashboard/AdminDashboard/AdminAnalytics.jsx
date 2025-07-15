@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from "recharts";
+import CommonLoader from "../../../components/shared/CommonLoader";
 
 const COLORS = ["#FFBB28", "#00C49F", "#0088FE", "#FF4B4B"];
 
@@ -19,7 +20,7 @@ const AdminAnalytics = () => {
     },
   });
 
-  if (isLoading) return <p className="text-center">Loading chart...</p>;
+  if (isLoading) return <CommonLoader></CommonLoader>;
   if (isError) return <p className="text-center text-red-500">Failed to load chart data</p>;
 
   return (

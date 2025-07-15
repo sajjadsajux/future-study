@@ -1,13 +1,14 @@
 import React from "react";
 import useAuth from "../../hooks/useAuth";
 import useUserRole from "../../hooks/useUserRole";
+import CommonLoader from "../../components/shared/CommonLoader";
 
 const MyProfile = () => {
   const { user } = useAuth();
   const { role, roleLoading } = useUserRole();
 
   if (!user || roleLoading) {
-    return <div className="text-center text-lg py-10">Loading your profile...</div>;
+    return <CommonLoader></CommonLoader>;
   }
 
   const joinedDate = user?.metadata?.creationTime

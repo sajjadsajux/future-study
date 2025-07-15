@@ -5,6 +5,7 @@ import Modal from "react-modal";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useAuth from "../../../hooks/useAuth";
 import { useNavigate } from "react-router";
+import CommonLoader from "../../../components/shared/CommonLoader";
 
 Modal.setAppElement("#root");
 
@@ -142,7 +143,7 @@ const MyApplications = () => {
     reviewMutation.mutate(payload);
   };
 
-  if (isPending) return <p>Loading applications...</p>;
+  if (isPending) return <CommonLoader></CommonLoader>;
   if (error) return <p>Error loading applications.</p>;
 
   return (

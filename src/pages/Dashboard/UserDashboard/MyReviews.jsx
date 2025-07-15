@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 import Modal from "react-modal";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useAuth from "../../../hooks/useAuth";
+import CommonLoader from "../../../components/shared/CommonLoader";
 
 Modal.setAppElement("#root");
 
@@ -92,7 +93,7 @@ const MyReviews = () => {
     });
   };
 
-  if (isPending) return <p>Loading reviews...</p>;
+  if (isPending) return <CommonLoader></CommonLoader>;
   if (error) return <p>Error loading reviews.</p>;
 
   return (

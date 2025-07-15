@@ -2,6 +2,7 @@ import React from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import CommonLoader from "../../../components/shared/CommonLoader";
 
 const AllReviews = () => {
   const axiosSecure = useAxiosSecure();
@@ -46,7 +47,7 @@ const AllReviews = () => {
     });
   };
 
-  if (isLoading) return <p>Loading reviews...</p>;
+  if (isLoading) return <CommonLoader></CommonLoader>;
   if (error) return <p>Error loading reviews.</p>;
 
   return (

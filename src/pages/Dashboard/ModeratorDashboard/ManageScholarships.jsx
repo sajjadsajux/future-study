@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import { FaEdit, FaTrash, FaEye } from "react-icons/fa";
+import CommonLoader from "../../../components/shared/CommonLoader";
 
 const ManageScholarships = () => {
   // const navigate = useNavigate();
@@ -61,7 +62,7 @@ const ManageScholarships = () => {
     refetch();
   };
 
-  if (isLoading) return <p>Loading scholarships...</p>;
+  if (isLoading) return <CommonLoader></CommonLoader>;
 
   return (
     <div className="p-4 ">

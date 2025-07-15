@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import useAxios from "../../hooks/useAxios";
 import ScholarshipCard from "./ScholarshipCard";
+import BookLoader from "../../components/shared/BookLoader";
+import CommonLoader from "../../components/shared/CommonLoader";
 
 const AllScholarship = () => {
   const axiosInstance = useAxios();
@@ -44,7 +46,7 @@ const AllScholarship = () => {
       </div>
 
       {isLoading ? (
-        <p className="text-center">Loading...</p>
+        <CommonLoader></CommonLoader>
       ) : scholarships.length === 0 ? (
         <p className="text-center text-gray-500">No scholarships found.</p>
       ) : (
@@ -57,7 +59,7 @@ const AllScholarship = () => {
 
           {/* Pagination */}
           <div className="flex justify-center mt-10 gap-4 items-center">
-            <button className="btn btn-sm" onClick={() => setPage((prev) => Math.max(prev - 1, 1))} disabled={currentPage === 1}>
+            <button className="btn btn-sm btn-primary" onClick={() => setPage((prev) => Math.max(prev - 1, 1))} disabled={currentPage === 1}>
               Prev
             </button>
 
@@ -65,7 +67,7 @@ const AllScholarship = () => {
               Page {currentPage} of {totalPages}
             </span>
 
-            <button className="btn btn-sm" onClick={() => setPage((prev) => Math.min(prev + 1, totalPages))} disabled={currentPage === totalPages}>
+            <button className="btn btn-sm btn-secondary" onClick={() => setPage((prev) => Math.min(prev + 1, totalPages))} disabled={currentPage === totalPages}>
               Next
             </button>
           </div>

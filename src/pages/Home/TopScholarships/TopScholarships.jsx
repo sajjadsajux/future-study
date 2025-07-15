@@ -3,6 +3,7 @@ import { Link } from "react-router";
 import useAxios from "../../../hooks/useAxios";
 import { FaStar } from "react-icons/fa";
 import { useQuery } from "@tanstack/react-query";
+import CommonLoader from "../../../components/shared/CommonLoader";
 
 const TopScholarships = () => {
   const axiosInstance = useAxios();
@@ -21,7 +22,12 @@ const TopScholarships = () => {
     queryFn: fetchTopScholarships,
   });
 
-  if (isLoading) return <div className="text-center py-20">Loading scholarships...</div>;
+  if (isLoading)
+    return (
+      <div className="text-center py-20">
+        <CommonLoader></CommonLoader>
+      </div>
+    );
 
   if (isError) return <div className="text-center py-20 text-red-500">Failed to load scholarships.</div>;
 

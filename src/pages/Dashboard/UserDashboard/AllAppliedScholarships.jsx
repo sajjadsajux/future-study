@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { FaEye, FaRegTimesCircle, FaCommentDots } from "react-icons/fa";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
+import CommonLoader from "../../../components/shared/CommonLoader";
 
 const AllAppliedScholarships = () => {
   const axiosSecure = useAxiosSecure();
@@ -93,27 +94,27 @@ const AllAppliedScholarships = () => {
       </div>
 
       {isLoading ? (
-        <p className="text-center">Loading...</p>
+        <CommonLoader></CommonLoader>
       ) : (
         <div className="overflow-x-auto">
-          <table className="table table-zebra w-full dark:bg-gray-700">
+          <table className="table  w-full dark:bg-gray-700">
             <thead>
-              <tr className="dark:text-white text-center">
+              <tr className="dark:text-white ">
                 <th>#</th>
                 <th>University</th>
                 <th>Applicant</th>
                 <th>Degree</th>
-                <th>Status</th>
+                <th className="text-center">Status</th>
                 <th className="text-center">Actions</th>
               </tr>
             </thead>
             <tbody>
               {applications.map((app, index) => (
                 <tr key={app._id}>
-                  <td className="text-center align-middle">{index + 1}</td>
-                  <td className="text-center align-middle">{app.universityName}</td>
-                  <td className="text-center align-middle">{app.userEmail}</td>
-                  <td className="text-center align-middle">{app.applyingDegree}</td>
+                  <td className="">{index + 1}</td>
+                  <td className="">{app.universityName}</td>
+                  <td className="">{app.userEmail}</td>
+                  <td className="">{app.applyingDegree}</td>
                   <td className="text-center align-middle">
                     <span className={`badge ${app.applicationStatus === "pending" ? "badge-warning" : app.applicationStatus === "completed" ? "badge-success" : app.applicationStatus === "rejected" ? "badge-error" : "badge-info"}`}>{app.applicationStatus}</span>
                   </td>

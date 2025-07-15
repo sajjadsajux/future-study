@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import CommonLoader from "../../../components/shared/CommonLoader";
 
 const EditApplication = () => {
   const { id } = useParams();
@@ -58,7 +59,7 @@ const EditApplication = () => {
     }
   };
 
-  if (isLoading) return <p>Loading application...</p>;
+  if (isLoading) return <CommonLoader></CommonLoader>;
 
   return (
     <div className="max-w-xl mx-auto p-6  rounded shadow dark:border-2">

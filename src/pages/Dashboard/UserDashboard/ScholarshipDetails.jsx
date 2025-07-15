@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate, useParams } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import CommonLoader from "../../../components/shared/CommonLoader";
 
 const ScholarshipDetails = () => {
   const { id } = useParams();
@@ -19,7 +20,7 @@ const ScholarshipDetails = () => {
     },
   });
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <CommonLoader></CommonLoader>;
   if (error) return <p>Error loading scholarship details</p>;
 
   return (

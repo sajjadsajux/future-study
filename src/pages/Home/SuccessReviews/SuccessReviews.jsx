@@ -6,6 +6,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
+import CommonLoader from "../../../components/shared/CommonLoader";
 
 const SuccessReviews = () => {
   const axios = useAxios();
@@ -18,7 +19,12 @@ const SuccessReviews = () => {
     },
   });
 
-  if (isLoading) return <div className="text-center py-10">Loading success stories...</div>;
+  if (isLoading)
+    return (
+      <div className="text-center py-10">
+        <CommonLoader></CommonLoader>
+      </div>
+    );
   if (!reviews.length) return <div className="text-center text-gray-500 py-10">No success stories available right now.</div>;
 
   return (

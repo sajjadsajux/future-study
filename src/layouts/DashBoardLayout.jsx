@@ -3,11 +3,12 @@ import useUserRole from "../hooks/useUserRole";
 import { NavLink, Outlet } from "react-router";
 import { Home, User, ShieldCheck, ClipboardList, LogOut, Menu, Star, BookOpenCheck, Users, FilePlus, FileSearch } from "lucide-react";
 import ThemeToggle from "../hooks/ThemeToggle";
+import CommonLoader from "../components/shared/CommonLoader";
 
 const DashboardLayout = () => {
   const { role, roleLoading } = useUserRole();
 
-  if (roleLoading) return <h2>Loading...</h2>;
+  if (roleLoading) return <CommonLoader></CommonLoader>;
 
   return (
     <div className="drawer lg:drawer-open">

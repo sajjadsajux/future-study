@@ -10,6 +10,7 @@ import ApplicationForm from "../ApplicationForm/ApplicationForm";
 import PaymentForm from "../PaymentForm/PaymentForm";
 import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import CommonLoader from "../../components/shared/CommonLoader";
 
 const stripePromise = loadStripe(import.meta.env.VITE_PUBLISHABLE_KEY);
 
@@ -47,7 +48,7 @@ const Checkout = () => {
   const [applicationData, setApplicationData] = useState(null);
   const [paymentDone, setPaymentDone] = useState(false);
 
-  if (scholarshipLoading || !userData) return <p>Loading...</p>;
+  if (scholarshipLoading || !userData) return <CommonLoader></CommonLoader>;
 
   // Called after form submit (before payment)
   const handleFormSubmit = (formData) => {

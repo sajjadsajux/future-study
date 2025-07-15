@@ -3,12 +3,15 @@ import { useParams, useNavigate } from "react-router"; // useNavigate added
 import { useQuery } from "@tanstack/react-query";
 import useAxios from "../../hooks/useAxios";
 import useAuth from "../../hooks/useAuth";
+
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
-import { Navigation } from "swiper/modules";
+
 import { toast } from "react-toastify";
 import { FormatDate } from "../../utilities/FormateDate";
+import BookLoader from "../../components/shared/BookLoader";
 
 const ScholarshipDetail = () => {
   const { id } = useParams();
@@ -59,7 +62,7 @@ const ScholarshipDetail = () => {
     navigate(`/checkout/${id}`);
   };
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <BookLoader></BookLoader>;
 
   return (
     <div className="container mx-auto max-w-7xl px-4 lg:px-0 py-8 min-h-screen">
@@ -128,37 +131,46 @@ const ScholarshipDetail = () => {
       </div>
 
       {/* Reviews Section */}
-      <div className="mt-10">
-        <h3 className="text-2xl font-semibold mb-4">User Reviews</h3>
+      <div className="my-10 w-full ">
+        <h3 className="text-2xl font-semibold mb-4 text-center">User Reviews</h3>
+
         {reviews.length > 0 ? (
           <Swiper
             navigation
             modules={[Navigation]}
-            spaceBetween={20}
+            spaceBetween={24}
             slidesPerView={1}
             breakpoints={{
+              640: { slidesPerView: 1 },
               768: { slidesPerView: 2 },
-              1024: { slidesPerView: 3 },
+              1024: { slidesPerView: 4 },
             }}
+            className=""
           >
             {reviews.map((review) => (
               <SwiperSlide key={review._id}>
-                <div className="p-4 border rounded-md shadow-md bg-white h-full flex flex-col gap-2">
-                  <div className="flex items-center gap-3">
-                    <img src={review.userImage} alt="Reviewer" className="w-10 h-10 rounded-full" />
+                <div className="h-[300px] my-10  dark:border-2 rounded-xl shadow-lg p-6 mx-2 flex flex-col justify-between ">
+                  <div className="flex items-center gap-4 ">
+                    <img src={review.userImage} alt={review.userName} className="w-12 h-12 rounded-full object-cover border" />
                     <div>
-                      <p className="font-bold">{review.userName}</p>
-                      <p className="text-sm text-gray-500">{new Date(review.date).toDateString()}</p>
+                      <p className="font-semibold">{review.userName}</p>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">{FormatDate(review.reviewDate)}</p>
                     </div>
                   </div>
-                  <p className="text-yellow-500">Rating: {review.rating}★</p>
-                  <p>{review.comment}</p>
+
+                  {/* Comment with vertical scroll */}
+                  <div className="overflow-y-auto max-h-[120px] text-sm text-gray-700 dark:text-gray-300 italic ">“{review.comment}”</div>
+
+                  <div className="flex items-center justify-between text-sm text-gray-600 dark:text-gray-400 ">
+                    <span>🎓 {review.scholarshipName}</span>
+                    <span className="text-yellow-500 font-semibold">⭐ {review.rating}</span>
+                  </div>
                 </div>
               </SwiperSlide>
             ))}
           </Swiper>
         ) : (
-          <p>No reviews available</p>
+          <p className="text-center text-gray-500">No reviews available</p>
         )}
       </div>
     </div>
