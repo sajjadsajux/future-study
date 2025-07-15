@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import BookLoader from "../../../components/shared/BookLoader";
 
 const ManageUsers = () => {
   const axiosSecure = useAxiosSecure();
@@ -65,7 +66,7 @@ const ManageUsers = () => {
       }
     });
   };
-  if (isLoading) return <p>Loading users...</p>;
+  if (isLoading) return <BookLoader></BookLoader>;
 
   const filteredUsers = roleFilter === "all" ? users : users.filter((u) => u.role === roleFilter);
 
