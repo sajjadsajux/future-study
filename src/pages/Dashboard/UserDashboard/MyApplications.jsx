@@ -149,7 +149,7 @@ const MyApplications = () => {
     <div className="p-6 container mx-auto">
       <h2 className="text-3xl font-bold mb-6 text-center">My Applications</h2>
       <div className="overflow-x-auto">
-        <table className="table w-full border border-gray-300 dark:bg-gray-600">
+        <table className="table w-full border border-gray-300 dark:bg-gray-700">
           <thead>
             <tr className="dark:text-white">
               <th className="p-2 border">University Name</th>
@@ -160,7 +160,7 @@ const MyApplications = () => {
               <th className="p-2 border">Fees</th>
               <th className="p-2 border">Service</th>
               <th className="p-2 border">Status</th>
-              <th className="p-2 border">Actions</th>
+              <th className="p-2 border text-center">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -220,7 +220,7 @@ const MyApplications = () => {
       </div>
 
       {/* Review Modal */}
-      <Modal isOpen={reviewModalOpen} onRequestClose={() => setReviewModalOpen(false)} contentLabel="Add Review" className="max-w-lg mx-auto p-6 bg-white rounded shadow-lg mt-20" overlayClassName="fixed inset-0 bg-glass bg-opacity-40 backdrop-blur-sm flex justify-center items-start">
+      <Modal isOpen={reviewModalOpen} onRequestClose={() => setReviewModalOpen(false)} contentLabel="Add Review" className="max-w-lg mx-auto p-6  rounded shadow-lg mt-20 dark:border-white" overlayClassName="fixed inset-0   bg-opacity-40 backdrop-blur-sm flex justify-center items-center ">
         <h2 className="text-2xl font-bold mb-4">Add Review</h2>
         <form onSubmit={submitReview} className="flex flex-col gap-4">
           <label>

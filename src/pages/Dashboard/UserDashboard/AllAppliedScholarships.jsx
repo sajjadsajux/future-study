@@ -96,68 +96,70 @@ const AllAppliedScholarships = () => {
         <p className="text-center">Loading...</p>
       ) : (
         <div className="overflow-x-auto">
-          <table className="table table-zebra w-full">
+          <table className="table table-zebra w-full dark:bg-gray-700">
             <thead>
-              <tr>
+              <tr className="dark:text-white text-center">
                 <th>#</th>
                 <th>University</th>
                 <th>Applicant</th>
                 <th>Degree</th>
                 <th>Status</th>
-                <th>Actions</th>
+                <th className="text-center">Actions</th>
               </tr>
             </thead>
             <tbody>
               {applications.map((app, index) => (
                 <tr key={app._id}>
-                  <td>{index + 1}</td>
-                  <td>{app.universityName}</td>
-                  <td>{app.userEmail}</td>
-                  <td>{app.applyingDegree}</td>
-                  <td>
+                  <td className="text-center align-middle">{index + 1}</td>
+                  <td className="text-center align-middle">{app.universityName}</td>
+                  <td className="text-center align-middle">{app.userEmail}</td>
+                  <td className="text-center align-middle">{app.applyingDegree}</td>
+                  <td className="text-center align-middle">
                     <span className={`badge ${app.applicationStatus === "pending" ? "badge-warning" : app.applicationStatus === "completed" ? "badge-success" : app.applicationStatus === "rejected" ? "badge-error" : "badge-info"}`}>{app.applicationStatus}</span>
                   </td>
-                  <td className="flex gap-2 flex-wrap">
-                    <button
-                      className="btn btn-xs btn-info"
-                      onClick={() => {
-                        setSelectedApplication(app);
-                        setDetailsModalOpen(true);
-                      }}
-                    >
-                      <FaEye />
-                    </button>
-
-                    <button
-                      className="btn btn-xs btn-warning"
-                      onClick={() => {
-                        setSelectedApplication(app);
-                        setFeedbackModalOpen(true);
-                      }}
-                    >
-                      <FaCommentDots />
-                    </button>
-
-                    <button
-                      className={`btn btn-xs btn-error ${["rejected", "cancelled"].includes(app.applicationStatus?.toLowerCase()) ? "btn-disabled opacity-50 cursor-not-allowed" : ""}`}
-                      onClick={() => handleReject(app._id)}
-                      disabled={["rejected", "cancelled"].includes(app.applicationStatus?.toLowerCase())}
-                      title={["rejected", "cancelled"].includes(app.applicationStatus?.toLowerCase()) ? "Already rejected or cancelled" : "Reject application"}
-                    >
-                      <FaRegTimesCircle />
-                    </button>
-
-                    {/* Status Change */}
-                    {app.applicationStatus === "pending" && (
-                      <button className="btn btn-xs btn-outline btn-info" onClick={() => handleStatusChange(app._id, "processing")}>
-                        Mark Processing
+                  <td className="text-center align-middle">
+                    <div className="flex flex-wrap justify-center gap-2">
+                      <button
+                        className="btn btn-xs btn-info"
+                        onClick={() => {
+                          setSelectedApplication(app);
+                          setDetailsModalOpen(true);
+                        }}
+                      >
+                        <FaEye />
                       </button>
-                    )}
-                    {app.applicationStatus === "processing" && (
-                      <button className="btn btn-xs btn-outline btn-success" onClick={() => handleStatusChange(app._id, "completed")}>
-                        Mark Completed
+
+                      <button
+                        className="btn btn-xs btn-warning"
+                        onClick={() => {
+                          setSelectedApplication(app);
+                          setFeedbackModalOpen(true);
+                        }}
+                      >
+                        <FaCommentDots />
                       </button>
-                    )}
+
+                      <button
+                        className={`btn btn-xs btn-error ${["rejected", "cancelled", "completed"].includes(app.applicationStatus?.toLowerCase()) ? "btn-disabled opacity-50 cursor-not-allowed" : ""}`}
+                        onClick={() => handleReject(app._id)}
+                        disabled={["rejected", "cancelled", "completed"].includes(app.applicationStatus?.toLowerCase())}
+                        title={["rejected", "cancelled", "completed"].includes(app.applicationStatus?.toLowerCase()) ? "Already rejected, cancelled, or completed" : "Reject application"}
+                      >
+                        <FaRegTimesCircle />
+                      </button>
+
+                      {app.applicationStatus === "pending" && (
+                        <button className="btn btn-xs btn-outline btn-info" onClick={() => handleStatusChange(app._id, "processing")}>
+                          Mark Processing
+                        </button>
+                      )}
+
+                      {app.applicationStatus === "processing" && (
+                        <button className="btn btn-xs btn-outline btn-success" onClick={() => handleStatusChange(app._id, "completed")}>
+                          Mark Completed
+                        </button>
+                      )}
+                    </div>
                   </td>
                 </tr>
               ))}
@@ -190,7 +192,7 @@ const AllAppliedScholarships = () => {
               <strong>Scholarship Deadline:</strong> {new Date(selectedApplication.scholarshipDeadline).toLocaleDateString()}
             </p>
             <div className="modal-action">
-              <button className="btn" onClick={() => setDetailsModalOpen(false)}>
+              <button className="btn btn-primary" onClick={() => setDetailsModalOpen(false)}>
                 Close
               </button>
             </div>
@@ -205,10 +207,10 @@ const AllAppliedScholarships = () => {
             <h3 className="font-bold text-lg mb-3">Give Feedback</h3>
             <textarea value={feedbackText} onChange={(e) => setFeedbackText(e.target.value)} className="textarea textarea-bordered w-full" placeholder="Enter your feedback"></textarea>
             <div className="modal-action">
-              <button className="btn btn-success" onClick={handleFeedbackSubmit}>
+              <button className="btn btn-primary" onClick={handleFeedbackSubmit}>
                 Submit
               </button>
-              <button className="btn" onClick={() => setFeedbackModalOpen(false)}>
+              <button className="btn btn-error" onClick={() => setFeedbackModalOpen(false)}>
                 Cancel
               </button>
             </div>
