@@ -5,6 +5,8 @@ import Modal from "react-modal";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useAuth from "../../../hooks/useAuth";
 import CommonLoader from "../../../components/shared/CommonLoader";
+import useTitle from "../../../hooks/useTitle";
+import useScrollToTop from "../../../hooks/useScrollToTop";
 
 Modal.setAppElement("#root");
 
@@ -14,6 +16,9 @@ const formatDate = (isoString) => {
 };
 
 const MyReviews = () => {
+  useTitle("My Reviews");
+  useScrollToTop();
+
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
   const queryClient = useQueryClient();

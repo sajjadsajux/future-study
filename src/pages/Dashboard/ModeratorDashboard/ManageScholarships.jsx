@@ -4,9 +4,15 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import { FaEdit, FaTrash, FaEye } from "react-icons/fa";
 import CommonLoader from "../../../components/shared/CommonLoader";
+import useTitle from "../../../hooks/useTitle";
+import useScrollToTop from "../../../hooks/useScrollToTop";
 
 const ManageScholarships = () => {
   // const navigate = useNavigate();
+
+  useTitle(`Manage Scholarships`);
+  useScrollToTop();
+
   const axiosSecure = useAxiosSecure();
   const [editingScholarship, setEditingScholarship] = useState(null);
   const [selectedScholarship, setSelectedScholarship] = useState(null); // 🆕 for viewing details

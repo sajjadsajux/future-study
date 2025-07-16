@@ -1,6 +1,11 @@
 import React, { useState } from "react";
+import useTitle from "../../hooks/useTitle";
+import useScrollToTop from "../../hooks/useScrollToTop";
 
 const Contact = () => {
+  useTitle("Contact || FutureStudy");
+  useScrollToTop();
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",

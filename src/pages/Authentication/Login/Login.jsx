@@ -6,8 +6,13 @@ import useAxios from "../../../hooks/useAxios";
 import { Link, useLocation, useNavigate } from "react-router";
 import SocialLogin from "../SocialLogin/SocialLogin";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import useTitle from "../../../hooks/useTitle";
+import useScrollToTop from "../../../hooks/useScrollToTop";
 
 const Login = () => {
+  useTitle("Login || FutureStudy");
+  useScrollToTop();
+
   const { signInUser } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();

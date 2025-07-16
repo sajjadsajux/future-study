@@ -6,8 +6,12 @@ import useAxios from "../../../hooks/useAxios";
 import axios from "axios";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { toast, Zoom } from "react-toastify";
+import useTitle from "../../../hooks/useTitle";
+import useScrollToTop from "../../../hooks/useScrollToTop";
 
 const Register = () => {
+  useTitle("Register || FutureStudy");
+  useScrollToTop();
   const location = useLocation();
   const navigate = useNavigate();
   const from = location.state?.from || "/";

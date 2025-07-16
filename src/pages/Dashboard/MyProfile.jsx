@@ -2,8 +2,13 @@ import React from "react";
 import useAuth from "../../hooks/useAuth";
 import useUserRole from "../../hooks/useUserRole";
 import CommonLoader from "../../components/shared/CommonLoader";
+import useTitle from "../../hooks/useTitle";
+import useScrollToTop from "../../hooks/useScrollToTop";
 
 const MyProfile = () => {
+  useTitle("My Profile || FutureStudy");
+  useScrollToTop();
+
   const { user } = useAuth();
   const { role, roleLoading } = useUserRole();
 

@@ -3,8 +3,12 @@ import { useNavigate, useParams } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import CommonLoader from "../../../components/shared/CommonLoader";
+import useTitle from "../../../hooks/useTitle";
+import useScrollToTop from "../../../hooks/useScrollToTop";
 
 const ScholarshipDetails = () => {
+  useTitle(`Scholarship Details`);
+  useScrollToTop();
   const { id } = useParams();
   const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();

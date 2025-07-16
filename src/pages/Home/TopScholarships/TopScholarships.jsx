@@ -34,11 +34,11 @@ const TopScholarships = () => {
   return (
     <section className="py-12">
       <h2 className="text-3xl md:text-4xl font-bold text-center mb-10">Top Scholarships</h2>
-      <p className="text-center text-gray-600 max-w-3xl mx-auto mb-10"> Explore our curated list of prestigious scholarships to help you achieve your educational goals worldwide.</p>
+      <p className="text-center text-gray-500 max-w-3xl mx-auto mb-10"> Explore our curated list of prestigious scholarships to help you achieve your educational goals worldwide.</p>
 
       <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {scholarships.map((scholarship) => (
-          <div key={scholarship._id} className="bg-white/10 backdrop-blur-lg border border-white/10 rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition duration-300 flex flex-col">
+          <div key={scholarship._id} className="bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition duration-300 flex flex-col">
             {/* Content */}
             <div className="p-6 flex flex-col justify-between flex-grow min-h-[320px]">
               {/* Image Avatar */}

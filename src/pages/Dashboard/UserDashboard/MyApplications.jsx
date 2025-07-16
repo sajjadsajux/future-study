@@ -6,10 +6,15 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useAuth from "../../../hooks/useAuth";
 import { useNavigate } from "react-router";
 import CommonLoader from "../../../components/shared/CommonLoader";
+import useTitle from "../../../hooks/useTitle";
+import useScrollToTop from "../../../hooks/useScrollToTop";
 
 Modal.setAppElement("#root");
 
 const MyApplications = () => {
+  useTitle("My Applications");
+  useScrollToTop();
+
   const navigate = useNavigate();
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();

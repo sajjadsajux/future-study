@@ -5,8 +5,13 @@ import { FaEye, FaRegTimesCircle, FaCommentDots } from "react-icons/fa";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import CommonLoader from "../../../components/shared/CommonLoader";
+import useTitle from "../../../hooks/useTitle";
+import useScrollToTop from "../../../hooks/useScrollToTop";
 
 const AllAppliedScholarships = () => {
+  useTitle("All Applied Scholarships");
+  useScrollToTop();
+
   const axiosSecure = useAxiosSecure();
 
   const [sortBy, setSortBy] = useState("");

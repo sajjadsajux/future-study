@@ -4,9 +4,15 @@ import UserDashboard from "./UserDashboard ";
 import ModeratorDashboard from "./ModeratorDashboard";
 import AdminDashboard from "./AdminDashboard";
 import CommonLoader from "../../../components/shared/CommonLoader";
+import useTitle from "../../../hooks/useTitle";
+import useScrollToTop from "../../../hooks/useScrollToTop";
+import { capitalize } from "../../../utilities/Capitalize";
 
 const DashboardHome = () => {
   const { role, roleLoading } = useUserRole();
+
+  useTitle(`${capitalize(role)} Dashboard || FutureStudy`);
+  useScrollToTop();
 
   if (roleLoading) {
     return <CommonLoader></CommonLoader>;

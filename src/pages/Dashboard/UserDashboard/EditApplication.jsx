@@ -5,8 +5,13 @@ import Swal from "sweetalert2";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import CommonLoader from "../../../components/shared/CommonLoader";
+import useTitle from "../../../hooks/useTitle";
+import useScrollToTop from "../../../hooks/useScrollToTop";
 
 const EditApplication = () => {
+  useTitle("Edit Application Form");
+  useScrollToTop();
+
   const { id } = useParams();
   const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();

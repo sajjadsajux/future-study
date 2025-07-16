@@ -3,6 +3,7 @@ import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn } from "react-icons/f
 import FutureStudyLogo from "../shared/FutureStudyLogo";
 import { Link, NavLink } from "react-router";
 import useAuth from "../../hooks/useAuth";
+import { FaSquareXTwitter } from "react-icons/fa6";
 
 const Footer = () => {
   const { user } = useAuth();
@@ -46,18 +47,24 @@ const Footer = () => {
             <li>
               <NavLink to="/about-us">About Us</NavLink>
             </li>
+            <li>
+              <NavLink to="/privacy-policy">Privacy Policy</NavLink>
+            </li>
+            <li>
+              <NavLink to="/terms-of-service">Terms of Service</NavLink>
+            </li>
           </ul>
         </div>
         {/* Social + Company Links */}
         <div className="">
-          <h3 className="footer-title">Follow Us</h3>
-          <p className="text-sm mb-2">Stay connected with us through social platforms</p>
+          <h3 className="footer-title b mb-5">Follow Us</h3>
+          {/* <p className="text-sm mb-2">Stay connected with us through social platforms</p> */}
           <div className="flex gap-4 mb-4">
             <a href="https://facebook.com" target="_blank" rel="noreferrer">
               <FaFacebookF className="text-xl hover:text-blue-500 transition" />
             </a>
             <a href="https://twitter.com" target="_blank" rel="noreferrer">
-              <FaTwitter className="text-xl hover:text-sky-400 transition" />
+              <FaSquareXTwitter className="text-xl hover:text-sky-400 transition" />
             </a>
             <a href="https://instagram.com" target="_blank" rel="noreferrer">
               <FaInstagram className="text-xl hover:text-pink-400 transition" />

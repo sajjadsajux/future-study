@@ -3,8 +3,13 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import BookLoader from "../../../components/shared/BookLoader";
+import useTitle from "../../../hooks/useTitle";
+import useScrollToTop from "../../../hooks/useScrollToTop";
 
 const ManageUsers = () => {
+  useTitle("Manage Users || FutureStudy");
+  useScrollToTop();
+
   const axiosSecure = useAxiosSecure();
   const queryClient = useQueryClient();
 

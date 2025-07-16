@@ -11,10 +11,15 @@ import PaymentForm from "../PaymentForm/PaymentForm";
 import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import CommonLoader from "../../components/shared/CommonLoader";
+import useTitle from "../../hooks/useTitle";
+import useScrollToTop from "../../hooks/useScrollToTop";
 
 const stripePromise = loadStripe(import.meta.env.VITE_PUBLISHABLE_KEY);
 
 const Checkout = () => {
+  useTitle("Payment || FutureStudy");
+  useScrollToTop();
+
   const { id } = useParams(); // scholarship id
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth(); // assuming user contains at least user.email

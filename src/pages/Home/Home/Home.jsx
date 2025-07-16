@@ -5,8 +5,12 @@ import GetStarted from "../GetStarted/GetStarted";
 import FeaturedUniversities from "../FeaturedUniversities/FeaturedUniversities";
 import SuccessStories from "../SuccessReviews/SuccessReviews";
 import PlatformStats from "../PlatformStats.jsx/PlatformStats";
+import useTitle from "../../../hooks/useTitle";
+import useScrollToTop from "../../../hooks/useScrollToTop";
 
 const Home = () => {
+  useTitle("Home || FutureStudy");
+  useScrollToTop();
   return (
     <div>
       <Banner></Banner>

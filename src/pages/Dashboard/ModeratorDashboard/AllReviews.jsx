@@ -3,8 +3,13 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import CommonLoader from "../../../components/shared/CommonLoader";
+import useTitle from "../../../hooks/useTitle";
+import useScrollToTop from "../../../hooks/useScrollToTop";
 
 const AllReviews = () => {
+  useTitle(`All Reviews`);
+  useScrollToTop();
+
   const axiosSecure = useAxiosSecure();
   const queryClient = useQueryClient();
 

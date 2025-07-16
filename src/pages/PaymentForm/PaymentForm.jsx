@@ -3,6 +3,8 @@ import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { toast } from "react-toastify";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import paymentSvg from "../../assets/PaymentInformation.svg";
+import useTitle from "../../hooks/useTitle";
+import useScrollToTop from "../../hooks/useScrollToTop";
 const PaymentForm = ({ scholarship, onPaymentSuccess }) => {
   const stripe = useStripe();
   const elements = useElements();
@@ -37,6 +39,9 @@ const PaymentForm = ({ scholarship, onPaymentSuccess }) => {
       console.error(error);
     }
   };
+
+  useTitle("Payment Form");
+  useScrollToTop();
 
   return (
     <div className="min-h-screen">

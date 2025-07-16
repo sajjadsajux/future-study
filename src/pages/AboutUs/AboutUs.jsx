@@ -1,14 +1,18 @@
 import React from "react";
+import useTitle from "../../hooks/useTitle";
+import useScrollToTop from "../../hooks/useScrollToTop";
 
 const AboutUs = () => {
+  useTitle(`About Us || FutureStudy`);
+  useScrollToTop();
   return (
-    <div className="max-w-7xl mx-auto py-10 min-h-screen">
+    <div className="max-w-7xl mx-auto py-10 min-h-screen px-4 lg:px-0">
       <div className="text-center mb-10">
         <h1 className="text-4xl font-bold mb-4">About Us</h1>
         <p className="text-lg max-w-3xl mx-auto ">We are on a mission to make education accessible for everyone by simplifying the scholarship search and application process.</p>
       </div>
 
-      <div className="grid md:grid-cols-2 gap-8 text-gray-700">
+      <div className="grid md:grid-cols-2 gap-8 ">
         <div>
           <h2 className="text-2xl font-semibold mb-3">🎯 Our Mission</h2>
           <p>Our goal is to bridge the gap between students and educational opportunities. By offering a transparent, user-friendly platform, we ensure that students from all backgrounds can find and apply for scholarships without unnecessary hurdles.</p>
@@ -38,7 +42,7 @@ const AboutUs = () => {
 
       <div className="mt-12 text-center">
         <h3 className="text-xl font-medium mb-2">Have Questions?</h3>
-        <p className="text-gray-600">
+        <p className="">
           Visit our{" "}
           <a href="/contact" className="text-blue-600 hover:underline">
             Contact

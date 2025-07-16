@@ -2,8 +2,13 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { toast } from "react-toastify";
+import useTitle from "../../hooks/useTitle";
+import useScrollToTop from "../../hooks/useScrollToTop";
 
 const ApplicationForm = ({ scholarship, onSubmit }) => {
+  useTitle("Application Form");
+  useScrollToTop();
+
   const {
     register,
     handleSubmit,

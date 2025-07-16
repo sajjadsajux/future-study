@@ -4,6 +4,8 @@ import useAxios from "../../hooks/useAxios";
 import ScholarshipCard from "./ScholarshipCard";
 import BookLoader from "../../components/shared/BookLoader";
 import CommonLoader from "../../components/shared/CommonLoader";
+import useTitle from "../../hooks/useTitle";
+import useScrollToTop from "../../hooks/useScrollToTop";
 
 const AllScholarship = () => {
   const axiosInstance = useAxios();
@@ -34,6 +36,8 @@ const AllScholarship = () => {
   const totalPages = data?.totalPages || 1;
   const currentPage = data?.currentPage || 1;
 
+  useTitle(`All Scholarships - ${scholarships.length}`);
+  useScrollToTop();
   return (
     <div className="container mx-auto px-4 py-10 min-h-screen">
       <div className="text-center mb-10">

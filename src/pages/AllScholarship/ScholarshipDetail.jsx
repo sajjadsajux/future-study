@@ -12,8 +12,12 @@ import "swiper/css/navigation";
 import { toast } from "react-toastify";
 import { FormatDate } from "../../utilities/FormateDate";
 import BookLoader from "../../components/shared/BookLoader";
+import useTitle from "../../hooks/useTitle";
+import useScrollToTop from "../../hooks/useScrollToTop";
 
 const ScholarshipDetail = () => {
+  useTitle(`Scholarship Detail`);
+  useScrollToTop();
   const { id } = useParams();
   const navigate = useNavigate(); // Initialize navigate
   const axiosInstance = useAxios();

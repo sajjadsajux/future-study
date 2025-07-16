@@ -3,8 +3,12 @@ import useAuth from "../../../hooks/useAuth";
 import useAxios from "../../../hooks/useAxios";
 import { toast } from "react-toastify";
 import { useLocation, useNavigate } from "react-router";
+import useTitle from "../../../hooks/useTitle";
+import useScrollToTop from "../../../hooks/useScrollToTop";
 
 const SocialLogin = () => {
+  useTitle("SocialLogin || FutureStudy");
+  useScrollToTop();
   const { googleSignIn } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();

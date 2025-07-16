@@ -5,8 +5,13 @@ import axios from "axios";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useAuth from "../../../hooks/useAuth";
 import generateUniversityId from "../../../utilities/generateUniversityId";
+import useTitle from "../../../hooks/useTitle";
+import useScrollToTop from "../../../hooks/useScrollToTop";
 
 const AddScholarship = () => {
+  useTitle(`Add New Scholarship`);
+  useScrollToTop();
+
   const { user } = useAuth();
   const {
     register,
