@@ -39,7 +39,7 @@ const ScholarshipCard = ({ scholarship }) => {
               <span className="font-semibold">Fee:</span> ${applicationFees}
             </p>
             <p>
-              <span className="font-semibold">Rating:</span> ⭐ {avgRating || "N/A"}/5
+              <span className="font-semibold">Rating:</span> ⭐ {avgRating || "N/A"}
             </p>
           </div>
 

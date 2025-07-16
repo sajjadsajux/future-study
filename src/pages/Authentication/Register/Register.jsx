@@ -24,7 +24,7 @@ const Register = () => {
     clearErrors,
   } = useForm();
 
-  const { createUser, updateUser, user } = useAuth();
+  const { createUser, updateUser } = useAuth();
   const axiosInstance = useAxios();
 
   const [profilePic, setProfilePic] = useState("");

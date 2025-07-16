@@ -28,6 +28,7 @@ import AboutUs from "../pages/AboutUs/AboutUs";
 import PrivacyPolicy from "../pages/PrivacyPolicy/PrivacyPolicy";
 import TermsOfService from "../pages/TermsOfService/TermsOfService";
 import Contact from "../pages/Contact/Contact";
+import NotFound from "../pages/NotFound/NotFound";
 
 export const router = createBrowserRouter([
   {
@@ -41,27 +42,22 @@ export const router = createBrowserRouter([
       {
         path: "/all-scholarship",
         Component: AllScholarship,
-        // loader: () => fetch("./.json"),
       },
       {
         path: "/about-us",
         Component: AboutUs,
-        // loader: () => fetch("./.json"),
       },
       {
         path: "/privacy-policy",
         Component: PrivacyPolicy,
-        // loader: () => fetch("./.json"),
       },
       {
         path: "/terms-of-service",
         Component: TermsOfService,
-        // loader: () => fetch("./.json"),
       },
       {
         path: "/contact",
         Component: Contact,
-        // loader: () => fetch("./.json"),
       },
       {
         path: "/scholarship/:id",
@@ -79,18 +75,6 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-
-      //   loader: () => fetch("./serviceCenters.json"),
-      // },
-      // {
-      //   path: "/beARider",
-      //   element: (
-      //     <PrivateRoute>
-      //       <BeARider></BeARider>
-      //     </PrivateRoute>
-      //   ),
-      //   loader: () => fetch("./serviceCenters.json"),
-      // },
     ],
   },
 
@@ -247,5 +231,9 @@ export const router = createBrowserRouter([
         ),
       },
     ],
+  },
+  {
+    path: "*",
+    element: <NotFound></NotFound>,
   },
 ]);

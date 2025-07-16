@@ -97,7 +97,7 @@ const ScholarshipDetail = () => {
         </p>
         {/* Subject Name */}
         <p className="text-center">
-          <span className="font-medium text-gray-700 dark:text-gray-300">Rating:</span> {scholarship.avgRating}/5
+          <span className="font-medium text-gray-700 dark:text-gray-300">Rating:</span> {scholarship?.avgRating || <span className="text-gray-500 italic">Not yet rated</span>}
         </p>
         {/* Description */}
         {scholarship.description && <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed text-justify">{scholarship.description}</p>}

@@ -126,6 +126,7 @@ const ApplicationForm = ({ scholarship, onSubmit }) => {
             <input
               type="number"
               placeholder="GPA"
+              step="any"
               className="input input-bordered w-full"
               {...register("sscResult", {
                 required: "SSC result is required",
@@ -145,6 +146,7 @@ const ApplicationForm = ({ scholarship, onSubmit }) => {
             <input
               type="number"
               placeholder="GPA"
+              step="any"
               className="input input-bordered w-full"
               {...register("hscResult", {
                 required: "HSC result is required",

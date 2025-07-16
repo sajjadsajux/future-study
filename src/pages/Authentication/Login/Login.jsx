@@ -84,9 +84,9 @@ const Login = () => {
             {errors.password && <p className="text-red-600">{errors.password.message}</p>}
             {loginError && <p className="text-red-600 mt-1">{loginError}</p>}
 
-            <div>
+            {/* <div>
               <a className="link link-hover">Forgot password?</a>
-            </div>
+            </div> */}
 
             <button className="btn btn-primary  mt-4 w-full">Login</button>
           </fieldset>

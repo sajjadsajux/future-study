@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import useAxios from "../../hooks/useAxios";
 import ScholarshipCard from "./ScholarshipCard";
@@ -14,14 +14,11 @@ const AllScholarship = () => {
   const [page, setPage] = useState(1);
   const limit = 8;
 
-  // Debounce search input
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setSearch(searchInput);
-      setPage(1); // reset page on new search
-    }, 400);
-    return () => clearTimeout(timer);
-  }, [searchInput]);
+  // Manual search trigger
+  const handleSearch = () => {
+    setSearch(searchInput);
+    setPage(1); // reset to first page
+  };
 
   const { data, isLoading } = useQuery({
     queryKey: ["scholarships", page, search],
@@ -45,14 +42,17 @@ const AllScholarship = () => {
         <p className="text-lg max-w-3xl mx-auto ">We are on a mission to make education accessible for everyone by simplifying the scholarship search and application process.</p>
       </div>
 
-      <div className="flex justify-center mb-8">
+      <div className="flex justify-center mb-8 gap-4">
         <input type="text" placeholder="Search by Scholarship, University or Degree" className="input input-bordered w-full max-w-xs" value={searchInput} onChange={(e) => setSearchInput(e.target.value)} />
+        <button className="btn btn-primary" onClick={handleSearch}>
+          Search
+        </button>
       </div>
 
       {isLoading ? (
         <CommonLoader></CommonLoader>
       ) : scholarships.length === 0 ? (
-        <p className="text-center text-gray-500">No scholarships found.</p>
+        <p className="text-center text-gray-500">No university, scholarships, degree found.</p>
       ) : (
         <>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
