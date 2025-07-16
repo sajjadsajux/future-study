@@ -94,7 +94,7 @@ const AddScholarship = () => {
     <div className="p-4">
       <h2 className="text-3xl font-bold mb-6 text-center">Add Scholarship</h2>
 
-      <div className="max-w-5xl mx-auto p-6 rounded shadow">
+      <div className="max-w-5xl mx-auto p-6 rounded shadow dark:border-2">
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
           {/* Scholarship and University Name */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

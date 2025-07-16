@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 import CommonLoader from "../../../components/shared/CommonLoader";
 import useTitle from "../../../hooks/useTitle";
 import useScrollToTop from "../../../hooks/useScrollToTop";
+import { FormatDate } from "../../../utilities/FormateDate";
 
 const AllAppliedScholarships = () => {
   useTitle("All Applied Scholarships");
@@ -109,6 +110,8 @@ const AllAppliedScholarships = () => {
                 <th>University</th>
                 <th>Applicant</th>
                 <th>Degree</th>
+                <th>Applied</th>
+                <th>Deadline</th>
                 <th className="text-center">Status</th>
                 <th className="text-center">Actions</th>
               </tr>
@@ -120,6 +123,8 @@ const AllAppliedScholarships = () => {
                   <td className="">{app.universityName}</td>
                   <td className="">{app.userEmail}</td>
                   <td className="">{app.applyingDegree}</td>
+                  <td className="">{FormatDate(app.applicationDate)}</td>
+                  <td className="">{FormatDate(app.scholarshipDeadline)}</td>
                   <td className="text-center align-middle">
                     <span className={`badge ${app.applicationStatus === "pending" ? "badge-warning" : app.applicationStatus === "completed" ? "badge-success" : app.applicationStatus === "rejected" ? "badge-error" : "badge-info"}`}>{app.applicationStatus}</span>
                   </td>

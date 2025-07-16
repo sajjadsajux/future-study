@@ -25,7 +25,7 @@ const AdminAnalytics = () => {
 
   return (
     <div className="p-4">
-      <h2 className="text-xl md:text-2xl font-bold mb-6 text-center">📊 Applications by Status</h2>
+      <h2 className="text-xl md:text-2xl font-bold mb-6 text-center">📊 Applications by Status </h2>
 
       <div className="w-full h-[300px] sm:h-[400px] md:h-[500px]">
         <ResponsiveContainer width="100%" height="100%">

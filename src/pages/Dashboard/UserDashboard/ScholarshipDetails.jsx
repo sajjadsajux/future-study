@@ -30,7 +30,7 @@ const ScholarshipDetails = () => {
   return (
     <div className="min-h-screen flex items-center justify-center px-4 bg-base-100">
       <div className="w-full max-w-3xl p-6 bg-white dark:bg-gray-900 rounded-2xl shadow-lg space-y-4 dark:border-2">
-        <h2 className="text-3xl font-bold text-center text-primary">{scholarship.scholarshipName}</h2>
+        <h2 className="text-2xl md:text-3xl font-bold text-center text-primary">{scholarship.scholarshipName}</h2>
 
         <div className="flex justify-center">
           <img src={scholarship.universityImage} alt="University" className="w-32 h-32 object-contain mb-4" />
@@ -49,6 +49,10 @@ const ScholarshipDetails = () => {
           <p>
             <strong>Category:</strong> {scholarship.scholarshipCategory}
           </p>
+          <p>
+            <strong>Rating:</strong> {scholarship.avgRating ? scholarship.avgRating : "No reviews yet"}
+          </p>
+
           <p>
             <strong>Tuition Fees:</strong> {scholarship.tuitionFees}
           </p>

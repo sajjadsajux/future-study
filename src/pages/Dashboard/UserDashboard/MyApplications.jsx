@@ -144,6 +144,7 @@ const MyApplications = () => {
       comment: reviewData.comment,
       reviewDate: new Date(reviewData.reviewDate).toISOString(),
     };
+    navigate("/dashboard/my-reviews");
 
     reviewMutation.mutate(payload);
   };
@@ -155,7 +156,7 @@ const MyApplications = () => {
     <div className="p-6 container mx-auto">
       <h2 className="text-3xl font-bold mb-6 text-center">My Applications</h2>
       <div className="overflow-x-auto">
-        <table className="table w-full border border-gray-300 dark:bg-gray-700">
+        <table className="table w-full border border-gray-300 dark:bg-white/10">
           <thead>
             <tr className="dark:text-white">
               <th className="p-2 border">University Name</th>

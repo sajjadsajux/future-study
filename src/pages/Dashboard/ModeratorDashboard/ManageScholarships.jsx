@@ -6,6 +6,7 @@ import { FaEdit, FaTrash, FaEye } from "react-icons/fa";
 import CommonLoader from "../../../components/shared/CommonLoader";
 import useTitle from "../../../hooks/useTitle";
 import useScrollToTop from "../../../hooks/useScrollToTop";
+import { FormatDate } from "../../../utilities/FormateDate";
 
 const ManageScholarships = () => {
   // const navigate = useNavigate();
@@ -60,6 +61,7 @@ const ManageScholarships = () => {
       subjectCategory: form.subjectCategory.value,
       degree: form.degree.value,
       applicationFees: parseFloat(form.applicationFees.value),
+      applicationDeadline: new Date(form.applicationDeadline.value).toISOString(), // ✅ ISO format
     };
 
     await axiosSecure.patch(`/scholarships/${editingScholarship._id}`, updatedScholarship);
@@ -74,7 +76,7 @@ const ManageScholarships = () => {
     <div className="p-4 ">
       <h2 className="text-3xl font-bold mb-6 text-center">Manage Scholarships</h2>
       <div className="overflow-x-auto">
-        <table className="table  w-full dark:bg-gray-700">
+        <table className="table  w-full dark:bg-white/10">
           <thead className="dark:text-white">
             <tr>
               <th>#</th>
@@ -162,6 +164,10 @@ const ManageScholarships = () => {
                 <label className="block mb-1 font-medium">Application Fees</label>
                 <input defaultValue={editingScholarship.applicationFees} name="applicationFees" type="number" className="input input-bordered w-full" />
               </div>
+              <div>
+                <label className="block mb-1 font-medium">Application Deadline</label>
+                <input type="date" name="applicationDeadline" defaultValue={editingScholarship?.applicationDeadline?.slice(0, 10)} className="input input-bordered w-full" required />
+              </div>
 
               <div className="modal-action">
                 <button type="submit" className="btn btn-primary">
@@ -199,6 +205,12 @@ const ManageScholarships = () => {
               </p>
               <p>
                 <strong>Application Fees:</strong> ${selectedScholarship.applicationFees}
+              </p>
+              <p>
+                <strong>Service Charge:</strong> ${selectedScholarship.serviceCharge}
+              </p>
+              <p>
+                <strong>Application Deadline:</strong> {FormatDate(selectedScholarship.applicationDeadline)}
               </p>
             </div>
             <div className="modal-action">

@@ -116,7 +116,7 @@ const MyReviews = () => {
                 <th>University</th>
                 <th>University ID</th>
                 <th>Rating</th>
-                <th className="w-48">Comment</th>
+                <th className="w-64">Comment</th>
                 <th>Review Date</th>
                 <th>Last Updated</th>
                 <th className="text-center">Actions</th>
