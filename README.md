@@ -44,6 +44,7 @@
 - `react-icons`, `lucide-react` – Icon libraries
 - `swiper` – Carousel/Slider
 - `react-modal` – Reusable modal
+- `aos` – Scroll Animation
 - `react-toastify`, `sweetalert2` – Notifications & alerts
 - `react-spinners`, `lottie-react` – Animations & loaders
 

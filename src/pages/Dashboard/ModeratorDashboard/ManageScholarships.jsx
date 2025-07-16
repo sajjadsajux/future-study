@@ -152,12 +152,22 @@ const ManageScholarships = () => {
 
               <div>
                 <label className="block mb-1 font-medium">Subject Category</label>
-                <input defaultValue={editingScholarship.subjectCategory} name="subjectCategory" className="input input-bordered w-full" />
+                <select name="subjectCategory" defaultValue={editingScholarship.subjectCategory} className="select select-bordered w-full">
+                  <option value="">Select Subject Category</option>
+                  <option value="Agriculture">Agriculture</option>
+                  <option value="Engineering">Engineering</option>
+                  <option value="Doctor">Doctor</option>
+                </select>
               </div>
 
               <div>
                 <label className="block mb-1 font-medium">Degree</label>
-                <input defaultValue={editingScholarship.degree} name="degree" className="input input-bordered w-full" />
+                <select name="degree" defaultValue={editingScholarship.degree} className="select select-bordered w-full">
+                  <option value="">Select Degree</option>
+                  <option value="Diploma">Diploma</option>
+                  <option value="Bachelor">Bachelor</option>
+                  <option value="Masters">Masters</option>
+                </select>
               </div>
 
               <div>
