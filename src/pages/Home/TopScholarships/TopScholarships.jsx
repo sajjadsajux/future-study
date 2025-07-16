@@ -38,7 +38,7 @@ const TopScholarships = () => {
 
       <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {scholarships.map((scholarship) => (
-          <div key={scholarship._id} className="bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition duration-300 flex flex-col">
+          <div key={scholarship._id} className="bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl shadow-lg overflow-hidden  transform transition-all duration-300 hover:shadow-lg hover:scale-105 flex flex-col">
             {/* Content */}
             <div className="p-6 flex flex-col justify-between flex-grow min-h-[320px]">
               {/* Image Avatar */}
@@ -52,8 +52,8 @@ const TopScholarships = () => {
                 <h3 className="text-xl font-bold text-primary">{scholarship.universityName}</h3>
 
                 <div className="flex flex-wrap justify-center  text-sm px-3">
-                  <span className=" px-1 rounded-full bg-white/20 font-semibold">{scholarship.universityCity},</span>
-                  <span className="  rounded-full bg-white/20 font-semibold">{scholarship.universityCountry}</span>
+                  <span className=" px-1 rounded-full  font-semibold">{scholarship.universityCity},</span>
+                  <span className="  rounded-full  font-semibold">{scholarship.universityCountry}</span>
                 </div>
 
                 <div className="text-sm space-y-1 pt-1">

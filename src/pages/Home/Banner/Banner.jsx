@@ -35,7 +35,7 @@ const Banner = () => {
       tagline: "100+ success stories every month",
       icon: <FaUserGraduate className="inline mr-2 text-yellow-300" />,
       buttonText: "Get Inspired",
-      link: "/success-stories",
+      link: "#successStories",
       image: "https://res.cloudinary.com/dfyyhn4i4/image/upload/v1752457593/achivedream_11zon_1_soa7b4.jpg",
     },
     {

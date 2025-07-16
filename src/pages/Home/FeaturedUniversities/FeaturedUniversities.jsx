@@ -58,7 +58,7 @@ const FeaturedUniversities = () => {
   return (
     <section className="py-12 ">
       <h2 className="text-3xl sm:text-4xl font-bold text-center mb-10">Featured Universities</h2>
-      <p className="text-center text-gray-600 max-w-3xl mx-auto mb-10">Discover some of the world’s top universities featured on our platform. Explore their programs and find the perfect fit for your academic journey.</p>
+      <p className="text-center text-gray-500 max-w-3xl mx-auto mb-10">Discover some of the world’s top universities featured on our platform. Explore their programs and find the perfect fit for your academic journey.</p>
 
       <Marquee gradient={false} speed={50} pauseOnHover={true}>
         {universities.map((uni) => (

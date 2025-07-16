@@ -37,7 +37,7 @@ const PlatformStats = () => {
   return (
     <section className="py-12">
       <h2 className="text-3xl md:text-4xl font-bold text-center mb-10">Our Impact In Numbers</h2>
-      <p className="text-center text-gray-600 max-w-7xl mx-auto mb-10">We're proud to help students from all over the world access life-changing scholarships and global education opportunities.</p>
+      <p className="text-center text-gray-500 max-w-7xl mx-auto mb-10">We're proud to help students from all over the world access life-changing scholarships and global education opportunities.</p>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-20 max-w-7xl mx-auto w-full ">
         {stats.map((stat) => (
@@ -46,7 +46,7 @@ const PlatformStats = () => {
             <h3 className="text-3xl font-bold text-primary">
               <CountUp end={stat.value} duration={2} decimals={stat.decimals || 0} suffix={stat.suffix || ""} enableScrollSpy scrollSpyOnce />
             </h3>
-            <p className="text-gray-600 font-medium">{stat.label}</p>
+            <p className=" font-medium">{stat.label}</p>
           </div>
         ))}
       </div>

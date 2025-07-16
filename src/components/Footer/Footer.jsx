@@ -8,35 +8,43 @@ import { FaSquareXTwitter } from "react-icons/fa6";
 const Footer = () => {
   const { user } = useAuth();
   return (
-    <footer className="bg-primary text-base-100 py-10">
+    <footer className="bg-primary  pt-5 pb-2">
       <div className="container mx-auto max-w-7xl px-4 grid grid-cols-1 lg:grid-cols-7 gap-8 justify-between">
         {/* Logo + Slogan */}
         <div className="col-span-2">
-          <FutureStudyLogo width={200} />
+          <FutureStudyLogo width={180} />
           <p className="mt-2 text-sm">Fueling Ambitions Through Scholarships</p>
         </div>
 
         {/* Navigation Links */}
         <div className="col-span-2">
           <h3 className="footer-title">Navigation</h3>
-          <ul className="space-y-2">
+          <ul className="space-y-2 ">
             <li>
-              <NavLink to="/">Home</NavLink>
+              <NavLink to="/" className="p-1">
+                Home
+              </NavLink>
             </li>
             <li>
-              <NavLink to="/all-scholarship">All Scholarship</NavLink>
+              <NavLink to="/all-scholarship" className="p-1">
+                All Scholarship
+              </NavLink>
             </li>
 
             {user && (
               <>
                 {/* Future role-based dashboard */}
                 <li>
-                  <NavLink to="/dashboard">Dashboard</NavLink>
+                  <NavLink to="/dashboard" className="p-1">
+                    Dashboard
+                  </NavLink>
                 </li>
               </>
             )}
             <li>
-              <NavLink to="/contact">Contact</NavLink>
+              <NavLink to="/contact" className="p-1">
+                Contact
+              </NavLink>
             </li>
           </ul>
         </div>
@@ -45,13 +53,19 @@ const Footer = () => {
           <h3 className="footer-title">Company</h3>
           <ul className="space-y-2">
             <li>
-              <NavLink to="/about-us">About Us</NavLink>
+              <NavLink to="/about-us" className="p-1">
+                About Us
+              </NavLink>
             </li>
             <li>
-              <NavLink to="/privacy-policy">Privacy Policy</NavLink>
+              <NavLink to="/privacy-policy" className="p-1">
+                Privacy Policy
+              </NavLink>
             </li>
             <li>
-              <NavLink to="/terms-of-service">Terms of Service</NavLink>
+              <NavLink to="/terms-of-service" className="p-1">
+                Terms of Service
+              </NavLink>
             </li>
           </ul>
         </div>

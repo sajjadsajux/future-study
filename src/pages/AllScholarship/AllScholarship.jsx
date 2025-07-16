@@ -36,7 +36,7 @@ const AllScholarship = () => {
   const totalPages = data?.totalPages || 1;
   const currentPage = data?.currentPage || 1;
 
-  useTitle(`All Scholarships - ${scholarships.length}`);
+  useTitle(`All Scholarships`);
   useScrollToTop();
   return (
     <div className="container mx-auto px-4 py-10 min-h-screen">

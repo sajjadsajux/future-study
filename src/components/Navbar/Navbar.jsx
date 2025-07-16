@@ -60,7 +60,7 @@ const Navbar = () => {
           </ul>
         </div>
         <div>
-          <FutureStudyLogo width={200} height={100} />
+          <FutureStudyLogo width={160} />
         </div>
       </div>
 

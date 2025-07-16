@@ -7,6 +7,7 @@ import SuccessStories from "../SuccessReviews/SuccessReviews";
 import PlatformStats from "../PlatformStats.jsx/PlatformStats";
 import useTitle from "../../../hooks/useTitle";
 import useScrollToTop from "../../../hooks/useScrollToTop";
+import FAQSection from "../FAQSection/FAQSection";
 
 const Home = () => {
   useTitle("Home || FutureStudy");
@@ -26,8 +27,11 @@ const Home = () => {
       <section className="container max-w-7xl mx-auto px-2 lg:px-0" id="getStarted">
         <GetStarted></GetStarted>
       </section>
-      <section className="container max-w-7xl mx-auto px-2 lg:px-0">
+      <section className="container max-w-7xl mx-auto px-2 lg:px-0" id="successStories">
         <SuccessStories></SuccessStories>
+      </section>
+      <section className="container max-w-7xl mx-auto px-2 lg:px-0">
+        <FAQSection></FAQSection>
       </section>
     </div>
   );

@@ -30,7 +30,7 @@ const SuccessReviews = () => {
   return (
     <section className="py-12">
       <h2 className="text-3xl sm:text-4xl font-bold text-center mb-6">Scholarship Success Reviews</h2>
-      <p className="text-center text-gray-600 max-w-3xl mx-auto mb-10">Hear directly from students who successfully received scholarships through our platform. Their feedback and stories can guide and inspire your journey.</p>
+      <p className="text-center text-gray-500 max-w-3xl mx-auto mb-10">Hear directly from students who successfully received scholarships through our platform. Their feedback and stories can guide and inspire your journey.</p>
 
       <Swiper
         modules={[Pagination, Autoplay]}
@@ -45,23 +45,23 @@ const SuccessReviews = () => {
       >
         {reviews.map((review) => (
           <SwiperSlide key={review._id} className="h-full py-10">
-            <div className="bg-white rounded-xl shadow-md p-6 flex flex-col h-full min-h-[300px] max-h-[300px]">
+            <div className="bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl shadow-lg overflow-hidden  transform transition-all duration-300 hover:shadow-lg hover:scale-105 p-6 flex flex-col h-full min-h-[300px] max-h-[300px]">
               {/* Header */}
               <div className="flex items-center gap-4 mb-4">
                 <img src={review.userImage} alt={review.userName} className="w-14 h-14 rounded-full object-cover border" />
                 <div>
                   <h4 className="font-semibold text-lg">{review.userName}</h4>
-                  <p className="text-sm text-gray-500">{review.universityName}</p>
+                  <p className="text-sm ">{review.universityName}</p>
                 </div>
               </div>
 
               {/* Scrollable Review Text */}
               <div className="flex-1 overflow-y-auto pr-1">
-                <p className="text-gray-700 text-sm italic">“{review.comment}”</p>
+                <p className=" text-sm italic dark:text-gray-300">“{review.comment}”</p>
               </div>
 
               {/* Footer */}
-              <div className="text-sm text-gray-500 flex justify-between items-center pt-4 mt-4 border-t">
+              <div className="text-sm  flex justify-between items-center pt-4 mt-4 border-t">
                 <span>🎓 {review.scholarshipName}</span>
                 <span className="flex items-center gap-1 text-yellow-500">
                   <FaStar /> {review.rating}

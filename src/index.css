@@ -24,3 +24,7 @@
 }
 
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+a.active {
+  @apply text-white bg-[#db3069] font-bold rounded-lg;
+}

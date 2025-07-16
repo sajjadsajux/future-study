@@ -29,7 +29,7 @@ const GetStarted = () => {
     <section className="py-12 ">
       <div className="container mx-auto ">
         <h2 className="text-3xl sm:text-4xl font-bold text-center mb-10 "> Get Started in 4 Simple Steps</h2>
-        <p className="text-center text-gray-600 max-w-3xl mx-auto mb-10"> Follow these easy steps to find and apply for scholarships that can transform your academic future.</p>
+        <p className="text-center text-gray-500 max-w-3xl mx-auto mb-10"> Follow these easy steps to find and apply for scholarships that can transform your academic future.</p>
         <div className="relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {steps.map((step, index) => (
             <div key={index} className="relative group p-6 rounded-2xl bg-gradient-to-br from-white/20 to-white/5 backdrop-blur-lg border border-white/10 shadow-md hover:shadow-xl transition duration-300 text-center">
