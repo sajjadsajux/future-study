@@ -18,7 +18,6 @@ const Login = () => {
   const location = useLocation();
   const from = location.state?.from || "/";
   const axiosInstance = useAxios();
-  const { user } = useAuth();
   const [loginError, setLoginError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
@@ -33,8 +32,7 @@ const Login = () => {
 
     try {
       const result = await signInUser(data.email, data.password);
-      // console.log(result.user);
-
+      const userNow = result.user;
       // 🔄 Update last_login in DB
       const updateInfo = {
         last_login: new Date().toISOString(),
@@ -42,7 +40,7 @@ const Login = () => {
 
       await axiosInstance.patch(`/users/${data.email}`, updateInfo);
 
-      toast.success(`Login successful! Great to see you again, ${user.displayName}`, {
+      toast.success(`Login successful! Great to see you again, ${userNow.displayName}`, {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -54,7 +52,9 @@ const Login = () => {
         transition: Zoom,
       });
 
-      navigate(from, { replace: true });
+      setTimeout(() => {
+        navigate(from, { replace: true });
+      }, 100); // 100ms small delay
     } catch (error) {
       console.error("Login error:", error.message);
       setLoginError("Invalid email or password");

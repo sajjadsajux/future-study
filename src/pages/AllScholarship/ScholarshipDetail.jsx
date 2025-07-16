@@ -1,7 +1,6 @@
 import React from "react";
 import { useParams, useNavigate } from "react-router"; // useNavigate added
 import { useQuery } from "@tanstack/react-query";
-import useAxios from "../../hooks/useAxios";
 import useAuth from "../../hooks/useAuth";
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -14,20 +13,21 @@ import { FormatDate } from "../../utilities/FormateDate";
 import BookLoader from "../../components/shared/BookLoader";
 import useTitle from "../../hooks/useTitle";
 import useScrollToTop from "../../hooks/useScrollToTop";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const ScholarshipDetail = () => {
   useTitle(`Scholarship Detail`);
   useScrollToTop();
   const { id } = useParams();
   const navigate = useNavigate(); // Initialize navigate
-  const axiosInstance = useAxios();
-  const { user } = useAuth();
+  const axiosSecure = useAxiosSecure();
+  const { user, loading: isUserLoading } = useAuth();
 
   // Fetch scholarship details
   const { data: scholarship = {}, isLoading } = useQuery({
     queryKey: ["scholarship", id],
     queryFn: async () => {
-      const res = await axiosInstance.get(`/scholarships/${id}`);
+      const res = await axiosSecure.get(`/scholarships/${id}`);
       return res.data;
     },
   });
@@ -37,7 +37,7 @@ const ScholarshipDetail = () => {
     queryKey: ["apply-status", user?.email, id],
     enabled: !!user?.email,
     queryFn: async () => {
-      const res = await axiosInstance.get(`/apply-status?email=${user.email}&scholarshipId=${id}`);
+      const res = await axiosSecure.get(`/apply-status?email=${user.email}&scholarshipId=${id}`);
       return res.data;
     },
   });
@@ -46,7 +46,7 @@ const ScholarshipDetail = () => {
   const { data: reviews = [] } = useQuery({
     queryKey: ["reviews", id],
     queryFn: async () => {
-      const res = await axiosInstance.get(`/reviews/${id}`);
+      const res = await axiosSecure.get(`/reviews/${id}`);
       return res.data;
     },
   });
@@ -66,14 +66,13 @@ const ScholarshipDetail = () => {
     navigate(`/checkout/${id}`);
   };
 
-  if (isLoading) return <BookLoader></BookLoader>;
+  if (isLoading || isUserLoading) return <BookLoader></BookLoader>;
 
   return (
     <div className="container mx-auto max-w-7xl px-4 lg:px-0 py-8 min-h-screen">
       <div className="max-w-3xl mx-auto dark:border-2  rounded-xl shadow-lg p-6 space-y-3">
         {/* University Name */}
         <h2 className="text-2xl font-bold text-primary text-center">{scholarship.universityName}</h2>
-
         {/* University Logo */}
         <div className="flex justify-center">
           <img src={scholarship.universityImage} alt={scholarship.universityName} className="h-20 object-contain bg-gray-100 dark:bg-gray-800 p-2 rounded border" />
@@ -82,50 +81,44 @@ const ScholarshipDetail = () => {
         <div className="flex justify-center">
           <span className="text-sm px-4 ">{scholarship.scholarshipName}</span>
         </div>
-
         {/* Scholarship Category */}
         <div className="flex justify-center">
           <span className="badge badge-primary text-sm px-4 py-2">{scholarship.scholarshipCategory}</span>
         </div>
-
         {/* Location */}
         <p className="text-center text-gray-600 dark:text-gray-400">
           📍 {scholarship.universityCity}, {scholarship.universityCountry}
         </p>
-
         {/* Application Deadline */}
         <p className="text-center font-semibold text-red-500">🕒 Application Deadline: {new Date(scholarship.applicationDeadline).toDateString()}</p>
-
         {/* Subject Name */}
         <p className="text-center">
           <span className="font-medium text-gray-700 dark:text-gray-300">Subject:</span> {scholarship.subjectCategory}
         </p>
-
+        {/* Subject Name */}
+        <p className="text-center">
+          <span className="font-medium text-gray-700 dark:text-gray-300">Rating:</span> {scholarship.avgRating}/5
+        </p>
         {/* Description */}
         {scholarship.description && <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed text-justify">{scholarship.description}</p>}
-
         {/* Stipend */}
         {scholarship.stipend && (
           <p className="">
             <span className="font-medium   ">Stipend:</span> {scholarship.stipend}
           </p>
         )}
-
         {/* Post Date */}
         <p>
           <span className="font-medium ">Posted At:</span> {FormatDate(scholarship.scholarshipPostDate)}
         </p>
-
         {/* Service Charge */}
         <p>
           <span className="font-medium ">Service Charge:</span> ${scholarship.serviceCharge}
         </p>
-
         {/* Application Fees */}
         <p>
           <span className="font-medium ">Application Fee:</span> ${scholarship.applicationFees}
         </p>
-
         {/* Apply Button */}
         {user && (
           <button onClick={handleApply} disabled={applyStatus?.applied} className="btn btn-primary w-full mt-4">

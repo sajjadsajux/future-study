@@ -22,7 +22,7 @@
 
 ### 🔷 MERN Stack (Main Technologies)
 
-- **JavaScript** – JavaScript is the programming language of the Web.
+- **JavaScript** – JavaScript is an open-source programming language designed for creating web-centric applications.
 - **MongoDB** – NoSQL database for storing users, scholarships, applications
 - **Express.js** – Backend RESTful API framework
 - **React.js** – Frontend library for building UI
