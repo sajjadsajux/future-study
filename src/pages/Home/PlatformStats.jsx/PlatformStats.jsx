@@ -41,7 +41,7 @@ const PlatformStats = () => {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-20 max-w-7xl mx-auto w-full ">
         {stats.map((stat) => (
-          <div key={stat.id} className="card  shadow-md p-6 text-center space-y-4 dark:border-2">
+          <div key={stat.id} className="card   p-6 text-center space-y-4 dark:border-2 rounded-2xl shadow-lg   transform transition-all duration-300 hover:shadow-lg hover:scale-105">
             <div className="flex justify-center">{stat.icon}</div>
             <h3 className="text-3xl font-bold text-primary">
               <CountUp end={stat.value} duration={2} decimals={stat.decimals || 0} suffix={stat.suffix || ""} enableScrollSpy scrollSpyOnce />

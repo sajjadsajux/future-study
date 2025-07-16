@@ -26,7 +26,7 @@ const Footer = () => {
               </NavLink>
             </li>
             <li>
-              <NavLink to="/all-scholarship" className="p-1">
+              <NavLink to="/all-scholarships" className="p-1">
                 All Scholarship
               </NavLink>
             </li>

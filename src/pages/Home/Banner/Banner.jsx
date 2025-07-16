@@ -15,7 +15,7 @@ const Banner = () => {
       tagline: "Over 5,000 international scholarships",
       icon: <FaGlobeAmericas className="inline mr-2 text-yellow-300" />,
       buttonText: "Browse Scholarships",
-      link: "/all-scholarship",
+      link: "/all-scholarships",
       image: "https://res.cloudinary.com/dfyyhn4i4/image/upload/v1752457594/scholarhipgroup1_11zon_flt2au.jpg",
     },
     {

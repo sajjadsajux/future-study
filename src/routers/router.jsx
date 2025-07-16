@@ -40,7 +40,7 @@ export const router = createBrowserRouter([
         Component: Home,
       },
       {
-        path: "/all-scholarship",
+        path: "/all-scholarships",
         Component: AllScholarship,
       },
       {

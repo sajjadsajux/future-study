@@ -4,127 +4,163 @@
 
 👉 [Visit Live Site](https://future--study.web.app)
 
+---
+
 ## 📌 Project Purpose
 
-**FutureStudy** is a full-stack MERN platform that enables students to discover, apply for, and track scholarships. It supports role-based dashboards for users, moderators, and admins, and includes a complete application + payment flow, review system, and moderation tools.
+**FutureStudy** is a full-stack MERN-based Scholarship Management System designed to help students discover, apply for, and track university scholarships with ease. It offers a complete application process with form + payment, role-based dashboards (User, Moderator, Admin), scholarship management, review system, analytics, and secure authentication.
+
+---
 
 ## 🚀 Key Features
 
-- 👤 Role-based dashboards: User, Moderator, Admin
-- 📝 Scholarship application form with **Stripe** payment
-- 💬 Add & manage reviews for scholarships
-- 📊 Admin charts: application stats & user roles
-- 🗂️ Moderators can manage scholarships and reviews
-- 🧾 Application status & feedback system
-- 🔍 Search, filter, and pagination
+- 👥 Three distinct role-based dashboards: **User**, **Moderator**, **Admin**
+- 📝 Full scholarship application workflow with dynamic form + **Stripe** integration
+- 📄 Application tracking with real-time status updates and moderator/admin feedback
+- 💬 Scholarship review system with rating, edit/delete, and moderator/admin control
+- 📊 Admin analytics dashboard with interactive charts
+- 🔍 Scholarship search, sort, and filter by category, deadline, and fees
+- 🖼️ Image upload support via **imgbb** and **Cloudinary**
+
+---
 
 ## 🧱 Technologies Used
 
 ### 🔷 MERN Stack (Main Technologies)
 
-- **JavaScript** – JavaScript is an open-source programming language designed for creating web-centric applications.
-- **MongoDB** – NoSQL database for storing users, scholarships, applications
-- **Express.js** – Backend RESTful API framework
-- **React.js** – Frontend library for building UI
+- **MongoDB** – NoSQL database
+- **Express.js** – Backend REST API
+- **React.js** – Frontend UI
 - **Node.js** – Server environment
+
+---
 
 ## 📦 NPM Packages Used
 
 ### 🎨 Styling & UI
 
-- [`tailwindcss`](https://www.npmjs.com/package/tailwindcss) – Utility-first CSS framework
-- [`daisyui`](https://www.npmjs.com/package/daisyui) – Tailwind CSS UI components
-- [`react-icons`](https://www.npmjs.com/package/react-icons) – Popular icons
-- [`lucide-react`](https://www.npmjs.com/package/lucide-react) – Elegant icon set
-- [`react-modal`](https://www.npmjs.com/package/react-modal) – Modal component
-- [`react-toastify`](https://www.npmjs.com/package/react-toastify) – Toast notifications
-- [`sweetalert2`](https://www.npmjs.com/package/sweetalert2) – Alert popups
-- [`swiper`](https://www.npmjs.com/package/swiper) – Slider/carousel UI
-- [`react-spinners`](https://www.npmjs.com/package/react-spinners) – Loader spinners
-- [`lottie-react`](https://www.npmjs.com/package/lottie-react) – Animation support
+- `tailwindcss` – Utility-first CSS framework
+- `daisyui` – Tailwind CSS UI components
+- `react-icons`, `lucide-react` – Icon libraries
+- `swiper` – Carousel/Slider
+- `react-modal` – Reusable modal
+- `react-toastify`, `sweetalert2` – Notifications & alerts
+- `react-spinners`, `lottie-react` – Animations & loaders
 
 ### 🔁 State & Forms
 
-- [`@tanstack/react-query`](https://www.npmjs.com/package/@tanstack/react-query) – Async state management
-- [`react-hook-form`](https://www.npmjs.com/package/react-hook-form) – Powerful form handling
+- `@tanstack/react-query` – Data fetching & caching
+- `react-hook-form` – Form handling & validation
 
 ### 🧭 Routing
 
-- [`react-router`](https://www.npmjs.com/package/react-router) – Frontend routing/navigation
+- `react-router` – Client-side routing
 
 ### ⚙️ Utilities
 
-- [`axios`](https://www.npmjs.com/package/axios) – Promise-based HTTP requests
-- [`react-countup`](https://www.npmjs.com/package/react-countup) – Animated counters
-- [`react-fast-marquee`](https://www.npmjs.com/package/react-fast-marquee) – Horizontal marquee scrolling
+- `axios` – HTTP client
+- `react-countup`, `react-fast-marquee` – UI effects
 
-### 🔐 Authentication & Hosting
+### 🔐 Auth & Deployment
 
-- [`firebase`](https://www.npmjs.com/package/firebase) – Auth, Firestore, and deployment
+- `firebase` – Auth, hosting, Firestore
 
-### 💳 Payment Integration
+### 💳 Payment
 
-- [`@stripe/react-stripe-js`](https://www.npmjs.com/package/@stripe/react-stripe-js) – Stripe integration for React
-- [`@stripe/stripe-js`](https://www.npmjs.com/package/@stripe/stripe-js) – Stripe JavaScript library
+- `@stripe/react-stripe-js`, `@stripe/stripe-js` – Stripe integration
 
-### 📊 Charts & Visualization
+### 📊 Visualization
 
-- [`recharts`](https://www.npmjs.com/package/recharts) – Chart components (Pie, Bar, etc.)
+- `recharts` – Charts and graphs
+
+---
 
 ## 🧪 Role-Based Features
 
 ### 👤 Regular User
 
-- Apply for scholarships
-- Pay with Stripe
-- Track application status
-- Submit reviews
-- View and edit own reviews
+- Register/login via email/password or social
+- View & apply to scholarships
+- Fill form + pay via Stripe
+- Track application status and feedback
+- Submit & edit/delete reviews
+- View personal profile and dashboard
 
 ### 🧑‍🏫 Moderator
 
 - Add/edit/delete scholarships
-- View all applications
-- Provide feedback
-- Change application statuses
+- View all applications, update statuses
+- Provide feedback to users
 - Manage all reviews
+- Access moderator dashboard
 
 ### 🛡️ Admin
 
-- Manage users
-- Change user roles (user, moderator, admin)
-- Filter users by role
-- Access analytics dashboard
+- Manage all users (edit roles, delete)
+- Filter users by roles
+- Full access to scholarships, reviews, applications
+- View analytics via chart dashboard
+- Role-based access control & sorting options
 
-## 🛠️ Setup Instructions
+---
 
-1. **Clone this repo:**
+## 📋 Form + Stripe Payment Flow
 
-   ```bash
-   git clone https://github.com/your-username/futurestudy.git
-   cd futurestudy
-   ```
+- Users fill a detailed form (photo, results, degree, address, etc.)
+- Fields auto-populate some scholarship info (read-only)
+- Upon successful Stripe payment, user data is submitted and stored
+- Sweet alert confirms success, errors shown via toast
 
-2. **Install dependencies:**
+---
 
-   ```bash
-   npm install
-   ```
+## 🧰 Setup Instructions
 
-3. **Environment Setup:**
+### 1. Clone the Repo
 
-- Create a .env file in the root and add:
-  - VITE_API_URL=https://your-backend-api.com
-  - VITE_IMGBB_KEY=your_imgbb_api_key
-  - VITE_FIREBASE_API_KEY=your_firebase_api_key
+```bash
+git clone https://github.com/your-username/futurestudy.git
+cd futurestudy
+```
 
-2. **Run the app:**
+## 🧰 Setup Instructions
 
-   ```bash
-   npm run dev
-   ```
+### 1. Clone the Repo
+
+```bash
+git clone https://github.com/your-username/futurestudy.git
+cd futurestudy
+```
+
+### 2. Install Dependencies
+
+```bash
+
+npm install
+
+### 3. Environment Variables
+
+Create a .env file and add the following:
+
+- VITE_apiKey=
+- VITE_authDomain=
+- VITE_projectId=
+- VITE_storageBucket=
+- VITE_messagingSenderId=
+- VITE_appId=
+- VITE_PUBLISHABLE_KEY=
+- VITE_IMGBB_KEY=
+- VITE_FREE_IMG_HOST=
+- VITE_CLOUDINARY_CLOUD_NAME=
+- VITE_CLOUDINARY_API_KEY=
+- VITE_CLOUDINARY_UPLOAD_PRESET=
+- VITE_API_URL=https://your-backend-api.com
+
+###  4. Run the App
+
+npm run dev
 
 # 📬 Contact
-
-Created with ❤️ by Sajjad Saju
-👉 [Portfolio](https://sajjadsaju.web.app/)
+Made with ❤️ by Sajjad Saju
+📫 [Sajjad Saju Portfolio][Portfolio]
+[Portfolio]: https://sajjadsaju.web.app/ "Portfolio"
+```

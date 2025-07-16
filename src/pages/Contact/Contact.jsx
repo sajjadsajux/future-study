@@ -27,7 +27,7 @@ const Contact = () => {
 
   return (
     <div className="max-w-7xl mx-auto p-6 min-h-screen">
-      <h1 className="text-4xl font-bold mb-6 text-center">Contact Us</h1>
+      <h1 className="text-4xl font-bold mb-6 text-center mt-6">Contact Us</h1>
       <p className="text-lg leading-relaxed max-w-3xl mx-auto text-center mb-10">
         Have questions or need assistance? We'd love to hear from you. Please fill out the form below, or email us directly at{" "}
         <a href="mailto:support@yourdomain.com" className="text-blue-600 underline">
