@@ -138,6 +138,8 @@ cd futurestudy
 
 npm install
 
+```
+
 ### 3. Environment Variables
 
 Create a .env file and add the following:
@@ -156,12 +158,12 @@ Create a .env file and add the following:
 - VITE_CLOUDINARY_UPLOAD_PRESET=
 - VITE_API_URL=https://your-backend-api.com
 
-###  4. Run the App
+### 4. Run the App
 
 npm run dev
 
 # 📬 Contact
+
 Made with ❤️ by Sajjad Saju
 📫 [Sajjad Saju Portfolio][Portfolio]
 [Portfolio]: https://sajjadsaju.web.app/ "Portfolio"
-```
