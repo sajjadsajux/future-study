@@ -68,7 +68,7 @@ const Contact = () => {
         </form>
 
         {/* Contact Info */}
-        <div className="flex-1 text-gray-700 space-y-6">
+        <div className="flex-1  space-y-6">
           <div>
             <h2 className="text-2xl font-semibold mb-2">Our Address</h2>
             <p>
@@ -103,8 +103,8 @@ const Contact = () => {
               </a>
               <a href="https://twitter.com" target="_blank" rel="noreferrer" aria-label="Twitter" className="hover:text-blue-400">
                 {/* Twitter Icon */}
-                <svg fill="currentColor" viewBox="0 0 24 24" className="w-8 h-8">
-                  <path d="M23 3a10.9 10.9 0 01-3.14.86 4.48 4.48 0 001.98-2.48 9.07 9.07 0 01-2.88 1.1 4.52 4.52 0 00-7.69 4.13 12.82 12.82 0 01-9.31-4.72 4.48 4.48 0 001.4 6.03 4.41 4.41 0 01-2.05-.57v.06a4.5 4.5 0 003.62 4.42 4.52 4.52 0 01-2.04.08 4.52 4.52 0 004.21 3.13A9.07 9.07 0 012 19.54a12.81 12.81 0 006.92 2.03c8.3 0 12.84-6.88 12.84-12.83 0-.2 0-.42-.02-.62A9.18 9.18 0 0023 3z" />
+                <svg fill="currentColor" viewBox="0 0 24 24" className="w-8 h-8" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M20.39 3H17.7L12.53 9.43 7.7 3H2L10.32 14.12 2.63 21H5.32L10.87 14.97 16.02 21H21.7L13.07 9.27 20.39 3Z" />
                 </svg>
               </a>
               <a href="https://linkedin.com" target="_blank" rel="noreferrer" aria-label="LinkedIn" className="hover:text-blue-700">

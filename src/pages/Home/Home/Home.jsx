@@ -24,12 +24,13 @@ const Home = () => {
       <section className="container max-w-7xl mx-auto px-2 lg:px-0">
         <FeaturedUniversities></FeaturedUniversities>
       </section>
-      <section className="container max-w-7xl mx-auto px-2 lg:px-0" id="getStarted">
-        <GetStarted></GetStarted>
-      </section>
       <section className="container max-w-7xl mx-auto px-2 lg:px-0" id="successStories">
         <SuccessStories></SuccessStories>
       </section>
+      <section className="container max-w-7xl mx-auto px-2 lg:px-0" id="getStarted">
+        <GetStarted></GetStarted>
+      </section>
+
       <section className="container max-w-7xl mx-auto px-2 lg:px-0">
         <FAQSection></FAQSection>
       </section>

@@ -30,9 +30,9 @@ const DashboardLayout = () => {
       {/* Sidebar */}
       <div className="drawer-side z-50">
         <label htmlFor="dashboard-drawer" className="drawer-overlay"></label>
-        <ul className="menu p-4 w-56 md:w-56 lg:w-80  bg-primary text-gray-200">
+        <ul className="menu p-4 w-56 md:w-56 lg:w-80  bg-primary dark:bg-white/10 text-gray-200">
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-bold  ">Dashboard</h2>
+            <h2 className="text-xl font-bold dark:text-white ">Dashboard</h2>
             <ThemeToggle></ThemeToggle>
           </div>
           <li>
