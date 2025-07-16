@@ -8,7 +8,7 @@ import { FaSquareXTwitter } from "react-icons/fa6";
 const Footer = () => {
   const { user } = useAuth();
   return (
-    <footer className="bg-primary  pt-5 pb-2">
+    <footer className="  pt-5 pb-2">
       <div className="container mx-auto max-w-7xl px-4 grid grid-cols-1 lg:grid-cols-7 gap-8 justify-between">
         {/* Logo + Slogan */}
         <div className="col-span-2">
@@ -91,7 +91,7 @@ const Footer = () => {
       </div>
 
       {/* Bottom Line */}
-      <div className="mt-10 border-t pt-4 text-center text-sm text-base-100/80">© {new Date().getFullYear()} FutureStudy. All rights reserved.</div>
+      <div className="mt-10 border-t pt-4 text-center text-sm ">© {new Date().getFullYear()} FutureStudy. All rights reserved.</div>
     </footer>
   );
 };

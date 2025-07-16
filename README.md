@@ -2,7 +2,7 @@
 
 ## 🌐 Live Demo
 
-👉 [Visit Live Site](https://future-study.web.app)
+👉 [Visit Live Site](https://future--study.web.app)
 
 ## 📌 Project Purpose
 
@@ -22,6 +22,7 @@
 
 ### 🔷 MERN Stack (Main Technologies)
 
+- **JavaScript** – JavaScript is the programming language of the Web.
 - **MongoDB** – NoSQL database for storing users, scholarships, applications
 - **Express.js** – Backend RESTful API framework
 - **React.js** – Frontend library for building UI
