@@ -165,5 +165,4 @@ npm run dev
 # 📬 Contact
 
 Made with ❤️ by Sajjad Saju
-📫 [Sajjad Saju Portfolio][Portfolio]
-[Portfolio]: https://sajjadsaju.web.app/ "Portfolio"
+📫👉 [Sajjad Saju Portfolio](https://sajjadsaju.web.app/)
