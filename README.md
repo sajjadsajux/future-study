@@ -1,5 +1,11 @@
 # 🎓 FutureStudy – Scholarship Application Platform
 
+## 📌 Project Purpose
+
+**FutureStudy** is a full-stack MERN-based Scholarship Management System designed to help students discover, apply for, and track university scholarships with ease. It offers a complete application process with form + payment, role-based dashboards (User, Moderator, Admin), scholarship management, review system, analytics, and secure authentication.
+
+---
+
 ## 🌐 Live Site Link
 
 👉 [Visit Live Site](https://future--study.web.app)
@@ -7,13 +13,6 @@
 ---
 
 
-
-
-## 📌 Project Purpose
-
-**FutureStudy** is a full-stack MERN-based Scholarship Management System designed to help students discover, apply for, and track university scholarships with ease. It offers a complete application process with form + payment, role-based dashboards (User, Moderator, Admin), scholarship management, review system, analytics, and secure authentication.
-
----
 
 ![FutureStudy Screenshot](https://res.cloudinary.com/dfyyhn4i4/image/upload/v1754632275/FireShot_Capture_028_-_Home_--_FutureStudy_-_future--study.web.app_h06aqs.png)
 
