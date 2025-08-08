@@ -1,10 +1,15 @@
 # 🎓 FutureStudy – Scholarship Application Platform
 
-## 🌐 Live Demo
+## 🌐 Live Site Link
 
 👉 [Visit Live Site](https://future--study.web.app)
 
 ---
+
+![FutureStudy Screenshot](https://res.cloudinary.com/dfyyhn4i4/image/upload/v1754632275/FireShot_Capture_028_-_Home_--_FutureStudy_-_future--study.web.app_h06aqs.png)
+
+---
+
 
 ## 📌 Project Purpose
 
@@ -161,6 +166,11 @@ Create a .env file and add the following:
 ### 4. Run the App
 
 npm run dev
+
+
+## 🌐 Live Site Link
+
+👉 [Visit Live Site](https://future--study.web.app)
 
 # 📬 Contact
 
