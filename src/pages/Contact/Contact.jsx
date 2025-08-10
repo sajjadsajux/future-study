@@ -30,8 +30,8 @@ const Contact = () => {
       <h1 className="text-4xl font-bold mb-6 text-center mt-6">Contact Us</h1>
       <p className="text-lg leading-relaxed max-w-3xl mx-auto text-center mb-10">
         Have questions or need assistance? We'd love to hear from you. Please fill out the form below, or email us directly at{" "}
-        <a href="mailto:support@yourdomain.com" className="text-blue-600 underline">
-          support@yourdomain.com
+        <a href="mailto:support@futurestudy.com" className="text-blue-600 underline">
+          support@futurestudy.com
         </a>
         .
       </p>
@@ -74,20 +74,20 @@ const Contact = () => {
             <p>
               123 Education Lane
               <br />
-              Scholarship City, ED 45678
+              Dhaka, Bangladesh
             </p>
           </div>
 
           <div>
             <h2 className="text-2xl font-semibold mb-2">Phone</h2>
-            <p>+1 (555) 123-4567</p>
+            <p>+8801820646469</p>
           </div>
 
           <div>
             <h2 className="text-2xl font-semibold mb-2">Email</h2>
             <p>
-              <a href="mailto:support@yourdomain.com" className="text-blue-600 underline">
-                support@yourdomain.com
+              <a href="mailto:support@futurestudy.com" className="text-blue-600 underline">
+                support@futurestudy.com
               </a>
             </p>
           </div>
