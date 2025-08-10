@@ -40,7 +40,7 @@ const AllScholarship = () => {
   useScrollToTop();
 
   return (
-    <div className="container mx-auto px-4 py-10 min-h-screen">
+    <div className="container lg:max-w-7xl mx-auto px-4 py-10 min-h-screen">
       <div className="text-center mb-10">
         <h1 className="text-4xl font-bold mb-4">All Scholarships</h1>
         <p className="text-lg max-w-3xl mx-auto ">We are on a mission to make education accessible for everyone by simplifying the scholarship search and application process.</p>
