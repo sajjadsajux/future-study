@@ -12,6 +12,7 @@ const AllScholarship = () => {
   const [searchInput, setSearchInput] = useState("");
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
+  const [sortByDeadline, setSortByDeadline] = useState("soonest"); // new state
   const limit = 8;
 
   // Manual search trigger
@@ -21,9 +22,11 @@ const AllScholarship = () => {
   };
 
   const { data, isLoading } = useQuery({
-    queryKey: ["scholarships", page, search],
+    queryKey: ["scholarships", page, search, sortByDeadline], // added sortByDeadline
     queryFn: async () => {
-      const res = await axiosInstance.get(`/scholarships?page=${page}&limit=${limit}&search=${search}`);
+      const res = await axiosInstance.get(
+        `/scholarships?page=${page}&limit=${limit}&search=${search}&sortByDeadline=${sortByDeadline}` // pass sort param
+      );
       return res.data;
     },
     keepPreviousData: true,
@@ -35,6 +38,7 @@ const AllScholarship = () => {
 
   useTitle(`All Scholarships`);
   useScrollToTop();
+
   return (
     <div className="container mx-auto px-4 py-10 min-h-screen">
       <div className="text-center mb-10">
@@ -47,6 +51,21 @@ const AllScholarship = () => {
         <button className="btn btn-primary" onClick={handleSearch}>
           Search
         </button>
+      </div>
+
+      {/* Sorting dropdown */}
+      <div className="flex justify-center mb-6 gap-4">
+        <select
+          className="select select-bordered max-w-xs"
+          value={sortByDeadline}
+          onChange={(e) => {
+            setSortByDeadline(e.target.value);
+            setPage(1); // reset page on sort change
+          }}
+        >
+          <option value="soonest">Deadline: Soonest first</option>
+          <option value="furthest">Deadline: Furthest first</option>
+        </select>
       </div>
 
       {isLoading ? (

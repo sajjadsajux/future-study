@@ -89,8 +89,8 @@ const AllAppliedScholarships = () => {
       <div className="flex justify-center gap-4 mb-6">
         <select className="select select-bordered" value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
           <option value="">Sort By</option>
-          <option value="appliedDate">Applied Date</option>
-          <option value="applicationDeadline">Scholarship Deadline</option>
+          <option value="applicationDate">Applied Date</option>
+          <option value="scholarshipDeadline">Scholarship Deadline</option>
         </select>
 
         <select className="select select-bordered" value={sortOrder} onChange={(e) => setSortOrder(e.target.value)}>
