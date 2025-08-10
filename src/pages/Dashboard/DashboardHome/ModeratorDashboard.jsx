@@ -46,7 +46,7 @@ const ModeratorDashboard = () => {
             key={title}
             className="dark:bg-white/10 border border-base-300 rounded-xl p-6 shadow hover:shadow-lg transition duration-500 transform hover:-translate-y-1
                  flex flex-col justify-between
-                 h-48" // fixed height for uniformity
+                 h-48  " // fixed height for uniformity
           >
             <div>
               <h2 className="text-base font-semibold mb-2 text-primary">

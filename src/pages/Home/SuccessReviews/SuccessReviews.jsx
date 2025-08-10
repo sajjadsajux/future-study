@@ -45,7 +45,7 @@ const SuccessReviews = () => {
       >
         {reviews.map((review) => (
           <SwiperSlide key={review._id} className="h-full py-10">
-            <div className="bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl shadow-lg overflow-hidden  transform transition-all duration-300 hover:shadow-lg hover:scale-105 p-6 flex flex-col h-full min-h-[300px] max-h-[300px]">
+            <div className="bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl shadow-lg overflow-hidden  transform transition-all duration-300 hover:shadow-lg hover:scale-105 p-6 flex flex-col h-full min-h-[300px] max-h-[300px] hover:bg-primary hover:text-white">
               {/* Header */}
               <div className="flex items-center gap-4 mb-4 relative">
                 <img src={review.userImage} alt={review.userName} className="w-14 h-14 rounded-full object-cover border" />
