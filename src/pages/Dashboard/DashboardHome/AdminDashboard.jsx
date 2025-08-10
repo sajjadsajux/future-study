@@ -22,17 +22,17 @@ const AdminDashboard = () => {
 
       {/* Dashboard Cards Section */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div className="bg-white dark:bg-gray-700 p-4 rounded shadow">
+        <div className="bg-white dark:bg-gray-700 p-4 rounded shadow hover:bg-primary hover:text-white">
           <h3 className="text-lg font-bold mb-1">👤 User Management</h3>
           <p className="text-sm">View all users, assign roles, and manage access levels securely.</p>
         </div>
 
-        <div className="bg-white dark:bg-gray-700 p-4 rounded shadow">
+        <div className="bg-white dark:bg-gray-700 p-4 rounded shadow hover:bg-primary hover:text-white">
           <h3 className="text-lg font-bold mb-1">🎓 Scholarships</h3>
           <p className="text-sm">Add, update, or remove scholarships with deadlines and fees.</p>
         </div>
 
-        <div className="bg-white dark:bg-gray-700 p-4 rounded shadow">
+        <div className="bg-white dark:bg-gray-700 p-4 rounded shadow hover:bg-primary hover:text-white">
           <h3 className="text-lg font-bold mb-1">📥 Applications</h3>
           <p className="text-sm">Track application status and feedback for each student.</p>
         </div>
