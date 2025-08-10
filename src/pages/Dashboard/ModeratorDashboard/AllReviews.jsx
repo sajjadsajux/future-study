@@ -59,7 +59,7 @@ const AllReviews = () => {
     <div className="p-4">
       <h2 className="text-3xl font-bold mb-6 text-center">All Reviews</h2>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 px-4 md:px-0">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 px-4 md:px-0">
         {reviews.map((review) => (
           <div key={review._id} className="dark:border-2 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 p-4 flex flex-col h-[360px] max-h-[360px]">
             {/* User Info */}
@@ -96,7 +96,7 @@ const AllReviews = () => {
             </div>
 
             {/* Delete Button */}
-            <button onClick={() => handleDelete(review._id)} className="btn btn-error w-full py-2 rounded-md font-semibold hover:bg-red-700 transition-colors text-sm" type="button">
+            <button onClick={() => handleDelete(review._id)} className="btn btn-error w-full py-2 rounded-md font-semibold hover:bg-red-700 hover:text-white transition-colors text-sm" type="button">
               Delete
             </button>
           </div>
