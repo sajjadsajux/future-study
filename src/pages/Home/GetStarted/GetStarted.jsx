@@ -32,7 +32,7 @@ const GetStarted = () => {
         <p className="text-center text-gray-500 max-w-3xl mx-auto mb-10"> Follow these easy steps to find and apply for scholarships that can transform your academic future.</p>
         <div className="relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {steps.map((step, index) => (
-            <div key={index} className="relative group p-6 rounded-2xl bg-gradient-to-br from-white/20 to-white/5 backdrop-blur-lg border border-white/10 shadow-md hover:shadow-xl transition duration-300 text-center">
+            <div key={index} className="relative group p-6 rounded-2xl bg-gradient-to-br from-white/20 to-white/5 backdrop-blur-lg border border-white/10 shadow-md hover:shadow-xl transition duration-300 text-center hover:bg-primary hover:text-white">
               {/* Step Badge */}
               <div className="absolute top-3 left-3 text-xs font-semibold text-white bg-primary px-3 py-1 rounded-full shadow">Step {index + 1}</div>
 
