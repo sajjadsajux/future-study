@@ -145,14 +145,14 @@ const Blogs = () => {
       {/* Blog Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols- xl:grid-cols-4 gap-8">
         {blogsData.map((blog) => (
-          <div key={blog.id} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition">
+          <div key={blog.id} className=" rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition border-white border-2 bg-white dark:bg-gray-900">
             <img src={blog.image} alt={blog.title} className="w-full h-48 object-cover" />
             <div className="p-6">
               <h2 className="text-xl font-semibold mb-2">{blog.title}</h2>
-              <p className="text-gray-500 text-sm mb-4">
+              <p className="text-gray-400 text-sm mb-4">
                 By {blog.author} | {blog.date}
               </p>
-              <p className="text-gray-600 mb-4 line-clamp-3">{blog.summary}</p>
+              <p className="text-gray-400 mb-4 line-clamp-3">{blog.summary}</p>
               <button onClick={() => setSelectedBlog(blog)} className="text-blue-600 font-medium hover:underline">
                 Read More →
               </button>
@@ -164,7 +164,7 @@ const Blogs = () => {
       {/* Scrollable Modal */}
       {selectedBlog && (
         <div className="fixed inset-0 glass bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-xl max-w-3xl w-full max-h-[90vh] overflow-y-auto p-6 relative shadow-lg">
+          <div className="bg-gray-100 dark:bg-gray-800 rounded-xl max-w-3xl w-full max-h-[90vh] overflow-y-auto p-6 relative shadow-lg">
             <button onClick={() => setSelectedBlog(null)} className="absolute top-4 right-4 text-gray-600 text-2xl font-bold">
               &times;
             </button>
@@ -174,7 +174,7 @@ const Blogs = () => {
             </p>
             <img src={selectedBlog.image} alt={selectedBlog.title} className="w-full h-36 md:h-48 lg:h-64  object-cover mb-4 rounded-lg" />
             {selectedBlog.content.map((paragraph, index) => (
-              <p key={index} className="text-gray-700 mb-4">
+              <p key={index} className="text-gray-400 mb-4">
                 {paragraph}
               </p>
             ))}
