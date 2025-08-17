@@ -46,26 +46,28 @@ const AllScholarship = () => {
         <p className="text-lg max-w-3xl mx-auto ">We are on a mission to make education accessible for everyone by simplifying the scholarship search and application process.</p>
       </div>
 
-      <div className="flex justify-center mb-8 gap-4">
-        <input type="text" placeholder="Search by Scholarship, University or Degree" className="input input-bordered w-full max-w-xs" value={searchInput} onChange={(e) => setSearchInput(e.target.value)} />
-        <button className="btn btn-primary" onClick={handleSearch}>
-          Search
-        </button>
-      </div>
+      {/* Search + Sort Controls */}
+      <div className="max-w-5xl mx-auto mb-10 flex flex-col md:flex-row md:justify-between md:items-center gap-4">
+        {/* Search Box */}
+        <div className="flex gap-3 w-full md:w-2/3">
+          <input type="text" placeholder="Search by Scholarship, University or Degree" className="input input-bordered w-full" value={searchInput} onChange={(e) => setSearchInput(e.target.value)} />
+          <button className="btn btn-primary">Search</button>
+        </div>
 
-      {/* Sorting dropdown */}
-      <div className="flex justify-center mb-6 gap-4">
-        <select
-          className="select select-bordered max-w-xs"
-          value={sortByDeadline}
-          onChange={(e) => {
-            setSortByDeadline(e.target.value);
-            setPage(1); // reset page on sort change
-          }}
-        >
-          <option value="soonest">Deadline: Soonest first</option>
-          <option value="furthest">Deadline: Furthest first</option>
-        </select>
+        {/* Sorting Dropdown */}
+        <div className="w-full md:w-1/3">
+          <select
+            className="select select-bordered w-full"
+            value={sortByDeadline}
+            onChange={(e) => {
+              setSortByDeadline(e.target.value);
+              setPage(1);
+            }}
+          >
+            <option value="soonest">Deadline: Soonest first</option>
+            <option value="furthest">Deadline: Furthest first</option>
+          </select>
+        </div>
       </div>
 
       {isLoading ? (
