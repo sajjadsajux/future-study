@@ -139,13 +139,13 @@ const Blogs = () => {
       {/* Page Title */}
       <div className="text-center mb-12">
         <h1 className="text-4xl font-bold mb-4">Our Blogs</h1>
-        <p className="text-gray-600 max-w-3xl mx-auto">Explore latest tips, insights, and stories to guide your scholarship applications and study abroad journey.</p>
+        <p className="text-gray-600 dark:text-gray-200 max-w-3xl mx-auto">Explore latest tips, insights, and stories to guide your scholarship applications and study abroad journey.</p>
       </div>
 
       {/* Blog Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols- xl:grid-cols-4 gap-8">
         {blogsData.map((blog) => (
-          <div key={blog.id} className=" rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition border-white border-2 bg-white ">
+          <div key={blog.id} className=" rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition border-white border-2 bg-white dark:bg-gray-900">
             <img src={blog.image} alt={blog.title} className="w-full h-48 object-cover" />
             <div className="p-6">
               <h2 className="text-xl font-semibold mb-2">{blog.title}</h2>

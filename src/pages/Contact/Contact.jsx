@@ -21,12 +21,12 @@ const Contact = () => {
   };
 
   return (
-    <section className="py-16 bg-gray-50">
+    <section className="py-16 ">
       <div className="max-w-7xl mx-auto px-6">
         {/* Title & Description */}
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">Contact Us</h1>
-          <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-lg md:text-xl text-gray-600 dark:text-gray-200 max-w-3xl mx-auto">
             Have questions or need assistance? We'd love to hear from you. Fill out the form below, or email us directly at{" "}
             <a href="mailto:support@futurestudy.com" className="text-blue-600 underline">
               support@futurestudy.com
@@ -38,7 +38,7 @@ const Contact = () => {
         {/* Form + Illustration */}
         <div className="flex flex-col-reverse md:flex-row items-center gap-12">
           {/* Contact Form */}
-          <form onSubmit={handleSubmit} className="flex-1 bg-white p-8 rounded-xl shadow-lg space-y-6">
+          <form onSubmit={handleSubmit} className="flex-1  p-8 rounded-xl shadow-lg space-y-6 dark:border-white dark:border">
             <input name="name" type="text" placeholder="Your full name" value={formData.name} onChange={handleChange} className="input input-bordered w-full" required />
             <input name="email" type="email" placeholder="your.email@example.com" value={formData.email} onChange={handleChange} className="input input-bordered w-full" required />
             <textarea name="message" rows="5" placeholder="Write your message here..." value={formData.message} onChange={handleChange} className="textarea textarea-bordered w-full" required />
