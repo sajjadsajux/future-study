@@ -172,7 +172,7 @@ const Blogs = () => {
             <p className="text-gray-500 text-sm mb-4">
               By {selectedBlog.author} | {selectedBlog.date}
             </p>
-            <img src={selectedBlog.image} alt={selectedBlog.title} className="w-full h-36 object-cover mb-4 rounded-lg" />
+            <img src={selectedBlog.image} alt={selectedBlog.title} className="w-full h-36 md:h-48 lg:h-64  object-cover mb-4 rounded-lg" />
             {selectedBlog.content.map((paragraph, index) => (
               <p key={index} className="text-gray-700 mb-4">
                 {paragraph}
