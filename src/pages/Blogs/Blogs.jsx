@@ -145,7 +145,7 @@ const Blogs = () => {
       {/* Blog Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols- xl:grid-cols-4 gap-8">
         {blogsData.map((blog) => (
-          <div key={blog.id} className=" rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition border-white border-2 bg-white dark:bg-gray-900">
+          <div key={blog.id} className=" rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition border-white border-2 bg-white ">
             <img src={blog.image} alt={blog.title} className="w-full h-48 object-cover" />
             <div className="p-6">
               <h2 className="text-xl font-semibold mb-2">{blog.title}</h2>
