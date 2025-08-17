@@ -30,6 +30,11 @@ const Footer = () => {
                 All Scholarship
               </NavLink>
             </li>
+            <li>
+              <NavLink to="/blogs" className="p-1">
+                Blogs
+              </NavLink>
+            </li>
 
             {user && (
               <>

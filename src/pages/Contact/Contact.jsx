@@ -3,6 +3,7 @@ import useTitle from "../../hooks/useTitle";
 import useScrollToTop from "../../hooks/useScrollToTop";
 import { FaFacebookF, FaTwitter, FaLinkedinIn } from "react-icons/fa";
 import ContactIllustration from "../../assets/ContactIllustration.svg"; // your Storyset illustration
+import { FaXTwitter } from "react-icons/fa6";
 
 const Contact = () => {
   useTitle("Contact || FutureStudy");
@@ -82,7 +83,7 @@ const Contact = () => {
                 <FaFacebookF />
               </a>
               <a href="https://twitter.com" target="_blank" rel="noreferrer" aria-label="Twitter" className="hover:text-blue-400 transition">
-                <FaTwitter />
+                <FaXTwitter />
               </a>
               <a href="https://linkedin.com" target="_blank" rel="noreferrer" aria-label="LinkedIn" className="hover:text-blue-700 transition">
                 <FaLinkedinIn />
