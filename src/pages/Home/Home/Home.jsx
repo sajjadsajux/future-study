@@ -10,6 +10,7 @@ import useScrollToTop from "../../../hooks/useScrollToTop";
 import FAQSection from "../FAQSection/FAQSection";
 import Aos from "aos";
 import "aos/dist/aos.css";
+import Newsletter from "../Newsletter/Newsletter";
 
 const Home = () => {
   useTitle("Home || FutureStudy");
@@ -43,6 +44,9 @@ const Home = () => {
 
       <section className="container max-w-7xl mx-auto px-2 lg:px-0" data-aos="flip-up">
         <FAQSection></FAQSection>
+      </section>
+      <section className="container max-w-7xl mx-auto px-2 lg:px-0" data-aos="flip-up">
+        <Newsletter></Newsletter>
       </section>
     </div>
   );
